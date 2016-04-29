@@ -28,7 +28,7 @@
             android:layout_below="@id/event_dot"
             android:layout_marginLeft="@dimen/line_left_margin"
             android:background="@color/flatui_green_1"/>
-        <com.compscieddy.timetracker.ForadayTextView
+        <com.compscieddy.timetracker.ui.ForadayTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Running"
@@ -48,13 +48,13 @@
             android:layout_width="@dimen/event_dot_size"
             android:layout_height="@dimen/event_dot_size"
             android:background="@drawable/blue_circle_outline_layered"/>
-        <com.compscieddy.timetracker.ForadayEditText
+        <com.compscieddy.timetracker.ui.ForadayEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="-16dp"
             app:color="@color/flatui_blue_1"/>
-        <com.compscieddy.timetracker.ForadayTextView
+        <com.compscieddy.timetracker.ui.ForadayTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"

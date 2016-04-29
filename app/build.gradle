@@ -26,4 +26,5 @@ dependencies {
     compile 'com.compscieddy:eddie-utils:0.8.6'
     compile 'com.facebook.rebound:rebound:0.3.8'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.github.satyan:sugar:1.4'
 }

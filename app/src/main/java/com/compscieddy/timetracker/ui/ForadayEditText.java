@@ -1,4 +1,4 @@
-package com.compscieddy.timetracker;
+package com.compscieddy.timetracker.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 
 import com.compscieddy.eddie_utils.Etils;
+import com.compscieddy.timetracker.FontCache;
+import com.compscieddy.timetracker.R;
 
 /**
  * Created by elee on 1/7/16.
