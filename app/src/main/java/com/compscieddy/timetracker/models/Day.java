@@ -11,26 +11,22 @@ import java.util.List;
  */
 public class Day extends SugarRecord {
 
-  Date date;
-  Calendar calendar = Calendar.getInstance();
+  int year;
+  int dayOfYear;
 
   public Day() {}
 
-  public Day(Date date) {
-    this.date = date;
-    calendar.setTime(this.date);
+  public Day(int year, int dayOfYear) {
+    this.year = year;
+    this.dayOfYear = dayOfYear;
     save();
-  }
-
-  public Date getDate() {
-    return this.date;
   }
 
   public boolean isSameDay(Date d) {
     Calendar cal = Calendar.getInstance();
     cal.setTime(d);
-    boolean sameDay = this.calendar.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
-        && this.calendar.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR);
+    boolean sameDay = year == cal.get(Calendar.YEAR)
+        && dayOfYear == cal.get(Calendar.DAY_OF_YEAR);
     return sameDay;
   }
 
