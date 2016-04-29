@@ -4,30 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.compscieddy.timetracker.MainActivity">
+    tools:context="com.compscieddy.timetracker.MainActivity"
+    android:clipChildren="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp">
         <View
             android:id="@+id/event_dot"
             android:layout_width="@dimen/event_dot_size"
             android:layout_height="@dimen/event_dot_size"
-            android:layout_marginTop="7dp"
-            android:layout_gravity="center"
-            android:background="@drawable/green_circle_outline_layered"/>
+            android:layout_marginTop="5dp"
+            android:background="@drawable/green_circle_fill"/>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_below="@id/event_dot"
             android:layout_marginLeft="@dimen/line_left_margin"
             android:background="@color/flatui_green_1"/>
-        <TextView
+        <com.compscieddy.timetracker.ForadayTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Running"
@@ -36,5 +37,36 @@
             android:textSize="18sp"
             android:textColor="@color/flatui_green_1"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+        <View
+            android:layout_width="@dimen/event_dot_size"
+            android:layout_height="@dimen/event_dot_size"
+            android:background="@drawable/blue_circle_outline_layered"/>
+        <com.compscieddy.timetracker.ForadayEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="-16dp"
+            app:color="@color/flatui_blue_1"/>
+        <com.compscieddy.timetracker.ForadayTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="-60dp"
+            android:layout_marginTop="-20dp"
+            android:background="@drawable/blue_rounded_fill"/>
+    </LinearLayout>
 
 </LinearLayout>
