@@ -11,7 +11,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.compscieddy.timetracker.MainActivity"
-    android:clipChildren="false">
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,12 +48,13 @@
         <View
             android:layout_width="@dimen/current_event_dot_size"
             android:layout_height="@dimen/current_event_dot_size"
+            android:layout_marginLeft="-3dp"
             android:background="@drawable/blue_circle_outline_layered"/>
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="-16dp"
+            android:layout_marginTop="-14dp"
             app:color="@color/flatui_blue_1"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:layout_width="wrap_content"
@@ -60,12 +62,12 @@
             android:text="Add"
             android:textSize="14sp"
             android:textColor="@color/white"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="14dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:layout_marginLeft="-60dp"
-            android:layout_marginTop="-20dp"
+            android:layout_marginTop="-18dp"
             android:background="@drawable/blue_rounded_fill"/>
     </LinearLayout>
 
