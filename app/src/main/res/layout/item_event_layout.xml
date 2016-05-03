@@ -12,6 +12,7 @@
         android:layout_height="@dimen/event_dot_size"
         android:background="@drawable/green_circle_fill"/>
     <View
+        android:id="@+id/event_vertical_line"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

@@ -23,10 +23,9 @@ public class Event extends SugarRecord {
     save();
   }
 
-  public String getTitle() {
-    return title;
-  }
+  public String getTitle() { return title; }
   public Date getDate() { return date; }
+  public int getColor() { return color; }
 
   public void setTitle(String title) {
     this.title = title;

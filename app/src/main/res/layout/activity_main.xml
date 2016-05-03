@@ -36,6 +36,7 @@
         android:clipChildren="false"
         android:clipToPadding="false">
         <View
+            android:id="@+id/current_dot"
             android:layout_width="@dimen/current_event_dot_size"
             android:layout_height="@dimen/current_event_dot_size"
             android:layout_marginLeft="-3dp"

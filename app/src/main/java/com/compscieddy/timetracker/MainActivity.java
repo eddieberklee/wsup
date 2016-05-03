@@ -1,5 +1,6 @@
 package com.compscieddy.timetracker;
 
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import com.compscieddy.eddie_utils.Etils;
 import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.models.Day;
 import com.compscieddy.timetracker.models.Event;
+import com.compscieddy.timetracker.ui.ForadayEditText;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -30,15 +31,31 @@ public class MainActivity extends AppCompatActivity {
 
   private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
 
-  @Bind(R.id.new_event_input) EditText mNewEventInput;
+  @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
   @Bind(R.id.new_event_add_button) View mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) ScrollView mEventsScrollView;
+  @Bind(R.id.current_dot) View mNewEventDot;
 
   Day mCurrentDay;
   List<Event> mEvents;
   private LayoutInflater mLayoutInflater;
+
+  int[] colors = new int[] {
+      R.color.flatui_red_1,
+      R.color.flatui_red_2,
+      R.color.flatui_orange_1,
+      R.color.flatui_orange_2,
+      R.color.flatui_yellow_1,
+      R.color.flatui_yellow_2,
+      R.color.flatui_green_1,
+      R.color.flatui_green_2,
+      R.color.flatui_blue_1,
+      R.color.flatui_blue_2,
+      R.color.flatui_purple_1,
+      R.color.flatui_purple_2,
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
       mCurrentDay = createCurrentDay();
     }
     initEvents();
+
+    mNewEventDot.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        setNewEventRandomColor();
+      }
+    });
 
     mRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override
@@ -98,9 +122,23 @@ public class MainActivity extends AppCompatActivity {
       newEvent.setTitle(mNewEventInput.getText().toString());
       newEvent.setColor(mNewEventInput.getCurrentTextColor());
       mNewEventInput.setText("");
+
+      setNewEventRandomColor();
+
       initEvents();
     }
   };
+
+  public void setNewEventRandomColor() {
+    int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
+    mNewEventInput.setColor(randomColor);
+    LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
+//    for (int i = 0; i < layerDrawable.getNumberOfLayers(); i++) {
+//      Drawable drawable = layerDrawable.getDrawable(i);
+//      Etils.applyColorFilter(drawable, randomColor);
+//    }
+    Etils.applyColorFilter(layerDrawable.getDrawable(1), randomColor);
+  }
 
   @Nullable
   public Day getCurrentDay() {
@@ -163,8 +201,16 @@ public class MainActivity extends AppCompatActivity {
       View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
       ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
+
+      int color = event.getColor();
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
       titleView.setText(event.getTitle());
+      titleView.setTextColor(color);
+      View dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
+      Etils.applyColorFilter(dotView.getBackground(), color);
+      View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
+      Etils.applyColorFilter(lineView.getBackground(), color);
+
     }
   }
 
