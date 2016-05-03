@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
   private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
+  @Bind(R.id.fake_new_event_input) ForadayEditText mFakeNewEventInput;
   @Bind(R.id.new_event_add_button) View mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
@@ -80,14 +81,22 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
+    setNewEventRandomColor();
+
+    final boolean DEBUG_KEYB_DETECT = false;
+
+    // keyboard detection trick - http://stackoverflow.com/a/4737265/4326052
     mRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override
       public void onGlobalLayout() {
         int heightDiff = mRootView.getRootView().getHeight() - mRootView.getHeight();
-        if (heightDiff > 100) { // if more than 100 pixels, its probably a keyboard...
+        if (DEBUG_KEYB_DETECT) lawg.d("heightDiff: " + heightDiff + " dp150: " + Etils.dpToPx(150));
+        if (heightDiff > Etils.dpToPx(150)) { // if more than 100 pixels, its probably a keyboard...
           mEventsScrollView.fullScroll(View.FOCUS_DOWN);
+          if (DEBUG_KEYB_DETECT) lawg.d("Setting scrollable false");
           mEventsScrollView.setScrollable(false);
         } else {
+          if (DEBUG_KEYB_DETECT) lawg.d("Setting scrollable true");
           mEventsScrollView.setScrollable(true);
         }
       }
@@ -133,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
   public void setNewEventRandomColor() {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
     mNewEventInput.setColor(randomColor);
+    mFakeNewEventInput.setColor(randomColor);
     LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
     GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
     innerDot.setColor(randomColor);
@@ -189,9 +199,11 @@ public class MainActivity extends AppCompatActivity {
       } else { // last item - we still need to set a relevant height
         minutesDifference = event.getMinutesDifference(System.currentTimeMillis());
       }
+      minutesDifference = Math.abs(minutesDifference);
 
-      int minHeight = Etils.dpToPx(40);
+      int minHeight = Etils.dpToPx(50);
       int maxHeight = Etils.dpToPx(200);
+      lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
         height = minHeight;
       } else if (minutesDifference <= 60 * 4) { // 4 hours
@@ -199,19 +211,24 @@ public class MainActivity extends AppCompatActivity {
       } else {
         height = maxHeight;
       }
-      lawg.d("event.getTitle(): " + event.getTitle() + " height: " + height + " count: " + mEventsContainer.getChildCount());
 
       View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
       ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
 
       int color = event.getColor();
+
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
-      titleView.setText(event.getTitle());
-      titleView.setTextColor(color);
       View dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
-      Etils.applyColorFilter(dotView.getBackground(), color);
       View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
+      TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
+
+      titleView.setText(event.getTitle());
+      timeView.setText(event.getTimeText());
+
+      titleView.setTextColor(color);
+      timeView.setTextColor(color);
+      Etils.applyColorFilter(dotView.getBackground(), color);
       Etils.applyColorFilter(lineView.getBackground(), color);
 
     }

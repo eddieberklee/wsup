@@ -6,6 +6,7 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="20dp"
@@ -13,14 +14,16 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
+    <!-- This fake view is needed so when scrolling, the events go behind the EditText -->
     <FrameLayout
-        android:id="@+id/new_event_section"
+        android:id="@+id/fake_new_event_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/new_event_section_margin_bottom"
         android:clipChildren="false">
         <com.compscieddy.timetracker.ui.ForadayEditText
-            android:id="@+id/new_event_input"
+            android:id="@+id/fake_new_event_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="-8dp"
@@ -34,20 +37,6 @@
             android:layout_gravity="left|center_vertical"
             android:layout_marginLeft="-3dp"
             android:background="@drawable/blue_circle_outline_layered"/>
-        <com.compscieddy.timetracker.ui.ForadayTextView
-            android:id="@+id/new_event_add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="8dp"
-            android:text="do it!"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:paddingLeft="13dp"
-            android:paddingRight="14dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:background="@drawable/blue_rounded_fill"/>
     </FrameLayout>
 
     <com.compscieddy.timetracker.ui.LockableScrollView
@@ -65,6 +54,39 @@
             android:orientation="vertical"/>
     </com.compscieddy.timetracker.ui.LockableScrollView>
 
+    <FrameLayout
+        android:id="@+id/new_event_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/new_event_section_margin_bottom"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="20dp"
+        android:clipChildren="false"
+        android:clipToPadding="true">
+        <com.compscieddy.timetracker.ui.ForadayEditText
+            android:id="@+id/new_event_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-8dp"
+            android:paddingLeft="34dp"
+            android:background="@drawable/edit_text_outline_black"
+            app:color="@color/flatui_blue_1"/>
+        <com.compscieddy.timetracker.ui.ForadayTextView
+            android:id="@+id/new_event_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="8dp"
+            android:text="do it!"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:paddingLeft="13dp"
+            android:paddingRight="14dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/blue_rounded_fill"/>
+    </FrameLayout>
 
 
 </RelativeLayout>

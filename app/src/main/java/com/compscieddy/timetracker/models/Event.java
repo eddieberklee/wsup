@@ -51,4 +51,24 @@ public class Event extends SugarRecord {
     return minutesDifference;
   }
 
+  public String getTimeText() {
+    Date eventDate = getDate();
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(eventDate);
+
+    int hour = calendar.get(Calendar.HOUR);
+    if (hour == 0) hour = 12;
+    int amPm = calendar.get(Calendar.AM_PM);
+    String amPmString = (amPm == 0) ? "am" : "pm";
+    int minutes = calendar.get(Calendar.MINUTE);
+    String minutesString = (minutes < 10) ? "0".concat(String.valueOf(minutes)) : String.valueOf(minutes);
+
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(hour);
+    stringBuilder.append(":");
+    stringBuilder.append(minutesString);
+    stringBuilder.append(amPmString);
+    return stringBuilder.toString();
+  }
+
 }
