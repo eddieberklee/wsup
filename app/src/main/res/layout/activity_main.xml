@@ -13,56 +13,58 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <ScrollView
-        android:id="@+id/events_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/new_event_section"
-        android:layout_marginBottom="20dp"
-        android:translationY="36dp"
-        android:fillViewport="true">
-        <LinearLayout
-            android:id="@+id/events_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
-
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/new_event_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:clipChildren="false">
-        <View
-            android:id="@+id/current_dot"
-            android:layout_width="@dimen/current_event_dot_size"
-            android:layout_height="@dimen/current_event_dot_size"
-            android:layout_marginLeft="-3dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/blue_circle_outline_layered"/>
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginLeft="-8dp"
+            android:paddingLeft="34dp"
+            android:background="@drawable/edit_text_outline_black"
             app:color="@color/flatui_blue_1"/>
+        <View
+            android:id="@+id/current_dot"
+            android:layout_width="@dimen/current_event_dot_size"
+            android:layout_height="@dimen/current_event_dot_size"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="-3dp"
+            android:background="@drawable/blue_circle_outline_layered"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/new_event_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="8dp"
+            android:text="do it!"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:paddingLeft="13dp"
             android:paddingRight="14dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:layout_marginLeft="-60dp"
-            android:visibility="invisible"
             android:background="@drawable/blue_rounded_fill"/>
-    </LinearLayout>
+    </FrameLayout>
+
+    <com.compscieddy.timetracker.ui.LockableScrollView
+        android:id="@+id/events_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/new_event_section"
+        android:layout_marginBottom="20dp"
+        android:translationY="30dp"
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/events_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+    </com.compscieddy.timetracker.ui.LockableScrollView>
+
+
 
 </RelativeLayout>

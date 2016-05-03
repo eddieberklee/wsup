@@ -7,7 +7,7 @@
     <dimen name="current_event_dot_size">19dp</dimen>
     <dimen name="event_dot_container_size">20dp</dimen>
     <dimen name="line_left_margin">6dp</dimen>
-
+    <dimen name="new_event_edit_stroke_width">1dp</dimen>
 
 
 </resources>

@@ -2,6 +2,7 @@ package com.compscieddy.timetracker.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
@@ -34,7 +35,9 @@ public class ForadayEditText extends EditText {
   }
 
   public void setColor(int color) {
-    Etils.applyColorFilter(this.getBackground(), color, true);
+    GradientDrawable backgroundDrawable = (GradientDrawable) this.getBackground();
+    backgroundDrawable.setStroke(getResources().getDimensionPixelSize(R.dimen.new_event_edit_stroke_width),
+        color);
     this.setTextColor(color);
     this.setHighlightColor(Etils.setAlpha(color, 0.4f));
   }

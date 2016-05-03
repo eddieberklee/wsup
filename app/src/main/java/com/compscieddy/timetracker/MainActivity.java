@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Etils;
@@ -20,6 +19,7 @@ import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.models.Day;
 import com.compscieddy.timetracker.models.Event;
 import com.compscieddy.timetracker.ui.ForadayEditText;
+import com.compscieddy.timetracker.ui.LockableScrollView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
   @Bind(R.id.new_event_add_button) View mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
-  @Bind(R.id.events_scroll_view) ScrollView mEventsScrollView;
+  @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.current_dot) View mNewEventDot;
 
   Day mCurrentDay;
@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         int heightDiff = mRootView.getRootView().getHeight() - mRootView.getHeight();
         if (heightDiff > 100) { // if more than 100 pixels, its probably a keyboard...
           mEventsScrollView.fullScroll(View.FOCUS_DOWN);
-          mEventsScrollView.setEnabled(false);
+          mEventsScrollView.setScrollable(false);
         } else {
-          mEventsScrollView.setEnabled(true);
+          mEventsScrollView.setScrollable(true);
         }
       }
     });
@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
     GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
     outerDot.setStroke(Etils.dpToPx(1), randomColor);
     Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
+
+    // TODO: don't allow this color to be the color of the previous event (if prev exists)
   }
 
   @Nullable
@@ -188,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
         minutesDifference = event.getMinutesDifference(System.currentTimeMillis());
       }
 
-      int minHeight = Etils.dpToPx(50);
-      int maxHeight = Etils.dpToPx(300);
+      int minHeight = Etils.dpToPx(40);
+      int maxHeight = Etils.dpToPx(200);
       if (minutesDifference <= 30) { // 30 minutes
         height = minHeight;
       } else if (minutesDifference <= 60 * 4) { // 4 hours
