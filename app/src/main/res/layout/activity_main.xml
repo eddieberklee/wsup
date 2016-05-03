@@ -18,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/new_event_section"
+        android:layout_marginBottom="20dp"
+        android:translationY="36dp"
         android:fillViewport="true">
         <LinearLayout
             android:id="@+id/events_container"
@@ -30,23 +32,22 @@
         android:id="@+id/new_event_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white_transp_80"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:clipChildren="false"
-        android:clipToPadding="false">
+        android:clipChildren="false">
         <View
             android:id="@+id/current_dot"
             android:layout_width="@dimen/current_event_dot_size"
             android:layout_height="@dimen/current_event_dot_size"
             android:layout_marginLeft="-3dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/blue_circle_outline_layered"/>
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="-14dp"
+            android:layout_marginTop="4dp"
             app:color="@color/flatui_blue_1"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/new_event_add_button"
@@ -60,7 +61,6 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:layout_marginLeft="-60dp"
-            android:layout_marginTop="-18dp"
             android:visibility="invisible"
             android:background="@drawable/blue_rounded_fill"/>
     </LinearLayout>
