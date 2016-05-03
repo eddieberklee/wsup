@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
     innerDot.setColor(randomColor);
     GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
     outerDot.setStroke(Etils.dpToPx(1), randomColor);
+    Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
   }
 
   @Nullable
