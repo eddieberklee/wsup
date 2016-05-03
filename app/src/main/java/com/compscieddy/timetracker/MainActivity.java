@@ -8,8 +8,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Etils;
@@ -28,10 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
   private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
 
-  Day mCurrentDay;
   @Bind(R.id.new_event_input) EditText mNewEventInput;
   @Bind(R.id.new_event_add_button) View mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
+  @Bind(R.id.root_view) View mRootView;
+  @Bind(R.id.events_scroll_view) ScrollView mEventsScrollView;
+
+  Day mCurrentDay;
   List<Event> mEvents;
   private LayoutInflater mLayoutInflater;
 
@@ -49,6 +54,19 @@ public class MainActivity extends AppCompatActivity {
       mCurrentDay = createCurrentDay();
     }
     initEvents();
+
+    mRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+      @Override
+      public void onGlobalLayout() {
+        int heightDiff = mRootView.getRootView().getHeight() - mRootView.getHeight();
+        if (heightDiff > 100) { // if more than 100 pixels, its probably a keyboard...
+          mEventsScrollView.fullScroll(View.FOCUS_DOWN);
+          mEventsScrollView.setEnabled(false);
+        } else {
+          mEventsScrollView.setEnabled(true);
+        }
+      }
+    });
 
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
     mNewEventAddButton.setOnClickListener(mAddButtonOnClickListener);
