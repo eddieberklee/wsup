@@ -1,5 +1,6 @@
 package com.compscieddy.timetracker;
 
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -133,11 +134,10 @@ public class MainActivity extends AppCompatActivity {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
     mNewEventInput.setColor(randomColor);
     LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
-//    for (int i = 0; i < layerDrawable.getNumberOfLayers(); i++) {
-//      Drawable drawable = layerDrawable.getDrawable(i);
-//      Etils.applyColorFilter(drawable, randomColor);
-//    }
-    Etils.applyColorFilter(layerDrawable.getDrawable(1), randomColor);
+    GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
+    innerDot.setColor(randomColor);
+    GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
+    outerDot.setStroke(Etils.dpToPx(1), randomColor);
   }
 
   @Nullable
