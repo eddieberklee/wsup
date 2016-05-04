@@ -36,7 +36,7 @@
     <com.compscieddy.timetracker.ui.LockableScrollView
         android:id="@+id/events_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="26dp"
         android:fillViewport="true">

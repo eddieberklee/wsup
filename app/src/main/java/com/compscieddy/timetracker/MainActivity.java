@@ -1,7 +1,9 @@
 package com.compscieddy.timetracker;
 
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -232,7 +234,12 @@ public class MainActivity extends AppCompatActivity {
       titleView.setTextColor(color);
       timeView.setTextColor(color);
       Etils.applyColorFilter(dotView.getBackground(), color);
-      Etils.applyColorFilter(lineView.getBackground(), color);
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();
+      lineViewBackground.setColor(color);
+      } else {
+        Etils.applyColorFilter(lineView.getBackground(), color);
+      }
 
     }
   }
