@@ -26,8 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/new_event_edit_text_height"
             android:layout_marginLeft="-8dp"
-            android:paddingLeft="34dp"
+            android:paddingLeft="@dimen/new_event_input_padding_left"
             android:background="@drawable/edit_text_outline_black"
+            android:enabled="false"
+            android:focusable="false"
             app:color="@color/flatui_blue_1"/>
     </FrameLayout>
 
@@ -36,12 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="26dp"
         android:fillViewport="true">
         <LinearLayout
             android:id="@+id/events_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
             android:orientation="vertical"/>
     </com.compscieddy.timetracker.ui.LockableScrollView>
 
@@ -60,9 +63,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/new_event_edit_text_height"
             android:layout_marginLeft="-8dp"
-            android:paddingLeft="34dp"
+            android:paddingLeft="@dimen/new_event_input_padding_left"
             android:background="@drawable/edit_text_outline_black"
-            app:color="@color/flatui_blue_1"/>
+            app:color="@color/flatui_blue_1"
+            android:textSize="15sp"
+            android:hint="What are you getting done?"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/new_event_add_button"
             android:layout_width="wrap_content"
@@ -88,7 +93,9 @@
             android:id="@+id/just_here_for_sizing_1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/new_event_edit_text_height"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:enabled="false"
+            android:focusable="false"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/just_here_for_sizing_2"
             android:layout_width="wrap_content"

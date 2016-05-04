@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
   public void setNewEventRandomColor() {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
     mNewEventInput.setColor(randomColor);
+    int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
+    mNewEventInput.setHintTextColor(alphaRandomColor);
     mFakeNewEventInput.setColor(randomColor);
     LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
     GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);

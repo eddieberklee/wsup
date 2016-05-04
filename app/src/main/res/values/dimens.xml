@@ -9,5 +9,6 @@
     <dimen name="new_event_edit_stroke_width">1dp</dimen>
     <dimen name="new_event_section_margin_bottom">3dp</dimen>
     <dimen name="new_event_edit_text_height">38dp</dimen>
+    <dimen name="new_event_input_padding_left">12dp</dimen>
 
 </resources>
