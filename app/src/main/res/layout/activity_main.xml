@@ -9,7 +9,6 @@
     android:background="@color/white"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="20dp"
     tools:context="com.compscieddy.timetracker.MainActivity"
     android:clipChildren="false"
     android:clipToPadding="false">
@@ -25,32 +24,24 @@
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/fake_new_event_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/new_event_edit_text_height"
             android:layout_marginLeft="-8dp"
             android:paddingLeft="34dp"
             android:background="@drawable/edit_text_outline_black"
             app:color="@color/flatui_blue_1"/>
-        <View
-            android:id="@+id/current_dot"
-            android:layout_width="@dimen/current_event_dot_size"
-            android:layout_height="@dimen/current_event_dot_size"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="-3dp"
-            android:background="@drawable/blue_circle_outline_layered"/>
     </FrameLayout>
 
     <com.compscieddy.timetracker.ui.LockableScrollView
         android:id="@+id/events_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/new_event_section"
-        android:layout_marginBottom="20dp"
-        android:translationY="30dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:fillViewport="true">
         <LinearLayout
             android:id="@+id/events_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"/>
     </com.compscieddy.timetracker.ui.LockableScrollView>
 
@@ -60,14 +51,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/new_event_section_margin_bottom"
-        android:layout_marginLeft="20dp"
-        android:paddingLeft="20dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
         android:clipChildren="false"
         android:clipToPadding="true">
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/new_event_edit_text_height"
             android:layout_marginLeft="-8dp"
             android:paddingLeft="34dp"
             android:background="@drawable/edit_text_outline_black"
@@ -87,6 +78,40 @@
             android:paddingBottom="4dp"
             android:background="@drawable/blue_rounded_fill"/>
     </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/new_event_section_margin_bottom">
+        <com.compscieddy.timetracker.ui.ForadayEditText
+            android:id="@+id/just_here_for_sizing_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_event_edit_text_height"
+            android:visibility="invisible"/>
+        <com.compscieddy.timetracker.ui.ForadayTextView
+            android:id="@+id/just_here_for_sizing_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:textSize="14sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:visibility="invisible"/>
+        <View
+            android:id="@+id/current_dot"
+            android:layout_width="@dimen/current_event_dot_size"
+            android:layout_height="@dimen/current_event_dot_size"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="-3dp"
+            android:background="@drawable/blue_circle_outline_layered"/>
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/new_event_section_margin_bottom"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"/>
 
 
 </RelativeLayout>
