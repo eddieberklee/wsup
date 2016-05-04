@@ -11,4 +11,29 @@
     <dimen name="new_event_input_padding_left">12dp</dimen>
     <dimen name="new_event_input_inverse_margin_left">-12dp</dimen>
 
+    <dimen name="event_title_text_size_smaller_1">14sp</dimen>
+    <dimen name="event_title_text_size_normal">19sp</dimen>
+    <dimen name="event_title_text_size_larger_1">23sp</dimen>
+
+    <dimen name="event_title_top_margin_smaller_1">-3dp</dimen>
+    <dimen name="event_title_top_margin_normal">-5dp</dimen>
+    <dimen name="event_title_top_margin_larger_1">-9dp</dimen>
+
+    <dimen name="event_time_text_size_smaller_1">9sp</dimen>
+    <dimen name="event_time_text_size_normal">10sp</dimen>
+    <dimen name="event_time_text_size_larger_1">13sp</dimen>
+
+    <dimen name="event_time_top_margin_smaller_1">15dp</dimen>
+    <dimen name="event_time_top_margin_normal">18dp</dimen>
+    <dimen name="event_time_top_margin_larger_1">20dp</dimen>
+
+    <dimen name="event_time_am_pm_text_size_smaller_1">6sp</dimen>
+    <dimen name="event_time_am_pm_text_size_normal">7sp</dimen>
+    <dimen name="event_time_am_pm_text_size_larger_1">8sp</dimen>
+
+    <dimen name="event_time_am_pm_bottom_margin_smaller_1">1dp</dimen>
+    <dimen name="event_time_am_pm_bottom_margin_normal">1dp</dimen>
+    <dimen name="event_time_am_pm_bottom_margin_larger_1">1dp</dimen>
+
+
 </resources>

@@ -8,43 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="EventTitleSmaller1">
-        <item name="android:layout_marginTop">-3dp</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-    <style name="EventTitleNormal">
-        <item name="android:layout_marginTop">-5dp</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-    <style name="EventTitleLarger1">
-        <item name="android:layout_marginTop">-9dp</item>
-        <item name="android:textSize">22sp</item>
-    </style>
-
-    <style name="EventTimeSmaller1">
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:textSize">9sp</item>
-    </style>
-    <style name="EventTimeNormal">
-        <item name="android:layout_marginTop">18dp</item>
-        <item name="android:textSize">10sp</item>
-    </style>
-    <style name="EventTimeLarger1">
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <style name="EventTimeAmPmSmaller1">
-        <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:textSize">6sp</item>
-    </style>
-    <style name="EventTimeAmPmNormal">
-        <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:textSize">7sp</item>
-    </style>
-    <style name="EventTimeAmPmLarger1">
-        <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:textSize">8sp</item>
-    </style>
-
 </resources>

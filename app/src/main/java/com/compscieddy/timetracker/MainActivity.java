@@ -1,14 +1,17 @@
 package com.compscieddy.timetracker;
 
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DimenRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -206,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
       }
       minutesDifference = Math.abs(minutesDifference);
 
-      int minHeight = Etils.dpToPx(50);
-      int maxHeight = Etils.dpToPx(200);
+      int minHeight = Etils.dpToPx(35);
+      int maxHeight = Etils.dpToPx(150);
       lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
         height = minHeight;
@@ -227,17 +230,53 @@ public class MainActivity extends AppCompatActivity {
       View dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
       View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
-      TextView amPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
+      TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
-      amPmView.setText(event.getTimeAmPmText());
+      timeAmPmView.setText(event.getTimeAmPmText());
 
-//    todo: titleView.setTextAppearance();
+      int numStyles = 3;
+      int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));
+      @DimenRes int titleTextSizeId, titleTopMarginId;
+      @DimenRes int timeTextSizeId, timeTopMarginId;
+      @DimenRes int timeAmPmTextSizeId, timeAmPmBottomMarginId;
+
+      int[] textSizeIds = new int[] {
+          R.dimen.event_title_text_size_smaller_1, R.dimen.event_time_text_size_smaller_1, R.dimen.event_time_am_pm_text_size_smaller_1,
+          R.dimen.event_title_text_size_normal, R.dimen.event_time_text_size_normal, R.dimen.event_time_am_pm_text_size_normal,
+          R.dimen.event_title_text_size_larger_1, R.dimen.event_time_text_size_larger_1, R.dimen.event_time_am_pm_text_size_larger_1,
+      };
+      int[] marginIds = new int[] {
+          R.dimen.event_title_top_margin_smaller_1, R.dimen.event_time_top_margin_smaller_1, R.dimen.event_time_am_pm_bottom_margin_smaller_1,
+          R.dimen.event_title_top_margin_normal, R.dimen.event_time_top_margin_normal, R.dimen.event_time_am_pm_bottom_margin_normal,
+          R.dimen.event_title_top_margin_larger_1, R.dimen.event_time_top_margin_larger_1, R.dimen.event_time_am_pm_bottom_margin_larger_1,
+      };
+
+      Resources res = getResources();
+      final int TITLE = 0, TIME = 1, TIME_AM_PM = 2;
+
+      titleTextSizeId = textSizeIds[styleBucket * 3 + TITLE];
+      titleTopMarginId = marginIds[styleBucket * 3 + TITLE];
+      timeTextSizeId = textSizeIds[styleBucket * 3 + TIME];
+      timeTopMarginId = marginIds[styleBucket * 3 + TIME];
+      timeAmPmTextSizeId = textSizeIds[styleBucket * 3 + TIME_AM_PM];
+      timeAmPmBottomMarginId = marginIds[styleBucket * 3 + TIME_AM_PM];
+
+      titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(titleTextSizeId));
+      timeView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(timeTextSizeId));
+      timeAmPmView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(timeAmPmTextSizeId));
+
+      Utils.setMarginTop(titleView, res.getDimensionPixelSize(titleTopMarginId));
+      Utils.setMarginTop(timeView, res.getDimensionPixelSize(timeTopMarginId));
+      Utils.setMarginBottom(timeAmPmView, res.getDimensionPixelSize(timeAmPmBottomMarginId));
+
+      titleView.requestLayout();
+      titleView.getParent().requestLayout();
 
       titleView.setTextColor(color);
       timeView.setTextColor(color);
-      amPmView.setTextColor(color);
+      timeAmPmView.setTextColor(color);
       Etils.applyColorFilter(dotView.getBackground(), color);
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
         ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();

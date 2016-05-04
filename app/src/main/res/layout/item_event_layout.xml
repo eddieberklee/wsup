@@ -33,7 +33,6 @@
         android:layout_alignBaseline="@+id/event_dot"
         android:layout_toRightOf="@+id/event_dot"
         android:layout_marginLeft="8dp"
-        style="@style/EventTitleLarger1"
         android:textColor="@color/flatui_green_1"
         tools:text="Running"/>
     <com.compscieddy.timetracker.ui.ForadayTextView
@@ -41,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
-        style="@style/EventTimeLarger1"
         android:textColor="@color/flatui_green_2"
         app:fontface="montserrat_light"
         tools:text="6:14"/>
@@ -52,7 +50,6 @@
         android:layout_toRightOf="@+id/event_time"
         android:layout_alignBottom="@+id/event_time"
         android:layout_marginLeft="2dp"
-        style="@style/EventTimeAmPmLarger1"
         app:fontface="montserrat_light"
         tools:text="pm"/>
 </RelativeLayout>
