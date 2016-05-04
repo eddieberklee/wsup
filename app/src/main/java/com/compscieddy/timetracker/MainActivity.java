@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
-  @Bind(R.id.current_dot) View mNewEventDot;
+  @Bind(R.id.new_event_dot) View mNewEventDot;
 
   Day mCurrentDay;
   List<Event> mEvents;
@@ -232,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       amPmView.setText(event.getTimeAmPmText());
+
+//    todo: titleView.setTextAppearance();
 
       titleView.setTextColor(color);
       timeView.setTextColor(color);

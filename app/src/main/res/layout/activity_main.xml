@@ -45,7 +45,8 @@
             android:id="@+id/events_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            android:clipChildren="false"/>
     </com.compscieddy.timetracker.ui.LockableScrollView>
 
     <FrameLayout
@@ -89,6 +90,7 @@
         android:background="@drawable/blue_rounded_fill"/>
 
     <FrameLayout
+        android:id="@+id/new_event_dot_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -110,7 +112,7 @@
             android:paddingBottom="4dp"
             android:visibility="invisible"/>
         <View
-            android:id="@+id/current_dot"
+            android:id="@+id/new_event_dot"
             android:layout_width="@dimen/current_event_dot_size"
             android:layout_height="@dimen/current_event_dot_size"
             android:layout_gravity="left|center_vertical"
