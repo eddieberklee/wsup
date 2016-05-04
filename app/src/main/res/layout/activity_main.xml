@@ -44,7 +44,6 @@
             android:id="@+id/events_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
             android:orientation="vertical"/>
     </com.compscieddy.timetracker.ui.LockableScrollView>
 
@@ -74,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="8dp"
-            android:text="do it!"
+            android:text="start!"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:paddingLeft="13dp"

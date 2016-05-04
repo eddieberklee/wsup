@@ -59,7 +59,7 @@ public class Event extends SugarRecord {
     int hour = calendar.get(Calendar.HOUR);
     if (hour == 0) hour = 12;
     int amPm = calendar.get(Calendar.AM_PM);
-    String amPmString = (amPm == 0) ? "am" : "pm";
+//    String amPmString = (amPm == 0) ? "AM" : "PM";
     int minutes = calendar.get(Calendar.MINUTE);
     String minutesString = (minutes < 10) ? "0".concat(String.valueOf(minutes)) : String.valueOf(minutes);
 
@@ -67,8 +67,18 @@ public class Event extends SugarRecord {
     stringBuilder.append(hour);
     stringBuilder.append(":");
     stringBuilder.append(minutesString);
-    stringBuilder.append(amPmString);
+//    stringBuilder.append(" ");
+//    stringBuilder.append(amPmString);
     return stringBuilder.toString();
+  }
+
+  public String getTimeAmPmText() {
+    Date eventDate = getDate();
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(eventDate);
+    int amPm = calendar.get(Calendar.AM_PM);
+    String amPmString = (amPm == 0) ? "AM" : "PM";
+    return amPmString;
   }
 
 }

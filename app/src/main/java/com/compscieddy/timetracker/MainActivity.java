@@ -227,12 +227,15 @@ public class MainActivity extends AppCompatActivity {
       View dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
       View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
+      TextView amPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
+      amPmView.setText(event.getTimeAmPmText());
 
       titleView.setTextColor(color);
       timeView.setTextColor(color);
+      amPmView.setTextColor(color);
       Etils.applyColorFilter(dotView.getBackground(), color);
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
         ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();
