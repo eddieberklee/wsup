@@ -10,5 +10,6 @@
     <dimen name="new_event_section_margin_bottom">3dp</dimen>
     <dimen name="new_event_edit_text_height">38dp</dimen>
     <dimen name="new_event_input_padding_left">12dp</dimen>
+    <dimen name="new_event_input_inverse_margin_left">-12dp</dimen>
 
 </resources>
