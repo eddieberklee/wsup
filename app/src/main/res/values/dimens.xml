@@ -11,9 +11,13 @@
     <dimen name="new_event_input_padding_left">12dp</dimen>
     <dimen name="new_event_input_inverse_margin_left">-12dp</dimen>
 
+    <dimen name="event_minimum_height">45dp</dimen>
+
+    <!-- -->
+
     <dimen name="event_title_text_size_smaller_1">14sp</dimen>
-    <dimen name="event_title_text_size_normal">19sp</dimen>
-    <dimen name="event_title_text_size_larger_1">23sp</dimen>
+    <dimen name="event_title_text_size_normal">23sp</dimen>
+    <dimen name="event_title_text_size_larger_1">29sp</dimen>
 
     <dimen name="event_title_top_margin_smaller_1">-3dp</dimen>
     <dimen name="event_title_top_margin_normal">-5dp</dimen>

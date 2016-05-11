@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:clipChildren="false">
+    <!-- height for @layout/item_event_layout set in MainActivity:initEvents() -->
+    <View
+        android:id="@+id/time_indicator_line"
+        android:layout_width="60dp"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
+    <com.compscieddy.timetracker.ui.ForadayTextView
+        android:id="@+id/new_event_time"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/flatui_green_2"
+        android:layout_marginTop="1dp"
+        app:fontface="montserrat_light"
+        tools:text="6:14"/>
+    <com.compscieddy.timetracker.ui.ForadayTextView
+        android:id="@+id/event_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/new_event_time"
+        android:background="@color/flatui_green_1"
+        android:padding="6dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:text="Running"/>
+    <com.compscieddy.timetracker.ui.ForadayTextView
+        android:id="@+id/event_am_pm"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_below="@+id/new_event_time"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="-2dp"
+        app:fontface="montserrat_light"
+        tools:text="pm"/>
+</RelativeLayout>

@@ -77,7 +77,7 @@ public class Event extends SugarRecord {
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(eventDate);
     int amPm = calendar.get(Calendar.AM_PM);
-    String amPmString = (amPm == 0) ? "AM" : "PM";
+    String amPmString = (amPm == 0) ? "am" : "pm";
     return amPmString;
   }
 

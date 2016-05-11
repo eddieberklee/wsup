@@ -13,6 +13,18 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
+    <TextView
+        android:id="@+id/switch_layouts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/greyscale_9"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:text="Switch Layouts"/>
+
     <!-- This fake view is needed so when scrolling, the events go behind the EditText -->
     <FrameLayout
         android:id="@+id/fake_new_event_section"
@@ -27,6 +39,7 @@
             android:layout_height="@dimen/new_event_edit_text_height"
             android:layout_marginLeft="@dimen/new_event_input_inverse_margin_left"
             android:layout_marginRight="@dimen/new_event_input_inverse_margin_left"
+            android:inputType="textCapSentences"
             android:paddingLeft="@dimen/new_event_input_padding_left"
             android:background="@drawable/edit_text_outline_black"
             android:enabled="false"
@@ -66,6 +79,7 @@
             android:layout_height="@dimen/new_event_edit_text_height"
             android:layout_marginLeft="@dimen/new_event_input_inverse_margin_left"
             android:layout_marginRight="@dimen/new_event_input_inverse_margin_left"
+            android:inputType="textCapSentences"
             android:paddingLeft="@dimen/new_event_input_padding_left"
             android:background="@drawable/edit_text_outline_black"
             app:color="@color/flatui_blue_1"
@@ -100,6 +114,7 @@
             android:id="@+id/just_here_for_sizing_1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/new_event_edit_text_height"
+            android:inputType="textCapSentences"
             android:visibility="invisible"
             android:enabled="false"
             android:focusable="false"/>

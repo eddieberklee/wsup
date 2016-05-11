@@ -2,9 +2,6 @@ package com.compscieddy.timetracker;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,18 +29,18 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class BlockActivity extends AppCompatActivity {
 
-  private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
+  private static final Lawg lawg = Lawg.newInstance(BlockActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
-  @Bind(R.id.fake_new_event_input) ForadayEditText mFakeNewEventInput;
-  @Bind(R.id.new_event_add_button) View mNewEventAddButton;
+  @Bind(R.id.new_event_add_button) TextView mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
-  @Bind(R.id.new_event_dot) View mNewEventDot;
   @Bind(R.id.switch_layouts) View mSwitchLayouts;
+  @Bind(R.id.time_indicator_line) View mTimeIndicator;
+  @Bind(R.id.new_event_time) TextView mNewEventTime;
 
   Day mCurrentDay;
   List<Event> mEvents;
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mLayoutInflater = getLayoutInflater();
-    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_main, null);
+    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_block, null);
     setContentView(rootView);
     ButterKnife.bind(this);
 
@@ -83,13 +80,6 @@ public class MainActivity extends AppCompatActivity {
       mCurrentDay = createCurrentDay();
     }
     initEvents();
-
-    mNewEventDot.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        setNewEventRandomColor();
-      }
-    });
 
     setNewEventRandomColor();
 
@@ -136,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
-        intent.setClass(MainActivity.this, BlockActivity.class);
+        intent.setClass(BlockActivity.this, MainActivity.class);
         startActivity(intent);
       }
     });
@@ -169,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
       Date currentDate = new Date();
       Event newEvent = new Event(mCurrentDay, currentDate);
       newEvent.setTitle(mNewEventInput.getText().toString());
-      newEvent.setColor(mNewEventInput.getCurrentTextColor());
+      ColorDrawable drawable = (ColorDrawable) mNewEventInput.getBackground();
+      newEvent.setColor(drawable.getColor());
       mNewEventInput.setText("");
 
       setNewEventRandomColor();
@@ -180,17 +171,12 @@ public class MainActivity extends AppCompatActivity {
 
   public void setNewEventRandomColor() {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
-    mNewEventInput.setColor(randomColor);
+    mTimeIndicator.setBackgroundColor(randomColor);
+    mNewEventInput.setBackgroundColor(randomColor);
     int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
     mNewEventInput.setHintTextColor(alphaRandomColor);
-    mFakeNewEventInput.setColor(randomColor);
-    LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
-    GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
-    innerDot.setColor(randomColor);
-    GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
-    outerDot.setColor(getResources().getColor(R.color.white));
-    outerDot.setStroke(Etils.dpToPx(1), randomColor);
-    Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
+    mNewEventAddButton.setTextColor(randomColor);
+    mNewEventTime.setTextColor(randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
   }
@@ -207,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     if (days.size() > 1) { // sanity check
       String message = "DAFUQ more than 1 Day found...";
       lawg.e(message);
-      Etils.showToast(MainActivity.this, message);
+      Etils.showToast(BlockActivity.this, message);
     }
     if (days.size() == 1) {
       day = days.get(0);
@@ -243,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
       }
       minutesDifference = Math.abs(minutesDifference);
 
-      int minHeight = Etils.dpToPx(60);
+      int minHeight = getResources().getDimensionPixelSize(R.dimen.event_minimum_height);
       int maxHeight = Etils.dpToPx(150);
       lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
@@ -254,17 +240,16 @@ public class MainActivity extends AppCompatActivity {
         height = maxHeight;
       }
 
-      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
+      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_block_layout, null);
       ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
 
       int color = event.getColor();
 
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
-      View dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
-      View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.new_event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
+      View timeIndicatorView = ButterKnife.findById(eventLayout, R.id.time_indicator_line);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
@@ -273,56 +258,10 @@ public class MainActivity extends AppCompatActivity {
       int numStyles = 3;
       int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));
 
-      // I *hate* the variable text right now
-
-      /*
-      @DimenRes int titleTextSizeId, titleTopMarginId;
-      @DimenRes int timeTextSizeId, timeTopMarginId;
-      @DimenRes int timeAmPmTextSizeId, timeAmPmBottomMarginId;
-
-      int[] textSizeIds = new int[] {
-          R.dimen.event_title_text_size_smaller_1, R.dimen.event_time_text_size_smaller_1, R.dimen.event_time_am_pm_text_size_smaller_1,
-          R.dimen.event_title_text_size_normal, R.dimen.event_time_text_size_normal, R.dimen.event_time_am_pm_text_size_normal,
-          R.dimen.event_title_text_size_larger_1, R.dimen.event_time_text_size_larger_1, R.dimen.event_time_am_pm_text_size_larger_1,
-      };
-      int[] marginIds = new int[] {
-          R.dimen.event_title_top_margin_smaller_1, R.dimen.event_time_top_margin_smaller_1, R.dimen.event_time_am_pm_bottom_margin_smaller_1,
-          R.dimen.event_title_top_margin_normal, R.dimen.event_time_top_margin_normal, R.dimen.event_time_am_pm_bottom_margin_normal,
-          R.dimen.event_title_top_margin_larger_1, R.dimen.event_time_top_margin_larger_1, R.dimen.event_time_am_pm_bottom_margin_larger_1,
-      };
-
-      Resources res = getResources();
-      final int TITLE = 0, TIME = 1, TIME_AM_PM = 2;
-
-      titleTextSizeId = textSizeIds[styleBucket * 3 + TITLE];
-      titleTopMarginId = marginIds[styleBucket * 3 + TITLE];
-      timeTextSizeId = textSizeIds[styleBucket * 3 + TIME];
-      timeTopMarginId = marginIds[styleBucket * 3 + TIME];
-      timeAmPmTextSizeId = textSizeIds[styleBucket * 3 + TIME_AM_PM];
-      timeAmPmBottomMarginId = marginIds[styleBucket * 3 + TIME_AM_PM];
-
-      titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(titleTextSizeId));
-      timeView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(timeTextSizeId));
-      timeAmPmView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(timeAmPmTextSizeId));
-
-      Utils.setMarginTop(titleView, res.getDimensionPixelSize(titleTopMarginId));
-      Utils.setMarginTop(timeView, res.getDimensionPixelSize(timeTopMarginId));
-      Utils.setMarginBottom(timeAmPmView, res.getDimensionPixelSize(timeAmPmBottomMarginId));
-
-      titleView.requestLayout();
-      titleView.getParent().requestLayout();
-      */
-
-      titleView.setTextColor(color);
+      titleView.setBackgroundColor(color);
       timeView.setTextColor(color);
       timeAmPmView.setTextColor(color);
-      Etils.applyColorFilter(dotView.getBackground(), color);
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();
-      lineViewBackground.setColor(color);
-      } else {
-        Etils.applyColorFilter(lineView.getBackground(), color);
-      }
+      timeIndicatorView.setBackgroundColor(color);
 
     }
   }

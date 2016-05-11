@@ -24,7 +24,7 @@ public class Utils {
     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     layoutParams.leftMargin = margin;
   }
-  public static void Right(View view, int margin) {
+  public static void setMarginRight(View view, int margin) {
     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     layoutParams.rightMargin = margin;
   }
