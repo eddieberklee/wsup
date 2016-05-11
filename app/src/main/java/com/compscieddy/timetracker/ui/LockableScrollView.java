@@ -5,12 +5,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
+import com.compscieddy.eddie_utils.Lawg;
+
 /**
  * Created by elee on 5/3/16.
  * http://stackoverflow.com/a/5763815/4326052
  *
  */
 public class LockableScrollView extends ScrollView {
+  private static final Lawg lawg = Lawg.newInstance(LockableScrollView.class.getSimpleName());
 
   public LockableScrollView(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -30,6 +33,7 @@ public class LockableScrollView extends ScrollView {
   public boolean onTouchEvent(MotionEvent ev) {
     switch (ev.getAction()) {
       case MotionEvent.ACTION_DOWN:
+        lawg.d("ACTION_DOWN in LockableScrollView");
         if (!isScrollable) return false;
     }
     return super.onTouchEvent(ev);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -217,8 +218,6 @@ public class MainActivity extends AppCompatActivity {
     return day;
   }
 
-  private boolean isOpen = false;
-
   /**
    * mCurrentDay needs to be populated before this method.
    */
@@ -239,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
       }
       minutesDifference = Math.abs(minutesDifference);
 
-      int minHeight = getResources().getDimensionPixelSize(R.dimen.main_min_event_height);
+      int minHeight = getResources().getDimensionPixelSize(R.dimen.min_event_height);
       int maxHeight = Etils.dpToPx(150);
       lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
@@ -254,20 +253,11 @@ public class MainActivity extends AppCompatActivity {
       ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
 
-      eventLayout.setOnTouchListener(new View.OnTouchListener() {
+      eventLayout.setOnClickListener(new View.OnClickListener() {
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
-          switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-              return true;
-            case MotionEvent.ACTION_UP:
-              expandEvent(eventLayout, isOpen);
-              isOpen = !isOpen;
-              return true;
-            case MotionEvent.ACTION_MOVE:
-              return true;
-          }
-          return false;
+        public void onClick(View v) {
+          boolean isOpen = eventLayout.getHeight() > getResources().getDimensionPixelSize(R.dimen.min_event_height);
+          expandEvent(eventLayout, isOpen);
         }
       });
 
@@ -290,26 +280,55 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  private void expandEvent(View eventLayout, boolean isOpen) {
-    float distanceToOpen;
-    TextView title = ButterKnife.findById(eventLayout, R.id.event_title);
+  private void expandEvent(final View eventLayout, final boolean isOpen) {
+    lawg.d("expandEvent happened." + " isOpen: " + isOpen);
+    final float distanceToOpen;
+    final float startingHeight;
+    final float minEventHeight = getResources().getDimensionPixelSize(R.dimen.min_event_height);
+    final TextView title = ButterKnife.findById(eventLayout, R.id.event_title);
+    final boolean shouldClose = !isOpen && !Utils.isTextViewEllipsized(title);
     if (isOpen) {
-
+      // current height to normal
+      startingHeight = eventLayout.getHeight();
+      distanceToOpen = minEventHeight - startingHeight;
     } else {
+      startingHeight = minEventHeight;
       if (Utils.isTextViewEllipsized(title)) {
-        distanceToOpen = Etils.dpToPx(20); // space needed for 2 lines to be expanded
+        distanceToOpen = Etils.dpToPx(30); // space needed for 2 lines to be expanded
       } else {
-        distanceToOpen = Etils.dpToPx(5); // this is an arbitrary minimum I chose
+        distanceToOpen = Etils.dpToPx(4); // this is an arbitrary minimum I chose
       }
     }
 
-    SpringSystem springSystem = SpringSystem.create();
+    final SpringSystem springSystem = SpringSystem.create();
     Spring spring = springSystem.createSpring();
     spring.addListener(new SimpleSpringListener() {
       @Override
+      public void onSpringAtRest(Spring spring) {
+        super.onSpringAtRest(spring);
+        if (shouldClose) {
+          Spring spring2 = springSystem.createSpring();
+          final float difference = eventLayout.getHeight() - minEventHeight;
+          final float currentHeight = eventLayout.getHeight();
+          spring2.addListener(new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+              float value = (float) spring.getCurrentValue(); // 0 -> 1
+              ViewGroup.LayoutParams layoutParams = eventLayout.getLayoutParams();
+              layoutParams.height = (int) (currentHeight - difference * value);
+              eventLayout.setLayoutParams(layoutParams);
+            }
+          });
+        }
+      }
+      @Override
       public void onSpringUpdate(Spring spring) {
-        float value = (float) spring.getCurrentValue();
-        lawg.d(" value: " + value);
+        title.setEllipsize(TextUtils.TruncateAt.START);
+        float value = (float) spring.getCurrentValue(); // 0 -> 1
+//            lawg.d(" value: " + value);
+        ViewGroup.LayoutParams layoutParams = eventLayout.getLayoutParams();
+        layoutParams.height = (int) (startingHeight + distanceToOpen * value);
+        eventLayout.setLayoutParams(layoutParams);
       }
     });
     spring.setEndValue(1);
