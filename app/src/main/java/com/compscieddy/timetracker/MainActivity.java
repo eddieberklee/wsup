@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
   private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
-  @Bind(R.id.fake_new_event_input) ForadayEditText mFakeNewEventInput;
   @Bind(R.id.new_event_add_button) View mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
@@ -180,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
     mNewEventInput.setColor(randomColor);
     int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
     mNewEventInput.setHintTextColor(alphaRandomColor);
-    mFakeNewEventInput.setColor(randomColor);
     Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
@@ -234,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
       }
       minutesDifference = Math.abs(minutesDifference);
 
-      int minHeight = Etils.dpToPx(60);
+      int minHeight = getResources().getDimensionPixelSize(R.dimen.main_min_event_height);
       int maxHeight = Etils.dpToPx(150);
       lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
@@ -246,8 +244,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
       View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
-      ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-//      if (i != 0) eventLayout.setTranslationY(Etils.dpToPx(-8));
+      ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
 
       int color = event.getColor();
@@ -255,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
+      ViewGroup backgroundContainer = ButterKnife.findById(eventLayout, R.id.background_container);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
@@ -263,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
       int numStyles = 3;
       int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));
 
-      eventLayout.setBackgroundColor(color);
+      backgroundContainer.setBackgroundColor(color);
 
     }
   }

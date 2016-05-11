@@ -14,6 +14,9 @@
     <dimen name="event_minimum_height">45dp</dimen>
     <dimen name="switch_to_font_size">14sp</dimen>
 
+    <!--        <dimen name=""></dimen>         -->
+    <dimen name="main_min_event_height">60dp</dimen>
+
     <!-- -->
 
     <dimen name="event_title_text_size_smaller_1">14sp</dimen>

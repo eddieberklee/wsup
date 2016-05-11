@@ -38,7 +38,8 @@ public class BlocksActivity extends AppCompatActivity {
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
-  @Bind(R.id.switch_to_blocks) View mSwitchLayouts;
+  @Bind(R.id.switch_to_main) View mSwitchToMain;
+  @Bind(R.id.switch_to_dots) View mSwitchToDots;
   @Bind(R.id.time_indicator_line) View mTimeIndicator;
   @Bind(R.id.event_time) TextView mNewEventTime;
 
@@ -70,7 +71,7 @@ public class BlocksActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mLayoutInflater = getLayoutInflater();
-    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_block, null);
+    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_blocks, null);
     setContentView(rootView);
     ButterKnife.bind(this);
 
@@ -122,11 +123,20 @@ public class BlocksActivity extends AppCompatActivity {
       }
     });
 
-    mSwitchLayouts.setOnClickListener(new View.OnClickListener() {
+    mSwitchToMain.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
         intent.setClass(BlocksActivity.this, MainActivity.class);
+        startActivity(intent);
+      }
+    });
+
+    mSwitchToDots.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent();
+        intent.setClass(BlocksActivity.this, DotsActivity.class);
         startActivity(intent);
       }
     });

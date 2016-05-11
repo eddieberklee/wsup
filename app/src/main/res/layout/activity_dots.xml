@@ -13,17 +13,35 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <TextView
-        android:id="@+id/switch_to_blocks"
+    <LinearLayout
+        android:id="@+id/switch_layouts_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/greyscale_9"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:text="Switch Layouts"/>
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/switch_to_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/switch_to_font_size"
+            android:layout_weight="1"
+            android:text="Switch to Main"/>
+        <TextView
+            android:id="@+id/switch_to_blocks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/switch_to_font_size"
+            android:layout_weight="1"
+            android:text="Switch to Blocks"/>
+    </LinearLayout>
 
     <!-- This fake view is needed so when scrolling, the events go behind the EditText -->
     <FrameLayout

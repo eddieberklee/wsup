@@ -5,47 +5,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="7dp"
-    android:paddingBottom="5dp"
-    android:paddingLeft="9dp"
-    android:paddingRight="9dp"
     android:clipChildren="false">
     <!-- height for @layout/item_event_layout set in MainActivity:initEvents() -->
     <!-- TODO: tapping on title should expand to show the full title, should expand the ellipses -->
-    <com.compscieddy.timetracker.ui.ForadayTextView
-        android:id="@+id/event_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="@color/white"
-        android:textSize="21sp"
-        tools:text="Running"/>
-    <com.compscieddy.timetracker.ui.ForadayTextView
-        android:id="@+id/event_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/background_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="7dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:layout_marginBottom="2dp"><!-- marginBottom is spacing -->
+        <com.compscieddy.timetracker.ui.ForadayTextView
+            android:id="@+id/event_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:fontface="montserrat_light"
+            tools:text="6:14"/>
+        <com.compscieddy.timetracker.ui.ForadayTextView
+            android:id="@+id/event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:layout_alignBaseline="@+id/event_dot"
-        android:layout_below="@+id/event_title"
-        android:layout_alignLeft="@+id/event_title"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="0dp"
+            android:layout_below="@+id/event_time"
+            android:layout_alignLeft="@+id/event_time"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="0dp"
 
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:fontface="montserrat_light"
-        tools:text="6:14"/>
-    <com.compscieddy.timetracker.ui.ForadayTextView
-        android:id="@+id/event_am_pm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/event_time"
-        android:layout_alignBottom="@+id/event_time"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="-2dp"
-        app:fontface="montserrat_light"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        tools:text="pm"/>
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="21sp"
+            tools:text="Running"/>
+        <com.compscieddy.timetracker.ui.ForadayTextView
+            android:id="@+id/event_am_pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/event_time"
+            android:layout_alignBottom="@+id/event_time"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-2dp"
+            app:fontface="montserrat_light"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            tools:text="pm"/>
+    </RelativeLayout>
 </RelativeLayout>

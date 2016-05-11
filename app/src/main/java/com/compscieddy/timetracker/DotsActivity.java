@@ -73,7 +73,7 @@ public class DotsActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mLayoutInflater = getLayoutInflater();
-    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_dot, null);
+    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_dots, null);
     setContentView(rootView);
     ButterKnife.bind(this);
 
