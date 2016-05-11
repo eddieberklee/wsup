@@ -12,6 +12,7 @@
     <dimen name="new_event_input_inverse_margin_left">-12dp</dimen>
 
     <dimen name="event_minimum_height">45dp</dimen>
+    <dimen name="switch_to_font_size">14sp</dimen>
 
     <!-- -->
 

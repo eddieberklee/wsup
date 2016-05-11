@@ -13,35 +13,17 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <LinearLayout
-        android:id="@+id/switch_layouts_container"
+    <TextView
+        android:id="@+id/switch_to_blocks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/greyscale_9"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/switch_to_blocks"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/switch_to_font_size"
-            android:layout_weight="1"
-            android:text="Switch to Blocks"/>
-        <TextView
-            android:id="@+id/switch_to_dots"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/switch_to_font_size"
-            android:layout_weight="1"
-            android:text="Switch to Dots"/>
-    </LinearLayout>
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:text="Switch Layouts"/>
 
     <!-- This fake view is needed so when scrolling, the events go behind the EditText -->
     <FrameLayout
@@ -69,7 +51,8 @@
         android:id="@+id/events_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/new_event_section"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
         android:fillViewport="true">
         <LinearLayout
             android:id="@+id/events_container"

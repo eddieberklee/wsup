@@ -12,7 +12,7 @@
     android:clipToPadding="false">
 
     <TextView
-        android:id="@+id/switch_layouts"
+        android:id="@+id/switch_to_blocks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/greyscale_9"
@@ -55,7 +55,7 @@
             android:layout_height="1dp"
             android:background="@color/black"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
-            android:id="@+id/new_event_time"
+            android:id="@+id/event_time"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -67,12 +67,13 @@
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"
             android:layout_height="@dimen/new_event_edit_text_height"
-            android:layout_toRightOf="@+id/new_event_time"
+            android:layout_toRightOf="@+id/event_time"
             android:inputType="textCapSentences"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:paddingLeft="6dp"
             android:background="@color/flatui_blue_1"
+            android:textColorHint="@color/white_transp_60"
             android:hint="What are you getting done?"/>
     </RelativeLayout>
 
@@ -90,7 +91,6 @@
         android:paddingRight="14dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:visibility="invisible"
         android:background="@drawable/white_rounded_fill"
         android:textColor="@color/flatui_blue_1"/>
 

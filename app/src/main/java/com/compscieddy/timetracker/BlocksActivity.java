@@ -29,18 +29,18 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class BlockActivity extends AppCompatActivity {
+public class BlocksActivity extends AppCompatActivity {
 
-  private static final Lawg lawg = Lawg.newInstance(BlockActivity.class.getSimpleName());
+  private static final Lawg lawg = Lawg.newInstance(BlocksActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
   @Bind(R.id.new_event_add_button) TextView mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
-  @Bind(R.id.switch_layouts) View mSwitchLayouts;
+  @Bind(R.id.switch_to_blocks) View mSwitchLayouts;
   @Bind(R.id.time_indicator_line) View mTimeIndicator;
-  @Bind(R.id.new_event_time) TextView mNewEventTime;
+  @Bind(R.id.event_time) TextView mNewEventTime;
 
   Day mCurrentDay;
   List<Event> mEvents;
@@ -126,7 +126,7 @@ public class BlockActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
-        intent.setClass(BlockActivity.this, MainActivity.class);
+        intent.setClass(BlocksActivity.this, MainActivity.class);
         startActivity(intent);
       }
     });
@@ -193,7 +193,7 @@ public class BlockActivity extends AppCompatActivity {
     if (days.size() > 1) { // sanity check
       String message = "DAFUQ more than 1 Day found...";
       lawg.e(message);
-      Etils.showToast(BlockActivity.this, message);
+      Etils.showToast(BlocksActivity.this, message);
     }
     if (days.size() == 1) {
       day = days.get(0);
@@ -247,7 +247,7 @@ public class BlockActivity extends AppCompatActivity {
       int color = event.getColor();
 
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
-      TextView timeView = ButterKnife.findById(eventLayout, R.id.new_event_time);
+      TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
       View timeIndicatorView = ButterKnife.findById(eventLayout, R.id.time_indicator_line);
 

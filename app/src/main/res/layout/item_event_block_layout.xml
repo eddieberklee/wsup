@@ -14,7 +14,7 @@
         android:layout_height="1dp"
         android:background="@color/black"/>
     <com.compscieddy.timetracker.ui.ForadayTextView
-        android:id="@+id/new_event_time"
+        android:id="@+id/event_time"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -26,7 +26,7 @@
         android:id="@+id/event_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/new_event_time"
+        android:layout_toRightOf="@+id/event_time"
         android:background="@color/flatui_green_1"
         android:padding="6dp"
         android:textColor="@color/white"
@@ -37,7 +37,7 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:layout_below="@+id/new_event_time"
+        android:layout_below="@+id/event_time"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="-2dp"
         app:fontface="montserrat_light"
