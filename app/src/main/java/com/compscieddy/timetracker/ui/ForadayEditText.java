@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.compscieddy.eddie_utils.Etils;
@@ -35,6 +36,9 @@ public class ForadayEditText extends EditText {
   }
 
   public void setColor(int color) {
+    if (!(this.getBackground() instanceof GradientDrawable)) {
+      Log.e("UFUCKEDUP", "Background is not a custom drawable!!! -Recheck your code");
+    }
     GradientDrawable backgroundDrawable = (GradientDrawable) this.getBackground();
     backgroundDrawable.setStroke(getResources().getDimensionPixelSize(R.dimen.new_event_edit_stroke_width),
         color);

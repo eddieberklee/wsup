@@ -1,7 +1,9 @@
 package com.compscieddy.timetracker;
 
+import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by elee on 5/2/16.
@@ -20,17 +22,33 @@ public class Utils {
     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     layoutParams.topMargin = margin;
   }
+
   public static void setMarginLeft(View view, int margin) {
     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     layoutParams.leftMargin = margin;
   }
+
   public static void setMarginRight(View view, int margin) {
     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     layoutParams.rightMargin = margin;
   }
+
   public static void setMarginBottom(View view, int margin) {
     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     layoutParams.bottomMargin = margin;
+  }
+
+  /**********************************************************************/
+
+  public static boolean isTextViewEllipsized(TextView textView) {
+    Layout layout = textView.getLayout();
+    if (layout != null) {
+      int lines = layout.getLineCount();
+      if (lines > 0 && layout.getEllipsisCount(lines - 1) > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

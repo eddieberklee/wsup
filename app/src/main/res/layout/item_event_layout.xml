@@ -32,8 +32,6 @@
 
             android:layout_below="@+id/event_time"
             android:layout_alignLeft="@+id/event_time"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="0dp"
 
             android:maxLines="1"
             android:ellipsize="end"

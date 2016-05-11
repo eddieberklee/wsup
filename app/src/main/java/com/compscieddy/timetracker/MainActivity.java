@@ -1,6 +1,7 @@
 package com.compscieddy.timetracker;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import com.compscieddy.timetracker.models.Day;
 import com.compscieddy.timetracker.models.Event;
 import com.compscieddy.timetracker.ui.ForadayEditText;
 import com.compscieddy.timetracker.ui.LockableScrollView;
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringSystem;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
   private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
-  @Bind(R.id.new_event_add_button) View mNewEventAddButton;
+  @Bind(R.id.new_event_add_button) TextView mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
@@ -165,7 +169,8 @@ public class MainActivity extends AppCompatActivity {
       Date currentDate = new Date();
       Event newEvent = new Event(mCurrentDay, currentDate);
       newEvent.setTitle(mNewEventInput.getText().toString());
-      newEvent.setColor(mNewEventInput.getCurrentTextColor());
+      ColorDrawable drawable = (ColorDrawable) mNewEventInput.getBackground();
+      newEvent.setColor(drawable.getColor());
       mNewEventInput.setText("");
 
       setNewEventRandomColor();
@@ -176,10 +181,10 @@ public class MainActivity extends AppCompatActivity {
 
   public void setNewEventRandomColor() {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
-    mNewEventInput.setColor(randomColor);
+    mNewEventInput.setBackgroundColor(randomColor);
     int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
     mNewEventInput.setHintTextColor(alphaRandomColor);
-    Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
+    mNewEventAddButton.setTextColor(randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
   }
@@ -212,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
     return day;
   }
 
+  private boolean isOpen = false;
+
   /**
    * mCurrentDay needs to be populated before this method.
    */
@@ -243,9 +250,26 @@ public class MainActivity extends AppCompatActivity {
         height = maxHeight;
       }
 
-      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
+      final View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
       ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
+
+      eventLayout.setOnTouchListener(new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+          switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+              return true;
+            case MotionEvent.ACTION_UP:
+              expandEvent(eventLayout, isOpen);
+              isOpen = !isOpen;
+              return true;
+            case MotionEvent.ACTION_MOVE:
+              return true;
+          }
+          return false;
+        }
+      });
 
       int color = event.getColor();
 
@@ -264,6 +288,32 @@ public class MainActivity extends AppCompatActivity {
       backgroundContainer.setBackgroundColor(color);
 
     }
+  }
+
+  private void expandEvent(View eventLayout, boolean isOpen) {
+    float distanceToOpen;
+    TextView title = ButterKnife.findById(eventLayout, R.id.event_title);
+    if (isOpen) {
+
+    } else {
+      if (Utils.isTextViewEllipsized(title)) {
+        distanceToOpen = Etils.dpToPx(20); // space needed for 2 lines to be expanded
+      } else {
+        distanceToOpen = Etils.dpToPx(5); // this is an arbitrary minimum I chose
+      }
+    }
+
+    SpringSystem springSystem = SpringSystem.create();
+    Spring spring = springSystem.createSpring();
+    spring.addListener(new SimpleSpringListener() {
+      @Override
+      public void onSpringUpdate(Spring spring) {
+        float value = (float) spring.getCurrentValue();
+        lawg.d(" value: " + value);
+      }
+    });
+    spring.setEndValue(1);
+
   }
 
 }
