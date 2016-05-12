@@ -9,7 +9,7 @@
     <dimen name="new_event_edit_stroke_width">1dp</dimen>
     <dimen name="new_event_section_margin_bottom">3dp</dimen>
     <dimen name="new_event_edit_text_height">38dp</dimen>
-    <dimen name="new_event_input_padding_left">28dp</dimen>
+    <dimen name="new_event_input_padding_left">32dp</dimen>
     <dimen name="new_event_input_inverse_margin_left">-12dp</dimen>
 
     <dimen name="event_minimum_height">45dp</dimen>
@@ -20,6 +20,11 @@
     <dimen name="min_event_height">60dp</dimen>
     <dimen name="event_title_text_size">21sp</dimen>
     <dimen name="new_event_section_height">50dp</dimen>
+    <dimen name="event_time_width">38dp</dimen><!-- left gutter space width, essentially -->
+
+    <integer name="time_shadow_dx">2</integer>
+    <integer name="time_shadow_dy">3</integer>
+    <integer name="time_shadow_radius">1</integer>
 
     <!-- -->
 

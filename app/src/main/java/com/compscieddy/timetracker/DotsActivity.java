@@ -1,7 +1,6 @@
 package com.compscieddy.timetracker;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -154,8 +153,6 @@ public class DotsActivity extends AppCompatActivity {
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
     mNewEventAddButton.setOnClickListener(mAddButtonOnClickListener);
 
-    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
-
   }
 
   TextWatcher mEventInputTextWatcher = new TextWatcher() {
@@ -289,6 +286,11 @@ public class DotsActivity extends AppCompatActivity {
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
       durationView.setText(event.getDuration());
+
+      int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.4f);
+      titleView.setShadowLayer(titleView.getShadowRadius(), titleView.getShadowDx(), titleView.getShadowDy(), darkerColor);
+      timeView.setShadowLayer(timeView.getShadowRadius(), timeView.getShadowDx(), timeView.getShadowDy(), darkerColor);
+      timeAmPmView.setShadowLayer(timeAmPmView.getShadowRadius(), timeAmPmView.getShadowDx(), timeAmPmView.getShadowDy(), darkerColor);
 
       int numStyles = 3;
       int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));

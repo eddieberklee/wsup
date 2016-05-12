@@ -6,8 +6,6 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context=".RevampedBlockActivity"
     android:clipChildren="false"
     android:clipToPadding="false">
@@ -17,24 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/calm_lake_yosemite"
-        android:scaleType="centerCrop"
-        android:layout_marginLeft="@dimen/negative_activity_horizontal_margin"
-        android:layout_marginRight="@dimen/negative_activity_horizontal_margin"/>
-
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/white_transp_50"-->
-        <!--android:layout_marginLeft="@dimen/negative_activity_horizontal_margin"-->
-        <!--android:layout_marginRight="@dimen/negative_activity_horizontal_margin"/>-->
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:id="@+id/switch_layouts_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/greyscale_9"
-        android:layout_marginLeft="@dimen/negative_activity_horizontal_margin"
-        android:layout_marginRight="@dimen/negative_activity_horizontal_margin"
         android:paddingTop="4dp"
         android:paddingBottom="5dp"
         android:orientation="horizontal">
@@ -90,7 +77,6 @@
         android:id="@+id/events_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white_transp_30"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/overlap_gap_for_new_add_section"
         android:fillViewport="true"
@@ -136,9 +122,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="-6dp"
-        android:layout_marginBottom="9dp"
-        android:text="start!"
-        android:textSize="14sp"
+        android:layout_marginBottom="5dp"
+        android:text="Start"
+        android:textSize="@dimen/event_title_text_size"
         android:textColor="@color/white"
         android:paddingLeft="13dp"
         android:paddingRight="14dp"
