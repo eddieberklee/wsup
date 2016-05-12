@@ -51,4 +51,11 @@ public class Utils {
     return false;
   }
 
+  public static boolean containsAtLeastOne(String src, String[] strings) {
+    for (String s : strings) {
+      if (src.toLowerCase().contains(s)) return true;
+    }
+    return false;
+  }
+
 }

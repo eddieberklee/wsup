@@ -1,10 +1,8 @@
 package com.compscieddy.timetracker;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -193,13 +192,14 @@ public class DotsActivity extends AppCompatActivity {
     int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
     mNewEventInput.setHintTextColor(alphaRandomColor);
     mFakeNewEventInput.setColor(randomColor);
+    Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
+
     LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
     GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
     innerDot.setColor(randomColor);
     GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
     outerDot.setColor(getResources().getColor(R.color.white));
     outerDot.setStroke(Etils.dpToPx(1), randomColor);
-    Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
   }
@@ -264,7 +264,7 @@ public class DotsActivity extends AppCompatActivity {
       }
       // Last event needs extra height because part of it is overlapping with the new event section
       if (i == mEvents.size() - 1) {
-        height += getResources().getDimensionPixelSize(R.dimen.overlap_gap_for_new_add_section) / 2;
+        height += getResources().getDimensionPixelSize(R.dimen.overlap_gap_for_new_add_section);
       }
 
       View eventLayout = mLayoutInflater.inflate(R.layout.item_event_dots_layout, null);
@@ -275,7 +275,7 @@ public class DotsActivity extends AppCompatActivity {
       int color = event.getColor();
 
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
-      View dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
+      ImageView dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
       View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
@@ -289,50 +289,11 @@ public class DotsActivity extends AppCompatActivity {
       int numStyles = 3;
       int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));
 
-      // I *hate* the variable text right now
-
-      /*
-      @DimenRes int titleTextSizeId, titleTopMarginId;
-      @DimenRes int timeTextSizeId, timeTopMarginId;
-      @DimenRes int timeAmPmTextSizeId, timeAmPmBottomMarginId;
-
-      int[] textSizeIds = new int[] {
-          R.dimen.event_title_text_size_smaller_1, R.dimen.event_time_text_size_smaller_1, R.dimen.event_time_am_pm_text_size_smaller_1,
-          R.dimen.event_title_text_size_normal, R.dimen.event_time_text_size_normal, R.dimen.event_time_am_pm_text_size_normal,
-          R.dimen.event_title_text_size_larger_1, R.dimen.event_time_text_size_larger_1, R.dimen.event_time_am_pm_text_size_larger_1,
-      };
-      int[] marginIds = new int[] {
-          R.dimen.event_title_top_margin_smaller_1, R.dimen.event_time_top_margin_smaller_1, R.dimen.event_time_am_pm_bottom_margin_smaller_1,
-          R.dimen.event_title_top_margin_normal, R.dimen.event_time_top_margin_normal, R.dimen.event_time_am_pm_bottom_margin_normal,
-          R.dimen.event_title_top_margin_larger_1, R.dimen.event_time_top_margin_larger_1, R.dimen.event_time_am_pm_bottom_margin_larger_1,
-      };
-
-      Resources res = getResources();
-      final int TITLE = 0, TIME = 1, TIME_AM_PM = 2;
-
-      titleTextSizeId = textSizeIds[styleBucket * 3 + TITLE];
-      titleTopMarginId = marginIds[styleBucket * 3 + TITLE];
-      timeTextSizeId = textSizeIds[styleBucket * 3 + TIME];
-      timeTopMarginId = marginIds[styleBucket * 3 + TIME];
-      timeAmPmTextSizeId = textSizeIds[styleBucket * 3 + TIME_AM_PM];
-      timeAmPmBottomMarginId = marginIds[styleBucket * 3 + TIME_AM_PM];
-
-      titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(titleTextSizeId));
-      timeView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(timeTextSizeId));
-      timeAmPmView.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(timeAmPmTextSizeId));
-
-      Utils.setMarginTop(titleView, res.getDimensionPixelSize(titleTopMarginId));
-      Utils.setMarginTop(timeView, res.getDimensionPixelSize(timeTopMarginId));
-      Utils.setMarginBottom(timeAmPmView, res.getDimensionPixelSize(timeAmPmBottomMarginId));
-
-      titleView.requestLayout();
-      titleView.getParent().requestLayout();
-      */
-
       titleView.setTextColor(color);
       timeView.setTextColor(color);
       timeAmPmView.setTextColor(color);
 
+      /*
       Etils.applyColorFilter(dotView.getBackground(), color);
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
         ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();
@@ -340,6 +301,100 @@ public class DotsActivity extends AppCompatActivity {
       } else {
         Etils.applyColorFilter(lineView.getBackground(), color);
       }
+      */
+
+      /** There should be a priority to this "AI".
+       *  Maybe verbs/actions, objects, then location (home, office)
+       */
+
+      String titleString = titleView.getText().toString().toLowerCase();
+      int iconId = -1;
+      if (Utils.containsAtLeastOne(titleString, new String[]{
+          "running", "run", "ran", "jog", "marathon"})) {
+        iconId = R.drawable.ic_directions_run_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "drive", "car", "jeep", "convertible", "truck", "sedan", "coupe", "hatchback"})) {
+        iconId = R.drawable.ic_directions_car_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "gym", "weight", "curls", "bench", "yoked", "buff", "workout", "working out", "work out"})) {
+        iconId = R.drawable.ic_fitness_center_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "beach", "sand", "waves"})) {
+        iconId = R.drawable.ic_beach_access_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "cafe", "coffee", "starbucks", "peets", "peet's"})) {
+        iconId = R.drawable.ic_local_cafe_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "shopping", "mall", "grocer", "shop", "buy", "amazon", "costco", "safeway"})) {
+        iconId = R.drawable.ic_shopping_cart_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "call", "phone", "buzz", "ring"})) {
+        iconId = R.drawable.ic_call_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "note", "idea", "organize", "track"})) {
+        iconId = R.drawable.ic_note_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "music", "sing", "audio", "song", "band", "concert", "show", "jazz"})) {
+        iconId = R.drawable.ic_music_note_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "read", "book", "page", "article"})) {
+        iconId = R.drawable.ic_book_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "movie", "theater"})) {
+        iconId = R.drawable.ic_theaters_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "tv", "game of thrones"})) {
+        iconId = R.drawable.ic_live_tv_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "park", "picnic", "nature"})) { // ehhhhhh this one's not that great, todo: fix
+        iconId = R.drawable.ic_nature_people_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "draw", "sketch", "doodle", "art", "museum", "design"})) {
+        iconId = R.drawable.ic_gesture_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "paint", "watercolor"})) {
+        iconId = R.drawable.ic_palette_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "bike", "biking"})) {
+        iconId = R.drawable.ic_directions_bike_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "picture", "photo", "camera", "instagram", "lightroom", "aperture"})) {
+        iconId = R.drawable.ic_camera_alt_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "sun", "tan"})) {
+        iconId = R.drawable.ic_wb_sunny_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "drinks", "alcohol", "beer", "shots", "vodka", "whiskey", "wine", "bar", "lounge", "club"})) {
+        iconId = R.drawable.ic_local_bar_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "eat", "dinner", "lunch", "food", "takeout", "eat24", "pizza", "cooking", "recipe", "restaurant"})) {
+        iconId = R.drawable.ic_local_dining_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "birthday", "celebration"})) {
+        iconId = R.drawable.ic_cake_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          ""})) {
+
+      else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "love", "favorite", "best"})) {
+        iconId = R.drawable.ic_favorite_white_48dp;
+      }
+      if (iconId != -1) dotView.setImageResource(iconId);
+
+      LayerDrawable layerDrawable = (LayerDrawable) dotView.getBackground();
+      GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
+      GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
+      innerDot.setColor(color);
+      outerDot.setStroke(Etils.dpToPx(1), color);
+//      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//        innerDot.setColor(color);
+//        outerDot.setStroke(Etils.dpToPx(1), color);
+//      } else {
+//        Etils.applyColorFilter(innerDot, color, true);
+//        Etils.applyColorFilter(outerDot, color, true);
+//      }
+      outerDot.setStroke(Etils.dpToPx(1), color);
+      Etils.applyColorFilter(lineView.getBackground(), color);
 
     }
   }

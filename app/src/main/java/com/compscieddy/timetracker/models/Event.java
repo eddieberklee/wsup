@@ -92,7 +92,7 @@ public class Event extends SugarRecord {
 
   public String getDuration() {
     // Find the next event by looking for an event belonging to the same day but has a larger dateMillis
-    List<Event> events = Event.find(Event.class, "day = ? & dateMillis > ?", this.day.getId().toString(), String.valueOf(this.dateMillis));
+    List<Event> events = Event.find(Event.class, "day = ? & date_millis > ?", this.day.getId().toString(), String.valueOf(this.dateMillis));
     String durationString = "";
     if (events.size() > 0) {
       Event nextEvent = events.get(0);
