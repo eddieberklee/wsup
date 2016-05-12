@@ -1,6 +1,7 @@
 package com.compscieddy.timetracker;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class DotsActivity extends AppCompatActivity {
   @Bind(R.id.new_event_dot) View mNewEventDot;
   @Bind(R.id.switch_to_blocks) View mSwitchToBlocks;
   @Bind(R.id.switch_to_main) View mSwitchToMain;
+  @Bind(R.id.activity_background) ImageView mActivityBackground;
 
   Day mCurrentDay;
   List<Event> mEvents;
@@ -151,6 +153,8 @@ public class DotsActivity extends AppCompatActivity {
 
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
     mNewEventAddButton.setOnClickListener(mAddButtonOnClickListener);
+
+    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
 
   }
 
@@ -372,6 +376,9 @@ public class DotsActivity extends AppCompatActivity {
       } else if (Utils.containsAtLeastOne(titleString, new String[] {
           "birthday", "celebration"})) {
         iconId = R.drawable.ic_cake_white_48dp;
+      } else if (Utils.containsAtLeastOne(titleString, new String[] {
+          "build", "fix"})) {
+        iconId = R.drawable.ic_build_white_48dp;
       } else if (Utils.containsAtLeastOne(titleString, new String[] {
           "love", "favorite", "best"})) {
         iconId = R.drawable.ic_favorite_white_48dp;

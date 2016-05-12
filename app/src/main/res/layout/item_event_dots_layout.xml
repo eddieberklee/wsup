@@ -14,7 +14,7 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="-3dp"
         android:background="@drawable/blue_circle_outline_layered"
-        android:padding="5dp"/>
+        android:padding="7dp"/>
     <FrameLayout
         android:layout_width="@dimen/current_event_dot_size"
         android:layout_height="match_parent"
