@@ -373,9 +373,6 @@ public class DotsActivity extends AppCompatActivity {
           "birthday", "celebration"})) {
         iconId = R.drawable.ic_cake_white_48dp;
       } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          ""})) {
-
-      else if (Utils.containsAtLeastOne(titleString, new String[] {
           "love", "favorite", "best"})) {
         iconId = R.drawable.ic_favorite_white_48dp;
       }
