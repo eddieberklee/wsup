@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false">
-    <!-- height for @layout/item_event_layout set in MainActivity:initEvents() -->
+    <!-- height for @layout/item_event_layout set in RevampedBlockActivity:initEvents() -->
     <!-- TODO: tapping on title should expand to show the full title, should expand the ellipses -->
     <RelativeLayout
         android:id="@+id/background_container"
@@ -29,10 +29,8 @@
             android:id="@+id/event_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_below="@+id/event_time"
             android:layout_alignLeft="@+id/event_time"
-
             android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="21sp"

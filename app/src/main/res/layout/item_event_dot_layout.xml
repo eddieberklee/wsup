@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false">
-    <!-- height for @layout/item_event_layout set in MainActivity:initEvents() -->
+    <!-- height for @layout/item_event_layout set in RevampedBlockActivity:initEvents() -->
     <View
         android:id="@+id/event_dot"
         android:layout_width="@dimen/event_dot_size"
@@ -33,7 +33,7 @@
         android:layout_toRightOf="@+id/event_dot"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="-2dp"
-        android:textColor="@color/flatui_green_2"
+        android:textColor="@color/flatui_green_1"
         app:fontface="montserrat_light"
         tools:text="6:14"/>
     <com.compscieddy.timetracker.ui.ForadayTextView
@@ -56,5 +56,6 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="-2dp"
         app:fontface="montserrat_light"
+        android:textColor="@color/flatui_green_1"
         tools:text="pm"/>
 </RelativeLayout>

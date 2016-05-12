@@ -48,7 +48,7 @@ public class BlocksActivity extends AppCompatActivity {
   private LayoutInflater mLayoutInflater;
   private int currentLayout = 0;
   private int[] layouts = new int[] {
-    R.layout.item_event_layout,
+    R.layout.item_event_revamped_block_layout,
     R.layout.item_event_layout_time_left
   };
 
@@ -127,7 +127,7 @@ public class BlocksActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
-        intent.setClass(BlocksActivity.this, MainActivity.class);
+        intent.setClass(BlocksActivity.this, RevampedBlockActivity.class);
         startActivity(intent);
       }
     });

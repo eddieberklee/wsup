@@ -33,9 +33,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class RevampedBlockActivity extends AppCompatActivity {
 
-  private static final Lawg lawg = Lawg.newInstance(MainActivity.class.getSimpleName());
+  private static final Lawg lawg = Lawg.newInstance(RevampedBlockActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
   @Bind(R.id.new_event_add_button) TextView mNewEventAddButton;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
   private LayoutInflater mLayoutInflater;
   private int currentLayout = 0;
   private int[] layouts = new int[] {
-    R.layout.item_event_layout,
+    R.layout.item_event_revamped_block_layout,
     R.layout.item_event_layout_time_left
   };
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mLayoutInflater = getLayoutInflater();
-    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_main, null);
+    ViewGroup rootView = (ViewGroup) mLayoutInflater.inflate(R.layout.activity_revamped_block, null);
     setContentView(rootView);
     ButterKnife.bind(this);
 
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
-        intent.setClass(MainActivity.this, BlocksActivity.class);
+        intent.setClass(RevampedBlockActivity.this, BlocksActivity.class);
         startActivity(intent);
       }
     });
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
-        intent.setClass(MainActivity.this, DotsActivity.class);
+        intent.setClass(RevampedBlockActivity.this, DotsActivity.class);
         startActivity(intent);
       }
     });
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     if (days.size() > 1) { // sanity check
       String message = "DAFUQ more than 1 Day found...";
       lawg.e(message);
-      Etils.showToast(MainActivity.this, message);
+      Etils.showToast(RevampedBlockActivity.this, message);
     }
     if (days.size() == 1) {
       day = days.get(0);
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
         height = maxHeight;
       }
 
-      final View eventLayout = mLayoutInflater.inflate(R.layout.item_event_layout, null);
+      final View eventLayout = mLayoutInflater.inflate(R.layout.item_event_revamped_block_layout, null);
       ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
 

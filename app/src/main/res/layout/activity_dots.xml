@@ -9,7 +9,7 @@
     android:background="@color/white"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="com.compscieddy.timetracker.MainActivity"
+    tools:context=".RevampedBlockActivity"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -18,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/greyscale_9"
+        android:layout_marginLeft="@dimen/negative_activity_horizontal_margin"
+        android:layout_marginRight="@dimen/negative_activity_horizontal_margin"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:orientation="horizontal">

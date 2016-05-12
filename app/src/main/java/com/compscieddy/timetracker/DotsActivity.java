@@ -43,14 +43,15 @@ public class DotsActivity extends AppCompatActivity {
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.new_event_dot) View mNewEventDot;
-  @Bind(R.id.switch_to_blocks) View mSwitchLayouts;
+  @Bind(R.id.switch_to_blocks) View mSwitchToBlocks;
+  @Bind(R.id.switch_to_main) View mSwitchToMain;
 
   Day mCurrentDay;
   List<Event> mEvents;
   private LayoutInflater mLayoutInflater;
   private int currentLayout = 0;
   private int[] layouts = new int[] {
-    R.layout.item_event_layout,
+    R.layout.item_event_revamped_block_layout,
     R.layout.item_event_layout_time_left
   };
 
@@ -132,7 +133,15 @@ public class DotsActivity extends AppCompatActivity {
       }
     });
 
-    mSwitchLayouts.setOnClickListener(new View.OnClickListener() {
+    mSwitchToMain.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent();
+        intent.setClass(DotsActivity.this, RevampedBlockActivity.class);
+        startActivity(intent);
+      }
+    });
+    mSwitchToBlocks.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent();
