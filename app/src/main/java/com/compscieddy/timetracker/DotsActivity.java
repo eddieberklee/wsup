@@ -262,8 +262,12 @@ public class DotsActivity extends AppCompatActivity {
       } else {
         height = maxHeight;
       }
+      // Last event needs extra height because part of it is overlapping with the new event section
+      if (i == mEvents.size() - 1) {
+        height += getResources().getDimensionPixelSize(R.dimen.overlap_gap_for_new_add_section) / 2;
+      }
 
-      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_dot_layout, null);
+      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_dots_layout, null);
       ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height);
 //      if (i != 0) eventLayout.setTranslationY(Etils.dpToPx(-8));
       mEventsContainer.addView(eventLayout, layoutParams);
@@ -275,10 +279,12 @@ public class DotsActivity extends AppCompatActivity {
       View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
+      TextView durationView = ButterKnife.findById(eventLayout, R.id.event_duration);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
+      durationView.setText(event.getDuration());
 
       int numStyles = 3;
       int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));

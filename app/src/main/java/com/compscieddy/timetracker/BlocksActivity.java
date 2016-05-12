@@ -250,7 +250,7 @@ public class BlocksActivity extends AppCompatActivity {
         height = maxHeight;
       }
 
-      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_block_layout, null);
+      View eventLayout = mLayoutInflater.inflate(R.layout.item_event_blocks_layout, null);
       ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height);
       mEventsContainer.addView(eventLayout, layoutParams);
 
