@@ -33,7 +33,6 @@
             android:layout_below="@+id/event_time"
             android:layout_alignLeft="@+id/event_time"
 
-            android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="21sp"

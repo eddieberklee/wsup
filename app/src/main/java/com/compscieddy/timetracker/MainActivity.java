@@ -271,29 +271,40 @@ public class MainActivity extends AppCompatActivity {
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
-
-      int numStyles = 3;
-      int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));
-
       backgroundContainer.setBackgroundColor(color);
+
+      updateTitleViewMaxLines(titleView, height);
 
     }
   }
 
+  private void updateTitleViewMaxLines(TextView titleView, float height) {
+    // todo: refactor to make this automatically adjust correctly
+    float minHeight = getResources().getDimensionPixelSize(R.dimen.min_event_height);
+    if (height <= minHeight * 1.8f) {
+      titleView.setMaxLines(1);
+    } else if (height <= minHeight * 2.8f) {
+      titleView.setMaxLines(2);
+    } else {
+      titleView.setMaxLines(3);
+    }
+  }
+
   private void expandEvent(final View eventLayout, final boolean isOpen) {
-    lawg.d("expandEvent happened." + " isOpen: " + isOpen);
     final float distanceToOpen;
     final float startingHeight;
     final float minEventHeight = getResources().getDimensionPixelSize(R.dimen.min_event_height);
     final TextView title = ButterKnife.findById(eventLayout, R.id.event_title);
-    final boolean shouldClose = !isOpen && !Utils.isTextViewEllipsized(title);
+    boolean isEllipsized = Utils.isTextViewEllipsized(title);
+    final boolean shouldClose = !isOpen && !isEllipsized;
+    lawg.d("expandEvent happened." + " isOpen: " + isOpen + " isEllipsized: " + isEllipsized);
     if (isOpen) {
       // current height to normal
       startingHeight = eventLayout.getHeight();
       distanceToOpen = minEventHeight - startingHeight;
     } else {
       startingHeight = minEventHeight;
-      if (Utils.isTextViewEllipsized(title)) {
+      if (isEllipsized) {
         distanceToOpen = Etils.dpToPx(30); // space needed for 2 lines to be expanded
       } else {
         distanceToOpen = Etils.dpToPx(4); // this is an arbitrary minimum I chose
@@ -323,11 +334,18 @@ public class MainActivity extends AppCompatActivity {
       }
       @Override
       public void onSpringUpdate(Spring spring) {
-        title.setEllipsize(TextUtils.TruncateAt.START);
         float value = (float) spring.getCurrentValue(); // 0 -> 1
 //            lawg.d(" value: " + value);
         ViewGroup.LayoutParams layoutParams = eventLayout.getLayoutParams();
         layoutParams.height = (int) (startingHeight + distanceToOpen * value);
+
+        updateTitleViewMaxLines(title, layoutParams.height);
+        if (isOpen) {
+          title.setEllipsize(TextUtils.TruncateAt.END);
+        } else {
+          title.setEllipsize(null);
+        }
+
         eventLayout.setLayoutParams(layoutParams);
       }
     });
