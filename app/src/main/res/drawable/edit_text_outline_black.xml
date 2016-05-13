@@ -6,7 +6,7 @@
              android:left="12dp"
              android:right="12dp"/>
     <corners android:radius="3dp"/>
-    <solid android:color="@color/white"/>
+    <solid android:color="@color/white_transp_40"/>
     <stroke android:color="@color/black"
             android:width="@dimen/new_event_edit_stroke_width"/>
 </shape>

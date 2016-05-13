@@ -1,6 +1,8 @@
 package com.compscieddy.timetracker;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -36,7 +38,6 @@ public class DotsActivity extends AppCompatActivity {
   private static final Lawg lawg = Lawg.newInstance(DotsActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
-  @Bind(R.id.fake_new_event_input) ForadayEditText mFakeNewEventInput;
   @Bind(R.id.new_event_add_button) View mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
@@ -105,10 +106,10 @@ public class DotsActivity extends AppCompatActivity {
         if (heightDiff > Etils.dpToPx(150)) { // if more than 100 pixels, its probably a keyboard...
           mEventsScrollView.fullScroll(View.FOCUS_DOWN);
           if (DEBUG_KEYB_DETECT) lawg.d("Setting scrollable false");
-          mEventsScrollView.setScrollable(false);
+//          mEventsScrollView.setScrollable(false);
         } else {
           if (DEBUG_KEYB_DETECT) lawg.d("Setting scrollable true");
-          mEventsScrollView.setScrollable(true);
+//          mEventsScrollView.setScrollable(true);
         }
       }
     });
@@ -153,6 +154,9 @@ public class DotsActivity extends AppCompatActivity {
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
     mNewEventAddButton.setOnClickListener(mAddButtonOnClickListener);
 
+    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
+//    mEventsScrollView.setBackgroundColor(getResources().getColor(R.color.white_transp_20));
+
   }
 
   TextWatcher mEventInputTextWatcher = new TextWatcher() {
@@ -192,14 +196,12 @@ public class DotsActivity extends AppCompatActivity {
     mNewEventInput.setColor(randomColor);
     int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
     mNewEventInput.setHintTextColor(alphaRandomColor);
-    mFakeNewEventInput.setColor(randomColor);
     Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
 
     LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
     GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
     innerDot.setColor(randomColor);
     GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
-    outerDot.setColor(getResources().getColor(R.color.white));
     outerDot.setStroke(Etils.dpToPx(1), randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
@@ -288,6 +290,7 @@ public class DotsActivity extends AppCompatActivity {
       durationView.setText(event.getDuration());
 
       int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.4f);
+      darkerColor = Etils.setAlpha(darkerColor, 0.7f);
       titleView.setShadowLayer(titleView.getShadowRadius(), titleView.getShadowDx(), titleView.getShadowDy(), darkerColor);
       timeView.setShadowLayer(timeView.getShadowRadius(), timeView.getShadowDx(), timeView.getShadowDy(), darkerColor);
       timeAmPmView.setShadowLayer(timeAmPmView.getShadowRadius(), timeAmPmView.getShadowDx(), timeAmPmView.getShadowDy(), darkerColor);
@@ -385,7 +388,13 @@ public class DotsActivity extends AppCompatActivity {
           "love", "favorite", "best"})) {
         iconId = R.drawable.ic_favorite_white_48dp;
       }
-      if (iconId != -1) dotView.setImageResource(iconId);
+//      if (iconId != -1) dotView.setImageResource(iconId);
+      if (iconId != -1) {
+        Drawable iconDrawable = getResources().getDrawable(iconId);
+//        int iconColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.white), 0.9f);
+//        Etils.applyColorFilter(iconDrawable, iconColor);
+        dotView.setImageDrawable(iconDrawable);
+      }
 
       LayerDrawable layerDrawable = (LayerDrawable) dotView.getBackground();
       GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
