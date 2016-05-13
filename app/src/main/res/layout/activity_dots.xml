@@ -21,8 +21,9 @@
         android:id="@+id/events_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/overlap_gap_for_new_add_section"
+        android:paddingRight="5dp"
+        android:layout_above="@id/new_event_section"
+        android:layout_marginBottom="-7dp"
         android:fillViewport="true"
         android:clipChildren="false">
         <LinearLayout
@@ -41,6 +42,7 @@
         android:layout_height="@dimen/new_event_section_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/new_event_section_margin_bottom"
+        android:layout_marginRight="@dimen/new_event_section_margin_bottom"
         android:paddingLeft="@dimen/event_time_width"
         android:clipChildren="false"
         android:clipToPadding="true">

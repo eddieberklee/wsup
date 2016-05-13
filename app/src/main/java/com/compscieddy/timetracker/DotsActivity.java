@@ -267,7 +267,7 @@ public class DotsActivity extends AppCompatActivity {
       }
       // Last event needs extra height because part of it is overlapping with the new event section
       if (i == mEvents.size() - 1) {
-        height += getResources().getDimensionPixelSize(R.dimen.overlap_gap_for_new_add_section);
+        height += getResources().getDimensionPixelSize(R.dimen.overlap_gap_for_new_add_section) * 2/5f;
       }
 
       View eventLayout = mLayoutInflater.inflate(R.layout.item_event_dots_layout, null);
