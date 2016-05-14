@@ -14,7 +14,7 @@
         android:id="@+id/activity_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/lush_green_waterfall"
+        android:src="@drawable/fence_plant"
         android:scaleType="centerCrop"/>
 
     <com.compscieddy.timetracker.ui.LockableScrollView
@@ -64,7 +64,7 @@
             android:background="@drawable/edit_text_outline_black"
             app:color="@color/flatui_blue_1"
             android:textSize="@dimen/event_title_text_size"
-            android:hint="What you doing?"/>
+            android:hint=" What you doing?"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/new_event_add_button"
             android:layout_width="wrap_content"

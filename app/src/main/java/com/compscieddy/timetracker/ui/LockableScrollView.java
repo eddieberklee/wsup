@@ -14,6 +14,7 @@ import com.compscieddy.eddie_utils.Lawg;
  */
 public class LockableScrollView extends ScrollView {
   private static final Lawg lawg = Lawg.newInstance(LockableScrollView.class.getSimpleName());
+  private static final boolean DEBUG = false;
 
   public LockableScrollView(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -33,7 +34,7 @@ public class LockableScrollView extends ScrollView {
   public boolean onTouchEvent(MotionEvent ev) {
     switch (ev.getAction()) {
       case MotionEvent.ACTION_DOWN:
-        lawg.d("ACTION_DOWN in LockableScrollView");
+        if (DEBUG) lawg.d("ACTION_DOWN in LockableScrollView");
         if (!isScrollable) return false;
     }
     return super.onTouchEvent(ev);

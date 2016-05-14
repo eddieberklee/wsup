@@ -1,7 +1,6 @@
 package com.compscieddy.timetracker;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -154,7 +153,7 @@ public class DotsActivity extends AppCompatActivity {
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
     mNewEventAddButton.setOnClickListener(mAddButtonOnClickListener);
 
-    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
+//    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
 //    mEventsScrollView.setBackgroundColor(getResources().getColor(R.color.white_transp_20));
 
   }
@@ -194,8 +193,8 @@ public class DotsActivity extends AppCompatActivity {
   public void setNewEventRandomColor() {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
     mNewEventInput.setColor(randomColor);
-    int alphaRandomColor = Etils.setAlpha(randomColor, 0.3f);
-    mNewEventInput.setHintTextColor(alphaRandomColor);
+    int lighterColor = Etils.getIntermediateColor(randomColor, getResources().getColor(R.color.white), 0.3f);
+    mNewEventInput.setHintTextColor(lighterColor);
     Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
 
     LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
@@ -283,22 +282,24 @@ public class DotsActivity extends AppCompatActivity {
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
       TextView durationView = ButterKnife.findById(eventLayout, R.id.event_duration);
+      View backgroundView = ButterKnife.findById(eventLayout, R.id.item_event_background);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
       durationView.setText(event.getDuration());
 
-      int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.4f);
-      darkerColor = Etils.setAlpha(darkerColor, 0.7f);
+      int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.1f);
+      darkerColor = Etils.setAlpha(darkerColor, 0.8f);
       titleView.setShadowLayer(titleView.getShadowRadius(), titleView.getShadowDx(), titleView.getShadowDy(), darkerColor);
       timeView.setShadowLayer(timeView.getShadowRadius(), timeView.getShadowDx(), timeView.getShadowDy(), darkerColor);
       timeAmPmView.setShadowLayer(timeAmPmView.getShadowRadius(), timeAmPmView.getShadowDx(), timeAmPmView.getShadowDy(), darkerColor);
 
-      int numStyles = 3;
-      int styleBucket = Math.round(Utils.mapValue(minutesDifference, 0, 60*4, 0, numStyles - 1));
+      int alphaColor = Etils.setAlpha(color, 0.6f);
+      Etils.applyColorFilter(backgroundView.getBackground(), alphaColor);
 
-      titleView.setTextColor(color);
+      titleView.setTextColor(getResources().getColor(R.color.white));
+//      titleView.setTextColor(color);
       timeView.setTextColor(color);
       timeAmPmView.setTextColor(color);
 

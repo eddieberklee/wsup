@@ -20,7 +20,7 @@
     <dimen name="min_event_height">60dp</dimen>
     <dimen name="event_title_text_size">21sp</dimen>
     <dimen name="new_event_section_height">50dp</dimen>
-    <dimen name="event_time_width">38dp</dimen><!-- left gutter space width, essentially -->
+    <dimen name="event_time_width">40dp</dimen><!-- left gutter space width, essentially -->
 
     <integer name="time_shadow_dx">2</integer>
     <integer name="time_shadow_dy">3</integer>

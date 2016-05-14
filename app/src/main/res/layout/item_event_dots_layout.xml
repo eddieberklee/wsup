@@ -7,6 +7,16 @@
     android:layout_height="wrap_content"
     android:clipChildren="false">
     <!-- height for @layout/item_event_layout set in RevampedBlockActivity:initEvents() -->
+
+    <View
+        android:id="@+id/item_event_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/blue_transp_rounded_fill"/>
+
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_time"
         android:layout_width="@dimen/event_time_width"
@@ -72,7 +82,7 @@
         android:layout_alignBaseline="@+id/event_dot"
         android:layout_toRightOf="@+id/event_dot"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="10dp"
         android:shadowColor="@color/white"
         android:shadowDx="4"
         android:shadowDy="5"
