@@ -44,7 +44,7 @@ public class DotsActivity extends AppCompatActivity {
   @Bind(R.id.new_event_dot) View mNewEventDot;
   @Bind(R.id.switch_to_blocks) View mSwitchToBlocks;
   @Bind(R.id.switch_to_main) View mSwitchToMain;
-  @Bind(R.id.activity_background) ImageView mActivityBackground;
+  @Bind(R.id.activity_background) View mActivityBackground;
 
   Day mCurrentDay;
   List<Event> mEvents;

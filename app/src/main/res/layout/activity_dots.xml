@@ -8,14 +8,14 @@
     android:layout_height="match_parent"
     tools:context=".RevampedBlockActivity"
     android:clipChildren="false"
+    android:background="@drawable/gradient_background"
     android:clipToPadding="false">
 
-    <ImageView
+    <View
         android:id="@+id/activity_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/fence_plant"
-        android:scaleType="centerCrop"/>
+        />
 
     <com.compscieddy.timetracker.ui.LockableScrollView
         android:id="@+id/events_scroll_view"
