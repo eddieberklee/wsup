@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/white_dot_halo"/>
+    <item
+        android:id="@+id/inner_dot"
+        android:drawable="@drawable/white_dot_main"
+        android:bottom="@dimen/dot_halo_padding"
+        android:left="@dimen/dot_halo_padding"
+        android:right="@dimen/dot_halo_padding"
+        android:top="@dimen/dot_halo_padding"/>
+</layer-list>

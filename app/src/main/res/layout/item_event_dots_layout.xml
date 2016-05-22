@@ -47,15 +47,15 @@
         tools:text="pm"/>
     <ImageView
         android:id="@+id/event_dot"
-        android:layout_width="@dimen/current_event_dot_size"
-        android:layout_height="@dimen/current_event_dot_size"
+        android:layout_width="@dimen/dot_size"
+        android:layout_height="@dimen/dot_size"
         android:layout_gravity="left|center_vertical"
         android:layout_toRightOf="@+id/event_time"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/blue_circle_outline_layered"
+        android:background="@drawable/white_dot_layered"
         android:padding="7dp"/>
     <FrameLayout
-        android:layout_width="@dimen/current_event_dot_size"
+        android:layout_width="@dimen/dot_size"
         android:layout_height="match_parent"
         android:layout_below="@+id/event_dot"
         android:layout_alignLeft="@+id/event_dot">

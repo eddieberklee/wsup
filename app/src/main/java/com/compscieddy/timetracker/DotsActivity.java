@@ -2,8 +2,6 @@ package com.compscieddy.timetracker;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -196,12 +194,6 @@ public class DotsActivity extends AppCompatActivity {
     int lighterColor = Etils.getIntermediateColor(randomColor, getResources().getColor(R.color.white), 0.3f);
     mNewEventInput.setHintTextColor(lighterColor);
     Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
-
-    LayerDrawable layerDrawable = (LayerDrawable) mNewEventDot.getBackground();
-    GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
-    innerDot.setColor(randomColor);
-    GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
-    outerDot.setStroke(Etils.dpToPx(1), randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
   }
@@ -397,11 +389,6 @@ public class DotsActivity extends AppCompatActivity {
         dotView.setImageDrawable(iconDrawable);
       }
 
-      LayerDrawable layerDrawable = (LayerDrawable) dotView.getBackground();
-      GradientDrawable innerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.inner_dot);
-      GradientDrawable outerDot = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.outer_dot);
-      innerDot.setColor(color);
-      outerDot.setStroke(Etils.dpToPx(1), color);
 //      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 //        innerDot.setColor(color);
 //        outerDot.setStroke(Etils.dpToPx(1), color);
@@ -409,7 +396,6 @@ public class DotsActivity extends AppCompatActivity {
 //        Etils.applyColorFilter(innerDot, color, true);
 //        Etils.applyColorFilter(outerDot, color, true);
 //      }
-      outerDot.setStroke(Etils.dpToPx(1), color);
       Etils.applyColorFilter(lineView.getBackground(), color);
 
     }

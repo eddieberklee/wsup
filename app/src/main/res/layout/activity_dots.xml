@@ -8,14 +8,13 @@
     android:layout_height="match_parent"
     tools:context=".RevampedBlockActivity"
     android:clipChildren="false"
-    android:background="@drawable/gradient_background"
     android:clipToPadding="false">
 
     <View
         android:id="@+id/activity_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:background="@drawable/gradient_background"/>
 
     <com.compscieddy.timetracker.ui.LockableScrollView
         android:id="@+id/events_scroll_view"
@@ -48,12 +47,12 @@
         android:clipToPadding="true">
         <View
             android:id="@+id/new_event_dot"
-            android:layout_width="@dimen/current_event_dot_size"
-            android:layout_height="@dimen/current_event_dot_size"
+            android:layout_width="@dimen/dot_size"
+            android:layout_height="@dimen/dot_size"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/blue_circle_outline_layered"/>
+            android:background="@drawable/white_dot_layered"/>
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"
