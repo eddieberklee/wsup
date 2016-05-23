@@ -190,10 +190,7 @@ public class DotsActivity extends AppCompatActivity {
 
   public void setNewEventRandomColor() {
     int randomColor = getResources().getColor(colors[(int) Math.round(Math.random() * (colors.length - 1))]);
-    mNewEventInput.setColor(randomColor);
     int lighterColor = Etils.getIntermediateColor(randomColor, getResources().getColor(R.color.white), 0.3f);
-    mNewEventInput.setHintTextColor(lighterColor);
-    Etils.applyColorFilter(mNewEventAddButton.getBackground(), randomColor);
 
     // TODO: don't allow this color to be the color of the previous event (if prev exists)
   }
@@ -299,7 +296,7 @@ public class DotsActivity extends AppCompatActivity {
       Etils.applyColorFilter(dotView.getBackground(), color);
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
         ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();
-      lineViewBackground.setColor(color);
+      lineViewBackground.setAllColors(color);
       } else {
         Etils.applyColorFilter(lineView.getBackground(), color);
       }
@@ -390,7 +387,7 @@ public class DotsActivity extends AppCompatActivity {
       }
 
 //      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//        innerDot.setColor(color);
+//        innerDot.setAllColors(color);
 //        outerDot.setStroke(Etils.dpToPx(1), color);
 //      } else {
 //        Etils.applyColorFilter(innerDot, color, true);

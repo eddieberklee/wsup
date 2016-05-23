@@ -30,12 +30,16 @@ public class ForadayEditText extends EditText {
     ta.recycle();
 
     if (color != -1) {
-      setColor(color);
+      setAllColors(color);
     }
     setTypeface(FontCache.get(context, typefaceId));
   }
 
-  public void setColor(int color) {
+  public void setAlphaHighlightColor(int color) {
+    this.setHighlightColor(Etils.setAlpha(color, 0.4f));
+  }
+
+  public void setAllColors(int color) {
     if (!(this.getBackground() instanceof GradientDrawable)) {
       Log.e("UFUCKEDUP", "Background is not a custom drawable!!! -Recheck your code");
     }
@@ -43,7 +47,8 @@ public class ForadayEditText extends EditText {
     backgroundDrawable.setStroke(getResources().getDimensionPixelSize(R.dimen.new_event_edit_stroke_width),
         color);
     this.setTextColor(color);
-    this.setHighlightColor(Etils.setAlpha(color, 0.4f));
+    setHintTextColor(color);
+
   }
 
 }
