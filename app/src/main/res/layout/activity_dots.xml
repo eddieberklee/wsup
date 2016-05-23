@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/new_event_dot"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="@dimen/dot_to_title_width"
             android:inputType="textCapSentences"
 
             android:shadowColor="@color/white_transp_30"
@@ -90,39 +90,5 @@
             android:visibility="invisible"
             android:background="@drawable/white_transp_rounded_fill"/>
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/switch_layouts_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/greyscale_9"
-        android:paddingTop="4dp"
-        android:paddingBottom="5dp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/switch_to_main"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/switch_to_font_size"
-            android:layout_weight="1"
-            android:text="Switch to Main"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/greyscale_10"/>
-        <TextView
-            android:id="@+id/switch_to_blocks"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/switch_to_font_size"
-            android:layout_weight="1"
-            android:text="Switch to Blocks"/>
-    </LinearLayout>
 
 </RelativeLayout>

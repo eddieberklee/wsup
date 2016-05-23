@@ -1,8 +1,9 @@
 package com.compscieddy.timetracker;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -40,8 +41,6 @@ public class DotsActivity extends AppCompatActivity {
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.new_event_dot) View mNewEventDot;
-  @Bind(R.id.switch_to_blocks) View mSwitchToBlocks;
-  @Bind(R.id.switch_to_main) View mSwitchToMain;
   @Bind(R.id.activity_background) View mActivityBackground;
 
   Day mCurrentDay;
@@ -67,6 +66,19 @@ public class DotsActivity extends AppCompatActivity {
       R.color.flatui_purple_1,
       R.color.flatui_purple_2,
   };
+  private Handler mHandler;
+  private Runnable mUpdateDurationRunnable = new Runnable() {
+    @Override
+    public void run() {
+      int childCount = mEventsContainer.getChildCount();
+      int lastItemIndex = childCount - 1;
+      ViewGroup lastEventView = (ViewGroup) mEventsContainer.getChildAt(lastItemIndex);
+      TextView eventDuration = ButterKnife.findById(lastEventView, R.id.event_duration);
+      String durationString = getDurationString(lastItemIndex, mEvents);
+      eventDuration.setText(durationString);
+      mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+    }
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +101,8 @@ public class DotsActivity extends AppCompatActivity {
         setNewEventRandomColor();
       }
     });
+
+    mHandler = new Handler(Looper.getMainLooper());
 
     setNewEventRandomColor();
 
@@ -131,29 +145,24 @@ public class DotsActivity extends AppCompatActivity {
       }
     });
 
-    mSwitchToMain.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent();
-        intent.setClass(DotsActivity.this, RevampedBlockActivity.class);
-        startActivity(intent);
-      }
-    });
-    mSwitchToBlocks.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent();
-        intent.setClass(DotsActivity.this, BlocksActivity.class);
-        startActivity(intent);
-      }
-    });
-
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
     mNewEventAddButton.setOnClickListener(mAddButtonOnClickListener);
 
 //    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
 //    mEventsScrollView.setBackgroundColor(getResources().getColor(R.color.white_transp_20));
 
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    mHandler.removeCallbacks(mUpdateDurationRunnable);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mHandler.postDelayed(mUpdateDurationRunnable, 1000);
   }
 
   TextWatcher mEventInputTextWatcher = new TextWatcher() {
@@ -267,7 +276,7 @@ public class DotsActivity extends AppCompatActivity {
 
       TextView titleView = ButterKnife.findById(eventLayout, R.id.event_title);
       ImageView dotView = ButterKnife.findById(eventLayout, R.id.event_dot);
-      View lineView = ButterKnife.findById(eventLayout, R.id.event_vertical_line);
+      View lineViewBottom = ButterKnife.findById(eventLayout, R.id.event_vertical_line_bottom);
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
       TextView durationView = ButterKnife.findById(eventLayout, R.id.event_duration);
@@ -275,7 +284,7 @@ public class DotsActivity extends AppCompatActivity {
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
-      durationView.setText(event.getDuration());
+      durationView.setText(getDurationString(i, mEvents));
 
       /* Shadows
       int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.1f);
@@ -293,10 +302,10 @@ public class DotsActivity extends AppCompatActivity {
       /*
       Etils.applyColorFilter(dotView.getBackground(), color);
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        ColorDrawable lineViewBackground = (ColorDrawable) lineView.getBackground();
+        ColorDrawable lineViewBackground = (ColorDrawable) lineViewBottom.getBackground();
       lineViewBackground.setAllColors(color);
       } else {
-        Etils.applyColorFilter(lineView.getBackground(), color);
+        Etils.applyColorFilter(lineViewBottom.getBackground(), color);
       }
       */
 
@@ -305,78 +314,7 @@ public class DotsActivity extends AppCompatActivity {
        */
 
       String titleString = titleView.getText().toString().toLowerCase();
-      int iconId = -1;
-      if (Utils.containsAtLeastOne(titleString, new String[]{
-          "running", "run", "ran", "jog", "marathon"})) {
-        iconId = R.drawable.ic_directions_run_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "drive", "car", "jeep", "convertible", "truck", "sedan", "coupe", "hatchback"})) {
-        iconId = R.drawable.ic_directions_car_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "gym", "weight", "curls", "bench", "yoked", "buff", "workout", "working out", "work out"})) {
-        iconId = R.drawable.ic_fitness_center_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "beach", "sand", "waves"})) {
-        iconId = R.drawable.ic_beach_access_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "cafe", "coffee", "starbucks", "peets", "peet's"})) {
-        iconId = R.drawable.ic_local_cafe_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "shopping", "mall", "grocer", "shop", "buy", "amazon", "costco", "safeway"})) {
-        iconId = R.drawable.ic_shopping_cart_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "call", "phone", "buzz", "ring"})) {
-        iconId = R.drawable.ic_call_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "note", "idea", "organize", "track"})) {
-        iconId = R.drawable.ic_note_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "music", "sing", "audio", "song", "band", "concert", "show", "jazz"})) {
-        iconId = R.drawable.ic_music_note_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "read", "book", "page", "article"})) {
-        iconId = R.drawable.ic_book_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "movie", "theater"})) {
-        iconId = R.drawable.ic_theaters_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "tv", "game of thrones"})) {
-        iconId = R.drawable.ic_live_tv_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "park", "picnic", "nature"})) { // ehhhhhh this one's not that great, todo: fix
-        iconId = R.drawable.ic_nature_people_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "draw", "sketch", "doodle", "art", "museum", "design"})) {
-        iconId = R.drawable.ic_gesture_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "paint", "watercolor"})) {
-        iconId = R.drawable.ic_palette_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "bike", "biking"})) {
-        iconId = R.drawable.ic_directions_bike_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "picture", "photo", "camera", "instagram", "lightroom", "aperture"})) {
-        iconId = R.drawable.ic_camera_alt_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "sun", "tan"})) {
-        iconId = R.drawable.ic_wb_sunny_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "drinks", "alcohol", "beer", "shots", "vodka", "whiskey", "wine", "bar", "lounge", "club"})) {
-        iconId = R.drawable.ic_local_bar_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "eat", "dinner", "lunch", "food", "takeout", "eat24", "pizza", "cooking", "recipe", "restaurant"})) {
-        iconId = R.drawable.ic_local_dining_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "birthday", "celebration"})) {
-        iconId = R.drawable.ic_cake_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "build", "fix"})) {
-        iconId = R.drawable.ic_build_white_48dp;
-      } else if (Utils.containsAtLeastOne(titleString, new String[] {
-          "love", "favorite", "best"})) {
-        iconId = R.drawable.ic_favorite_white_48dp;
-      }
-//      if (iconId != -1) dotView.setImageResource(iconId);
+      int iconId = getIconId(titleString);
       if (iconId != -1) {
         Drawable iconDrawable = getResources().getDrawable(iconId);
 //        int iconColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.white), 0.9f);
@@ -391,9 +329,97 @@ public class DotsActivity extends AppCompatActivity {
 //        Etils.applyColorFilter(innerDot, color, true);
 //        Etils.applyColorFilter(outerDot, color, true);
 //      }
-      Etils.applyColorFilter(lineView.getBackground(), color);
+      Etils.applyColorFilter(lineViewBottom.getBackground(), color);
 
     }
+  }
+
+  public String getDurationString(int i, List<Event> events) {
+    long endTime;
+    if (i == events.size() - 1) {
+      endTime = System.currentTimeMillis();
+    } else {
+      Event event = events.get(i + 1);
+      endTime = event.getTimeMillis();
+    }
+    long timeDuration = endTime - events.get(i).getTimeMillis();
+    lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration));
+    return Utils.getFormattedDuration(timeDuration);
+  }
+
+  public int getIconId(String title) {
+    int iconId = -1;
+    if (Utils.containsAtLeastOne(title, new String[]{
+        "running", "run", "ran", "jog", "marathon"})) {
+      iconId = R.drawable.ic_directions_run_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "drive", "car", "jeep", "convertible", "truck", "sedan", "coupe", "hatchback"})) {
+      iconId = R.drawable.ic_directions_car_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "gym", "weight", "curls", "bench", "yoked", "buff", "workout", "working out", "work out"})) {
+      iconId = R.drawable.ic_fitness_center_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "beach", "sand", "waves"})) {
+      iconId = R.drawable.ic_beach_access_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "cafe", "coffee", "starbucks", "peets", "peet's"})) {
+      iconId = R.drawable.ic_local_cafe_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "shopping", "mall", "grocer", "shop", "buy", "amazon", "costco", "safeway"})) {
+      iconId = R.drawable.ic_shopping_cart_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "call", "phone", "buzz", "ring"})) {
+      iconId = R.drawable.ic_call_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "note", "idea", "organize", "track"})) {
+      iconId = R.drawable.ic_note_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "music", "sing", "audio", "song", "band", "concert", "show", "jazz"})) {
+      iconId = R.drawable.ic_music_note_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "read", "book", "page", "article"})) {
+      iconId = R.drawable.ic_book_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "movie", "theater"})) {
+      iconId = R.drawable.ic_theaters_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "tv", "game of thrones"})) {
+      iconId = R.drawable.ic_live_tv_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "park", "picnic", "nature"})) { // ehhhhhh this one's not that great, todo: fix
+      iconId = R.drawable.ic_nature_people_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "draw", "sketch", "doodle", "art", "museum", "design"})) {
+      iconId = R.drawable.ic_gesture_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "paint", "watercolor"})) {
+      iconId = R.drawable.ic_palette_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "bike", "biking"})) {
+      iconId = R.drawable.ic_directions_bike_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "picture", "photo", "camera", "instagram", "lightroom", "aperture"})) {
+      iconId = R.drawable.ic_camera_alt_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "sun", "tan"})) {
+      iconId = R.drawable.ic_wb_sunny_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "drinks", "alcohol", "beer", "shots", "vodka", "whiskey", "wine", "bar", "lounge", "club"})) {
+      iconId = R.drawable.ic_local_bar_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "eat", "dinner", "lunch", "food", "takeout", "eat24", "pizza", "cooking", "recipe", "restaurant"})) {
+      iconId = R.drawable.ic_local_dining_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "birthday", "celebration"})) {
+      iconId = R.drawable.ic_cake_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "build", "fix"})) {
+      iconId = R.drawable.ic_build_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "love", "favorite", "best"})) {
+      iconId = R.drawable.ic_favorite_white_48dp;
+    }
+    return iconId;
   }
 
 }

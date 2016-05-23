@@ -38,7 +38,7 @@
         android:layout_alignLeft="@+id/event_dot"
         android:layout_marginLeft="5dp"/>
     <View
-        android:id="@+id/event_vertical_line"
+        android:id="@+id/event_vertical_line_bottom"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/event_dot"

@@ -5,10 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.compscieddy.eddie_utils.Lawg;
+
 /**
  * Created by elee on 5/2/16.
  */
 public class Utils {
+  private static final Lawg lawg = Lawg.newInstance(Utils.class.getSimpleName());
 
   public static float mapValue(float value, float min1, float max1, float min2, float max2) {
     float firstSpan = max1 - min1;
@@ -56,6 +59,30 @@ public class Utils {
       if (src.toLowerCase().contains(s)) return true;
     }
     return false;
+  }
+
+  public static String getFormattedDuration(long duration) {
+    long seconds = duration / (long) 1000;
+    long minutes = seconds / (long) 60;
+    long hours = minutes / (long) 60;
+    if (true) lawg.e(" seconds: " + seconds + " minutes: " + minutes + " hours: " + hours);
+    StringBuilder builder = new StringBuilder();
+    if (hours >= 1) {
+      builder.append(String.valueOf((int) hours));
+      builder.append("hr\n");
+    }
+    if (minutes >= 1) {
+      builder.append(String.valueOf(Math.round(minutes) % 60));
+      builder.append("m\n");
+    }
+    if (seconds >= 1) {
+      builder.append(String.valueOf(seconds % 60));
+      builder.append("s");
+    } else {
+      lawg.e("[Warning] Time duration is less than 1 second.");
+      return "";
+    }
+    return builder.toString();
   }
 
 }

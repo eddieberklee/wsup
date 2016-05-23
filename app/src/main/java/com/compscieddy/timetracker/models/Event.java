@@ -1,6 +1,7 @@
 package com.compscieddy.timetracker.models;
 
 import com.compscieddy.eddie_utils.Lawg;
+import com.compscieddy.timetracker.Utils;
 import com.orm.SugarRecord;
 
 import java.util.Calendar;
@@ -18,7 +19,7 @@ public class Event extends SugarRecord {
   int color;
   Day day;
   Date date;
-  long dateMillis;
+  long timeMillis;
 
   public Event() {}
 
@@ -27,14 +28,14 @@ public class Event extends SugarRecord {
     this.date = date;
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(date);
-    this.dateMillis = calendar.getTimeInMillis();
+    this.timeMillis = calendar.getTimeInMillis();
     save();
   }
 
   public String getTitle() { return title; }
-  public Date getDate() { return date; }
+  public Date getEventDate() { return date; }
   public int getColor() { return color; }
-  public long getDateMillis() { return dateMillis; }
+  public long getTimeMillis() { return timeMillis; }
 
   public void setTitle(String title) {
     this.title = title;
@@ -48,20 +49,20 @@ public class Event extends SugarRecord {
 
   public long getMinutesDifference(Event nextEvent) {
     Calendar nextCalendar = Calendar.getInstance();
-    nextCalendar.setTime(nextEvent.getDate());
+    nextCalendar.setTime(nextEvent.getEventDate());
     return getMinutesDifference(nextCalendar.getTimeInMillis());
   }
 
   public long getMinutesDifference(long nextEventTimeInMillis) {
     Calendar currentCalendar = Calendar.getInstance();
-    currentCalendar.setTime(this.getDate());
+    currentCalendar.setTime(this.getEventDate());
     long millisDifference = currentCalendar.getTimeInMillis() - nextEventTimeInMillis;
     long minutesDifference = millisDifference / 1000 / 60;
     return minutesDifference;
   }
 
   public String getTimeText() {
-    Date eventDate = getDate();
+    Date eventDate = getEventDate();
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(eventDate);
 
@@ -82,7 +83,7 @@ public class Event extends SugarRecord {
   }
 
   public String getTimeAmPmText() {
-    Date eventDate = getDate();
+    Date eventDate = getEventDate();
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(eventDate);
     int amPm = calendar.get(Calendar.AM_PM);
@@ -90,41 +91,19 @@ public class Event extends SugarRecord {
     return amPmString;
   }
 
+  // todo: inefficient - should probably not have this method
   public String getDuration() {
-    // Find the next event by looking for an event belonging to the same day but has a larger dateMillis
-    List<Event> events = Event.find(Event.class, "day = ? & date_millis > ?", this.day.getId().toString(), String.valueOf(this.dateMillis));
+    // Find the next event by looking for an event belonging to the same day but has a larger timeMillis
+    List<Event> events = Event.find(Event.class, "day = ? & date_millis > ?", this.day.getId().toString(), String.valueOf(this.timeMillis));
     String durationString = "";
     if (events.size() > 0) {
       Event nextEvent = events.get(0);
-      long nextEventMillis = nextEvent.getDateMillis();
-      long duration = nextEventMillis - getDateMillis();
-      durationString = Event.getFormattedDuration(duration);
+      long nextEventMillis = nextEvent.getTimeMillis();
+      long duration = nextEventMillis - getTimeMillis();
+      durationString = Utils.getFormattedDuration(duration);
     }
     return durationString;
   }
 
-
-
-
-
-
-
-  /*********************** Static ***********************/
-
-  public static String getFormattedDuration(long duration) {
-    long seconds = duration / (long) 1000;
-    long minutes = seconds / (long) 60;
-    long hours = minutes / (long) 60;
-    if (hours > 1) {
-      return String.format("%.1f", hours);
-    } else if (minutes > 1) {
-      return String.valueOf(Math.round(minutes));
-    } else if (seconds > 1) {
-      return String.valueOf(seconds);
-    } else {
-      lawg.e("UH HOW ARE THERE LESS THAN 1 SECONDS");
-      return "";
-    }
-  }
 
 }

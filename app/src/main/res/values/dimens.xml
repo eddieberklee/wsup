@@ -26,9 +26,12 @@
     <integer name="time_shadow_dy">3</integer>
     <integer name="time_shadow_radius">1</integer>
 
-    <dimen name="dot_halo_padding">7dp</dimen>
+    <dimen name="dot_halo_padding">6dp</dimen>
     
     <dimen name="left_gutter_width">8dp</dimen>
+    <dimen name="dot_to_title_width">10dp</dimen>
+    <dimen name="time_margin_top">2dp</dimen>
+    <dimen name="time_margin_top_negative">-10dp</dimen>
 
     <!-- -->
 
