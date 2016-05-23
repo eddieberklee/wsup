@@ -271,21 +271,19 @@ public class DotsActivity extends AppCompatActivity {
       TextView timeView = ButterKnife.findById(eventLayout, R.id.event_time);
       TextView timeAmPmView = ButterKnife.findById(eventLayout, R.id.event_am_pm);
       TextView durationView = ButterKnife.findById(eventLayout, R.id.event_duration);
-      View backgroundView = ButterKnife.findById(eventLayout, R.id.item_event_background);
 
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
       durationView.setText(event.getDuration());
 
+      /* Shadows
       int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.1f);
       darkerColor = Etils.setAlpha(darkerColor, 0.8f);
       titleView.setShadowLayer(titleView.getShadowRadius(), titleView.getShadowDx(), titleView.getShadowDy(), darkerColor);
       timeView.setShadowLayer(timeView.getShadowRadius(), timeView.getShadowDx(), timeView.getShadowDy(), darkerColor);
       timeAmPmView.setShadowLayer(timeAmPmView.getShadowRadius(), timeAmPmView.getShadowDx(), timeAmPmView.getShadowDy(), darkerColor);
-
-      int alphaColor = Etils.setAlpha(color, 0.6f);
-      Etils.applyColorFilter(backgroundView.getBackground(), alphaColor);
+      */
 
       titleView.setTextColor(getResources().getColor(R.color.white));
 //      titleView.setTextColor(color);

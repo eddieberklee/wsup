@@ -8,20 +8,20 @@
     android:clipChildren="false">
     <!-- height for @layout/item_event_layout set in RevampedBlockActivity:initEvents() -->
 
-    <View
-        android:id="@+id/item_event_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/blue_transp_rounded_fill"/>
-
+    <ImageView
+        android:id="@+id/event_dot"
+        android:layout_width="@dimen/dot_size"
+        android:layout_height="@dimen/dot_size"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="@dimen/left_gutter_width"
+        android:background="@drawable/white_dot_layered"
+        android:padding="7dp"/>
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_time"
         android:layout_width="@dimen/event_time_width"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
+        android:layout_below="@id/event_dot"
         android:textColor="@color/flatui_blue_1"
         app:fontface="montserrat_light"
         android:shadowColor="@color/white"
@@ -45,15 +45,6 @@
         android:textColor="@color/flatui_blue_1"
         android:textSize="9sp"
         tools:text="pm"/>
-    <ImageView
-        android:id="@+id/event_dot"
-        android:layout_width="@dimen/dot_size"
-        android:layout_height="@dimen/dot_size"
-        android:layout_gravity="left|center_vertical"
-        android:layout_toRightOf="@+id/event_time"
-        android:layout_marginLeft="8dp"
-        android:background="@drawable/white_dot_layered"
-        android:padding="7dp"/>
     <FrameLayout
         android:layout_width="@dimen/dot_size"
         android:layout_height="match_parent"
@@ -72,7 +63,7 @@
             android:id="@+id/event_vertical_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/flatui_blue_1"
+            android:background="@color/white"
             android:layout_gravity="center_horizontal"/>
     </FrameLayout>
     <com.compscieddy.timetracker.ui.ForadayTextView
@@ -83,11 +74,11 @@
         android:layout_toRightOf="@+id/event_dot"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="10dp"
-        android:shadowColor="@color/white"
+        android:shadowColor="@color/white_transp_30"
         android:shadowDx="4"
         android:shadowDy="5"
         android:shadowRadius="1"
-        android:textColor="@color/flatui_blue_1"
+        android:textColor="@color/white"
         android:textSize="@dimen/event_title_text_size"
         tools:text="Running"/>
     <com.compscieddy.timetracker.ui.ForadayTextView
