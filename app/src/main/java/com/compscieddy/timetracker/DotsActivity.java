@@ -23,6 +23,9 @@ import com.compscieddy.timetracker.models.Day;
 import com.compscieddy.timetracker.models.Event;
 import com.compscieddy.timetracker.ui.ForadayEditText;
 import com.compscieddy.timetracker.ui.LockableScrollView;
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringSystem;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -79,6 +82,7 @@ public class DotsActivity extends AppCompatActivity {
       mHandler.postDelayed(mUpdateDurationRunnable, 1000);
     }
   };
+  private boolean isAddOpened = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +102,47 @@ public class DotsActivity extends AppCompatActivity {
     mNewEventDot.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        setNewEventRandomColor();
+        isAddOpened = !isAddOpened;
+        final float screenWidth = Etils.getScreenWidth(DotsActivity.this);
+        SpringSystem springSystem = SpringSystem.create();
+        Spring spring = springSystem.createSpring();
+        spring.addListener(new SimpleSpringListener() {
+          @Override
+          public void onSpringUpdate(Spring spring) {
+            float value = (float) spring.getCurrentValue();
+            lawg.e("new transX: " + (-screenWidth * (1 - value)) + " value: " + value);
+            if (isAddOpened) {
+              mNewEventInput.setTranslationX(-screenWidth * (1 - value));
+              mNewEventInput.setAlpha(value);
+            } else {
+              mNewEventInput.setTranslationX(-screenWidth * (value));
+              mNewEventInput.setAlpha(1 - value);
+            }
+
+            if (value == 1.0f && !isAddOpened) {
+              mNewEventInput.setVisibility(View.GONE);
+            }
+          }
+
+          @Override
+          public void onSpringEndStateChange(Spring spring) {
+            lawg.e("onSpringEndStateChange");
+          }
+        });
+
+        if (isAddOpened) {
+          mNewEventInput.setTranslationX(-screenWidth);
+          mNewEventInput.setAlpha(0);
+          mNewEventInput.setVisibility(View.VISIBLE);
+          mNewEventInput.requestFocus();
+          Etils.showKeyboard(DotsActivity.this);
+        } else {
+          mNewEventInput.setTranslationX(0);
+          mNewEventInput.setAlpha(1);
+          mNewEventInput.clearFocus();
+          Etils.hideKeyboard(DotsActivity.this, mNewEventInput);
+        }
+        spring.setEndValue(1);
       }
     });
 
@@ -309,17 +353,16 @@ public class DotsActivity extends AppCompatActivity {
       }
       */
 
-      /** There should be a priority to this "AI".
-       *  Maybe verbs/actions, objects, then location (home, office)
-       */
-
       String titleString = titleView.getText().toString().toLowerCase();
       int iconId = getIconId(titleString);
       if (iconId != -1) {
         Drawable iconDrawable = getResources().getDrawable(iconId);
-//        int iconColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.white), 0.9f);
+//        int iconColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.9f);
 //        Etils.applyColorFilter(iconDrawable, iconColor);
         dotView.setImageDrawable(iconDrawable);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//          dotView.setImageTintMode(PorterDuff.Mode.SRC_IN);
+//        }
       }
 
 //      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -343,11 +386,16 @@ public class DotsActivity extends AppCompatActivity {
       endTime = event.getTimeMillis();
     }
     long timeDuration = endTime - events.get(i).getTimeMillis();
-    lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration));
+    if (false) lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration));
     return Utils.getFormattedDuration(timeDuration);
   }
 
   public int getIconId(String title) {
+
+    /** There should be a priority to this "AI".
+     *  Maybe verbs/actions, objects, then location (home, office)
+     */
+
     int iconId = -1;
     if (Utils.containsAtLeastOne(title, new String[]{
         "running", "run", "ran", "jog", "marathon"})) {
@@ -362,7 +410,7 @@ public class DotsActivity extends AppCompatActivity {
         "beach", "sand", "waves"})) {
       iconId = R.drawable.ic_beach_access_white_48dp;
     } else if (Utils.containsAtLeastOne(title, new String[] {
-        "cafe", "coffee", "starbucks", "peets", "peet's"})) {
+        "cafe", "coffee", "starbucks", "peets", "peet's", "philz"})) {
       iconId = R.drawable.ic_local_cafe_white_48dp;
     } else if (Utils.containsAtLeastOne(title, new String[] {
         "shopping", "mall", "grocer", "shop", "buy", "amazon", "costco", "safeway"})) {
@@ -386,7 +434,7 @@ public class DotsActivity extends AppCompatActivity {
         "tv", "game of thrones"})) {
       iconId = R.drawable.ic_live_tv_white_48dp;
     } else if (Utils.containsAtLeastOne(title, new String[] {
-        "park", "picnic", "nature"})) { // ehhhhhh this one's not that great, todo: fix
+        "park", "picnic", "nature"})) {
       iconId = R.drawable.ic_nature_people_white_48dp;
     } else if (Utils.containsAtLeastOne(title, new String[] {
         "draw", "sketch", "doodle", "art", "museum", "design"})) {

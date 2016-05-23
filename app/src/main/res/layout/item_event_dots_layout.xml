@@ -9,14 +9,15 @@
     android:clipChildren="false">
     <!-- height for @layout/item_event_layout set in RevampedBlockActivity:initEvents() -->
 
-    <ImageView
+    <com.compscieddy.timetracker.ui.ColorImageView
         android:id="@+id/event_dot"
         android:layout_width="@dimen/dot_size"
         android:layout_height="@dimen/dot_size"
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="@dimen/left_gutter_width"
         android:background="@drawable/white_dot_layered"
-        android:padding="7dp"/>
+        android:padding="7dp"
+        app:customColor="@color/wsup_blue"/>
 
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_time"
@@ -64,7 +65,7 @@
             android:id="@+id/event_duration"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             android:textSize="11sp"
             android:textColor="@color/white"

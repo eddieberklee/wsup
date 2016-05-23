@@ -65,7 +65,7 @@ public class Utils {
     long seconds = duration / (long) 1000;
     long minutes = seconds / (long) 60;
     long hours = minutes / (long) 60;
-    if (true) lawg.e(" seconds: " + seconds + " minutes: " + minutes + " hours: " + hours);
+    if (false) lawg.e(" seconds: " + seconds + " minutes: " + minutes + " hours: " + hours);
     StringBuilder builder = new StringBuilder();
     if (hours >= 1) {
       builder.append(String.valueOf((int) hours));
