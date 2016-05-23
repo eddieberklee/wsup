@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/new_event_section_height"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="@dimen/new_event_section_margin_bottom"
         android:layout_marginLeft="@dimen/left_gutter_width"
         android:clipChildren="false"
@@ -58,7 +58,7 @@
             android:src="@drawable/ic_add_white_48dp"
             android:background="@drawable/white_dot_layered"
             android:padding="4dp"
-            app:customColor="@color/black_transp_70"/>
+            app:customColor="@color/black_transp_60"/>
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"

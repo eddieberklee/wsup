@@ -44,7 +44,6 @@ public class DotsActivity extends AppCompatActivity {
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.new_event_dot) View mNewEventDot;
-  @Bind(R.id.activity_background) View mActivityBackground;
 
   Day mCurrentDay;
   List<Event> mEvents;
@@ -104,6 +103,7 @@ public class DotsActivity extends AppCompatActivity {
       public void onClick(View v) {
         isAddOpened = !isAddOpened;
         final float screenWidth = Etils.getScreenWidth(DotsActivity.this);
+        final float finalRotation = -45f;
         SpringSystem springSystem = SpringSystem.create();
         Spring spring = springSystem.createSpring();
         spring.addListener(new SimpleSpringListener() {
@@ -114,19 +114,22 @@ public class DotsActivity extends AppCompatActivity {
             if (isAddOpened) {
               mNewEventInput.setTranslationX(-screenWidth * (1 - value));
               mNewEventInput.setAlpha(value);
+              mNewEventDot.setRotation(finalRotation * (value));
             } else {
               mNewEventInput.setTranslationX(-screenWidth * (value));
               mNewEventInput.setAlpha(1 - value);
+              mNewEventDot.setRotation(finalRotation * (1 - value));
             }
 
+            if (value == 1.0f && isAddOpened) {
+              mNewEventInput.requestFocus();
+              Etils.showKeyboard(DotsActivity.this);
+            }
             if (value == 1.0f && !isAddOpened) {
               mNewEventInput.setVisibility(View.GONE);
+              mNewEventInput.clearFocus();
+              Etils.hideKeyboard(DotsActivity.this, mNewEventInput);
             }
-          }
-
-          @Override
-          public void onSpringEndStateChange(Spring spring) {
-            lawg.e("onSpringEndStateChange");
           }
         });
 
@@ -134,13 +137,10 @@ public class DotsActivity extends AppCompatActivity {
           mNewEventInput.setTranslationX(-screenWidth);
           mNewEventInput.setAlpha(0);
           mNewEventInput.setVisibility(View.VISIBLE);
-          mNewEventInput.requestFocus();
-          Etils.showKeyboard(DotsActivity.this);
         } else {
           mNewEventInput.setTranslationX(0);
           mNewEventInput.setAlpha(1);
-          mNewEventInput.clearFocus();
-          Etils.hideKeyboard(DotsActivity.this, mNewEventInput);
+
         }
         spring.setEndValue(1);
       }

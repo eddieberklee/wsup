@@ -17,7 +17,7 @@
         android:layout_marginLeft="@dimen/left_gutter_width"
         android:background="@drawable/white_dot_layered"
         android:padding="7dp"
-        app:customColor="@color/wsup_blue"/>
+        app:customColor="@color/greyscale_2"/>
 
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_time"
@@ -55,11 +55,11 @@
         android:orientation="vertical">
         <View
             android:id="@+id/event_vertical_line_top"
-            android:layout_width="1dp"
+            android:layout_width="2dp"
+            android:background="@color/white_transp_30"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginTop="@dimen/dot_size"
-            android:background="@color/white"
             android:layout_gravity="center_horizontal"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/event_duration"
@@ -67,21 +67,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textColor="@color/white"
+            android:lineSpacingMultiplier="0.8"
             tools:text="1hr\n12min\n6s"/>
-        <FrameLayout
-            android:layout_width="@dimen/dot_size"
+        <View
+            android:id="@+id/event_vertical_line_bottom"
+            android:layout_width="2dp"
+            android:background="@color/white_transp_30"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_alignLeft="@+id/event_dot">
-            <View
-                android:id="@+id/event_vertical_line_bottom"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_gravity="center_horizontal"/>
-        </FrameLayout>
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_title"
