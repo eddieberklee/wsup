@@ -51,8 +51,8 @@
         android:clipToPadding="true">
         <com.compscieddy.timetracker.ui.ColorImageView
             android:id="@+id/new_event_dot"
-            android:layout_width="@dimen/dot_size"
-            android:layout_height="@dimen/dot_size"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_add_white_48dp"
