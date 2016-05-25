@@ -74,11 +74,13 @@ public class DotsActivity extends AppCompatActivity {
     public void run() {
       int childCount = mEventsContainer.getChildCount();
       int lastItemIndex = childCount - 1;
-      ViewGroup lastEventView = (ViewGroup) mEventsContainer.getChildAt(lastItemIndex);
-      TextView eventDuration = ButterKnife.findById(lastEventView, R.id.event_duration);
-      String durationString = getDurationString(lastItemIndex, mEvents);
-      eventDuration.setText(durationString);
-      mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+      if (lastItemIndex >= 0) {
+        ViewGroup lastEventView = (ViewGroup) mEventsContainer.getChildAt(lastItemIndex);
+        TextView eventDuration = ButterKnife.findById(lastEventView, R.id.event_duration);
+        String durationString = getDurationString(lastItemIndex, mEvents);
+        eventDuration.setText(durationString);
+        mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+      }
     }
   };
   private boolean isAddOpened = false;
