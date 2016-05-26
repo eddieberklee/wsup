@@ -26,6 +26,7 @@ import com.compscieddy.timetracker.ui.ForadayEditText;
 import com.compscieddy.timetracker.ui.LockableScrollView;
 import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 
 import java.util.Calendar;
@@ -44,7 +45,7 @@ public class DotsPageFragment extends Fragment {
 
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
-  @Bind(R.id.new_event_dot) View mNewEventDot;
+  @Bind(R.id.new_event_dot) View mAddNewEventDot;
   @Bind(R.id.new_event_create_button) View mNewEventCreateButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
@@ -54,6 +55,7 @@ public class DotsPageFragment extends Fragment {
   private static final String INDEX_KEY = "index_key";
   private static final String COUNT_KEY = "count_key";
   private Context mContext;
+  private SpringSystem mSpringSystem;
 
   public static DotsPageFragment newInstance(int index, int count) {
     DotsPageFragment f = new DotsPageFragment();
@@ -120,38 +122,43 @@ public class DotsPageFragment extends Fragment {
     }
   };
 
-  private View.OnClickListener mNewEventDotClickListener = new View.OnClickListener() {
+  private View.OnClickListener mAddNewEventDotClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      isAddOpened = !isAddOpened;
       final float screenWidth = Etils.getScreenWidth(mContext);
       final float finalRotation = -45f;
-      SpringSystem springSystem = SpringSystem.create();
-      Spring spring = springSystem.createSpring();
+
+      isAddOpened = !isAddOpened;
+      Spring spring = mSpringSystem.createSpring();
+      spring.setSpringConfig(new SpringConfig(180, 8));
+
       spring.addListener(new SimpleSpringListener() {
         @Override
         public void onSpringUpdate(Spring spring) {
           float value = (float) spring.getCurrentValue();
           lawg.e("new transX: " + (-screenWidth * (1 - value)) + " value: " + value);
-          if (isAddOpened) {
+          if (isAddOpened) { // open -> closing
+            mNewEventInput.requestFocus();
             mNewEventInput.setTranslationX(-screenWidth * (1 - value));
             mNewEventInput.setAlpha(value);
-            mNewEventDot.setRotation(finalRotation * (value));
-          } else {
+            mAddNewEventDot.setRotation(finalRotation * (value));
+          } else { // close -> opening
             mNewEventInput.setTranslationX(-screenWidth * (value));
             mNewEventInput.setAlpha(1 - value);
-            mNewEventDot.setRotation(finalRotation * (1 - value));
+            mAddNewEventDot.setRotation(finalRotation * (1 - value));
           }
 
-          if (value == 1.0f && isAddOpened) {
-            mNewEventInput.requestFocus();
-            Etils.showKeyboard(mContext);
+          // TODO: WHILE ONSPRINGUPDATE() IS GOING ON, DISABLE TAPPING ON THE PLUS BUTTON AGAIN - RESULTS IN BAD STATE CHANGE
+          if (value == 1.0f) {
+            if (isAddOpened) {
+              // noop
+            } else {
+              mNewEventInput.setVisibility(View.GONE);
+              mNewEventInput.clearFocus();
+            }
+             // flip value after the animation for opening has completed
           }
-          if (value == 1.0f && !isAddOpened) {
-            mNewEventInput.setVisibility(View.GONE);
-            mNewEventInput.clearFocus();
-            Etils.hideKeyboard(mContext, mNewEventInput);
-          }
+
         }
       });
 
@@ -159,16 +166,17 @@ public class DotsPageFragment extends Fragment {
         mNewEventInput.setTranslationX(-screenWidth);
         mNewEventInput.setAlpha(0);
         mNewEventInput.setVisibility(View.VISIBLE);
+        Etils.showKeyboard(mContext);
       } else {
         mNewEventInput.setTranslationX(0);
         mNewEventInput.setAlpha(1);
-
+        Etils.hideKeyboard(mContext, mNewEventInput);
       }
       spring.setEndValue(1);
     }
   };
 
-  private View.OnClickListener mAddButtonOnClickListener = new View.OnClickListener() {
+  private View.OnClickListener mCreateButtonOnClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
       Date currentDate = new Date();
@@ -235,9 +243,9 @@ public class DotsPageFragment extends Fragment {
 
   private void setListeners() {
 
-    mNewEventDot.setOnClickListener(mNewEventDotClickListener);
+    mAddNewEventDot.setOnClickListener(mAddNewEventDotClickListener);
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
-    mNewEventCreateButton.setOnClickListener(mAddButtonOnClickListener);
+    mNewEventCreateButton.setOnClickListener(mCreateButtonOnClickListener);
     // keyboard detection trick - http://stackoverflow.com/a/4737265/4326052
     mRootView.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
     mRootView.setOnTouchListener(mRootTouchListener);
@@ -249,6 +257,7 @@ public class DotsPageFragment extends Fragment {
     mLayoutInflater = LayoutInflater.from(mContext);
     mHandler = new Handler(Looper.getMainLooper());
     mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+    mSpringSystem = SpringSystem.create();
 
     mDay = getDay();
     if (mDay == null) {
