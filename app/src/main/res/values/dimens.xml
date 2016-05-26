@@ -33,6 +33,9 @@
     <dimen name="time_margin_top">2dp</dimen>
     <dimen name="time_margin_top_negative">-10dp</dimen>
 
+    <dimen name="page_title_width">60dp</dimen>
+    <dimen name="page_title_gap">20dp</dimen>
+
     <!-- -->
 
     <dimen name="event_title_text_size_smaller_1">14sp</dimen>

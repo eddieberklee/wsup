@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Lawg;
+import com.compscieddy.timetracker.models.Event;
+
+import java.util.List;
 
 /**
  * Created by elee on 5/2/16.
@@ -83,6 +86,19 @@ public class Utils {
       return "";
     }
     return builder.toString();
+  }
+
+  public static String getDurationString(int i, List<Event> events) {
+    long endTime;
+    if (i == events.size() - 1) {
+      endTime = System.currentTimeMillis();
+    } else {
+      Event event = events.get(i + 1);
+      endTime = event.getTimeMillis();
+    }
+    long timeDuration = endTime - events.get(i).getTimeMillis();
+    if (false) lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration));
+    return Utils.getFormattedDuration(timeDuration);
   }
 
 }

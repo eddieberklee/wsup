@@ -34,7 +34,7 @@ public class BlocksActivity extends AppCompatActivity {
   private static final Lawg lawg = Lawg.newInstance(BlocksActivity.class.getSimpleName());
 
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
-  @Bind(R.id.new_event_add_button) TextView mNewEventAddButton;
+  @Bind(R.id.new_event_create_button) TextView mNewEventAddButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
@@ -220,7 +220,7 @@ public class BlocksActivity extends AppCompatActivity {
   }
 
   /**
-   * mCurrentDay needs to be populated before this method.
+   * mDay needs to be populated before this method.
    */
   private void initEvents() {
     mEvents = Event.find(Event.class, "day = ?", mCurrentDay.getId().toString());

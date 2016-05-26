@@ -65,7 +65,7 @@
             android:id="@+id/event_duration"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:layout_centerVertical="true"
             android:textSize="10sp"
             android:textColor="@color/white"

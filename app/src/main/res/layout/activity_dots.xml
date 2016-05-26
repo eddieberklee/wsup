@@ -20,83 +20,67 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background"/>
 
-    <com.compscieddy.timetracker.ui.LockableScrollView
-        android:id="@+id/events_scroll_view"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/dots_pages_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="5dp"
-        android:layout_above="@id/new_event_section"
-        android:layout_marginBottom="-10dp"
-        android:fillViewport="true"
-        android:clipChildren="false">
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/top_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <View
+            android:id="@+id/top_bar_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/top_bar_gradient"/>
         <LinearLayout
-            android:id="@+id/events_container"
+            android:id="@+id/top_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:orientation="vertical"
-            android:clipChildren="false"
-            android:clipToPadding="false"/>
-    </com.compscieddy.timetracker.ui.LockableScrollView>
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:orientation="horizontal">
+            <Space
+                android:layout_width="@dimen/page_title_gap"
+                android:layout_height="match_parent"/>
+            <com.compscieddy.timetracker.ui.ForadayTextView
+                android:layout_width="@dimen/page_title_width"
+                android:layout_height="wrap_content"
+                android:text="May 23"
+                style="@style/ViewPagerTitleTheme"/>
+            <Space
+                android:layout_width="@dimen/page_title_gap"
+                android:layout_height="match_parent"/>
+            <com.compscieddy.timetracker.ui.ForadayTextView
+                android:layout_width="@dimen/page_title_width"
+                android:layout_height="wrap_content"
+                android:text="May 24"
+                style="@style/ViewPagerTitleTheme"/>
+            <Space
+                android:layout_width="@dimen/page_title_gap"
+                android:layout_height="match_parent"/>
+            <com.compscieddy.timetracker.ui.ForadayTextView
+                android:layout_width="@dimen/page_title_width"
+                android:layout_height="wrap_content"
+                android:text="TODAY"
+                style="@style/ViewPagerTitleTheme"/>
+        </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/new_event_section"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/new_event_section_height"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="@dimen/new_event_section_margin_bottom"
-        android:layout_marginLeft="@dimen/left_gutter_width"
-        android:clipChildren="false"
-        android:clipToPadding="true">
-        <com.compscieddy.timetracker.ui.ColorImageView
-            android:id="@+id/new_event_dot"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_add_white_48dp"
-            android:background="@drawable/white_dot_layered"
-            android:padding="4dp"
-            app:customColor="@color/black_transp_60"/>
-        <com.compscieddy.timetracker.ui.ForadayEditText
-            android:id="@+id/new_event_input"
+        <com.viewpagerindicator.LinePageIndicator
+            android:id="@+id/page_indicator"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@id/new_event_dot"
-            android:layout_marginLeft="@dimen/dot_to_title_width"
-            android:inputType="textCapSentences"
-
-            android:shadowColor="@color/white_transp_30"
-            android:shadowDx="4"
-            android:shadowDy="5"
-            android:shadowRadius="1"
-
-            android:visibility="gone"
-            android:background="@drawable/transparent_edittext"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white_transp_60"
-            android:textSize="@dimen/event_title_text_size"
-            android:hint=" What you doing?"/>
-        <ImageView
-            android:id="@+id/new_event_add_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_arrow_upward_white_48dp"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:paddingLeft="7dp"
-            android:paddingRight="7dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:gravity="center"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="invisible"
-            android:background="@drawable/white_transp_rounded_fill"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_bar_container"
+            android:layout_marginTop="26dp"
+            android:paddingLeft="10dp"
+            app:centered="false"
+            app:strokeWidth="3dp"
+            app:lineWidth="@dimen/page_title_width"
+            app:gapWidth="@dimen/page_title_gap"
+            app:selectedColor="@color/white"
+            app:unselectedColor="@color/transparent"
+            tools:background="@color/black"/>
+    </FrameLayout>
 
 </RelativeLayout>
