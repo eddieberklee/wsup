@@ -136,7 +136,7 @@ public class DotsPageFragment extends Fragment {
         @Override
         public void onSpringUpdate(Spring spring) {
           float value = (float) spring.getCurrentValue();
-          lawg.e("new transX: " + (-screenWidth * (1 - value)) + " value: " + value);
+          lawg.d(" value: " + value);
           if (isOpening) {
             mNewEventInput.requestFocus();
             mNewEventInput.setTranslationX(-screenWidth * (1 - value));
@@ -150,8 +150,7 @@ public class DotsPageFragment extends Fragment {
 
           // TODO: WHILE ONSPRINGUPDATE() IS GOING ON, DISABLE TAPPING ON THE PLUS BUTTON AGAIN - RESULTS IN BAD STATE CHANGE
           if (value == 1.0f) {
-            if (isOpening) {
-              // noop
+            if (isOpening) {              // noop
             } else {
               mNewEventInput.setVisibility(View.GONE);
               mNewEventInput.clearFocus();
@@ -171,6 +170,7 @@ public class DotsPageFragment extends Fragment {
         mNewEventInput.setTranslationX(0);
         mNewEventInput.setAlpha(1);
         Etils.hideKeyboard(mContext, mNewEventInput);
+        spring.setSpringConfig(new SpringConfig(180, 4));
       }
       spring.setEndValue(1);
     }
