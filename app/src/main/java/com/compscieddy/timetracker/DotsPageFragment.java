@@ -101,7 +101,7 @@ public class DotsPageFragment extends Fragment {
   }
 
   Day mDay;
-  private boolean isAddOpened = false;
+  private boolean isOpening = false;
   List<Event> mEvents;
   private LayoutInflater mLayoutInflater;
 
@@ -128,7 +128,7 @@ public class DotsPageFragment extends Fragment {
       final float screenWidth = Etils.getScreenWidth(mContext);
       final float finalRotation = -45f;
 
-      isAddOpened = !isAddOpened;
+      isOpening = !isOpening;
       Spring spring = mSpringSystem.createSpring();
       spring.setSpringConfig(new SpringConfig(180, 8));
 
@@ -137,12 +137,12 @@ public class DotsPageFragment extends Fragment {
         public void onSpringUpdate(Spring spring) {
           float value = (float) spring.getCurrentValue();
           lawg.e("new transX: " + (-screenWidth * (1 - value)) + " value: " + value);
-          if (isAddOpened) { // open -> closing
+          if (isOpening) {
             mNewEventInput.requestFocus();
             mNewEventInput.setTranslationX(-screenWidth * (1 - value));
             mNewEventInput.setAlpha(value);
             mAddNewEventDot.setRotation(finalRotation * (value));
-          } else { // close -> opening
+          } else {
             mNewEventInput.setTranslationX(-screenWidth * (value));
             mNewEventInput.setAlpha(1 - value);
             mAddNewEventDot.setRotation(finalRotation * (1 - value));
@@ -150,7 +150,7 @@ public class DotsPageFragment extends Fragment {
 
           // TODO: WHILE ONSPRINGUPDATE() IS GOING ON, DISABLE TAPPING ON THE PLUS BUTTON AGAIN - RESULTS IN BAD STATE CHANGE
           if (value == 1.0f) {
-            if (isAddOpened) {
+            if (isOpening) {
               // noop
             } else {
               mNewEventInput.setVisibility(View.GONE);
@@ -162,7 +162,7 @@ public class DotsPageFragment extends Fragment {
         }
       });
 
-      if (isAddOpened) {
+      if (isOpening) {
         mNewEventInput.setTranslationX(-screenWidth);
         mNewEventInput.setAlpha(0);
         mNewEventInput.setVisibility(View.VISIBLE);
