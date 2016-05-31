@@ -53,13 +53,17 @@ public class DotsActivity extends AppCompatActivity {
     DotsPagerAdapter pagerAdapter = new DotsPagerAdapter(getSupportFragmentManager(), numDays);
     mViewPager.setAdapter(pagerAdapter);
     mPageIndicator.setViewPager(mViewPager);
-    mViewPager.setCurrentItem(mViewPager.getChildCount() - 1);
 
     setNewEventRandomColor();
 
 //    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
 //    mEventsScrollView.setBackgroundColor(getResources().getColor(R.color.white_transp_20));
+  }
 
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mViewPager.setCurrentItem(mViewPager.getChildCount() - 1, true);
   }
 
   public void setNewEventRandomColor() {

@@ -445,8 +445,6 @@ public class DotsPageFragment extends Fragment {
     int year = calendar.get(Calendar.YEAR);
     int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
 
-    lawg.e("???????????????????????? " + " pagerIndex: " + pagerIndex + " pagerCount: " + pagerCount + " dayOfYear: " + dayOfYear);
-
     Day day = null;
     List<Day> days = Day.find(Day.class, "year = ? and day_of_year = ?", String.valueOf(year), String.valueOf(dayOfYear));
 
@@ -454,10 +452,13 @@ public class DotsPageFragment extends Fragment {
       String message = "DAFUQ more than 1 Day found...";
       lawg.e(message);
       Etils.showToast(mContext, message);
+      day = days.get(0);
     }
     if (days.size() == 1) {
       day = days.get(0);
     }
+
+    lawg.e("???????????????????????? " + " days.size(): " + days.size() + " dayOfYear: " + dayOfYear + " year: " + year + " day: " + day);
     return day;
   }
 
