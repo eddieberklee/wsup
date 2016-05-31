@@ -37,6 +37,8 @@
         android:layout_marginLeft="@dimen/left_gutter_width"
         android:clipChildren="false"
         android:clipToPadding="true">
+        <!-- The alpha being 0 here is actually important cause alpha is how I keep track of
+            whether this edit text is open or not -->
         <com.compscieddy.timetracker.ui.ForadayEditText
             android:id="@+id/new_event_input"
             android:layout_width="match_parent"
@@ -49,6 +51,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white_transp_60"
             android:textSize="@dimen/event_title_text_size"
+            android:alpha="0"
             android:hint=" Wsup?"
 
             android:shadowColor="@color/white_transp_30"

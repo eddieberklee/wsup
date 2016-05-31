@@ -16,6 +16,8 @@ public class LockableScrollView extends ScrollView {
   private static final Lawg lawg = Lawg.newInstance(LockableScrollView.class.getSimpleName());
   private static final boolean DEBUG = false;
 
+  public LockableScrollView(Context context) { super(context); }
+
   public LockableScrollView(Context context, AttributeSet attrs) {
     super(context, attrs);
   }

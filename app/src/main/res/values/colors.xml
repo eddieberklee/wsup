@@ -87,16 +87,18 @@
     <!-- End of the Common Colors -->
 
     <color name="wsup_yellow">#FAD961</color>
-    <color name="wsup_green">#0CB379</color>
+    <color name="wsup_green">#4BBF6B</color>
     <color name="wsup_blue">#0FB3D8</color>
 
     <color name="wsup_pink">#40CA279B</color>
     <color name="wsup_top_bar_puke">#EEAF6F</color>
 
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">@color/wsup_green</color>
     <color name="colorPrimaryDark">@color/wsup_top_bar_puke</color>
     <color name="colorAccent">@color/black_transp_60</color>
     <!--<color name="colorAccent">#FF4081</color>-->
 
+    <!-- Older colors no longer being used -->
+    <color name="old_wsup_green">#0CB379</color>
 
 </resources>

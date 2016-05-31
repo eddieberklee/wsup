@@ -49,6 +49,7 @@ public class DotsPageFragment extends Fragment {
   @Bind(R.id.new_event_create_button) View mNewEventCreateButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
+  @Bind(R.id.new_event_section) ViewGroup mNewEventSection;
 
   private int pagerIndex;
   private int pagerCount;
@@ -56,6 +57,7 @@ public class DotsPageFragment extends Fragment {
   private static final String COUNT_KEY = "count_key";
   private Context mContext;
   private SpringSystem mSpringSystem;
+  private Spring mNewEventOpenSpring, mNewEventCloseSpring;
 
   public static DotsPageFragment newInstance(int index, int count) {
     DotsPageFragment f = new DotsPageFragment();
@@ -101,7 +103,6 @@ public class DotsPageFragment extends Fragment {
   }
 
   Day mDay;
-  private boolean isOpening = false;
   List<Event> mEvents;
   private LayoutInflater mLayoutInflater;
 
@@ -122,57 +123,71 @@ public class DotsPageFragment extends Fragment {
     }
   };
 
+  private SimpleSpringListener mNewEventDotOpenSpringListener = new SimpleSpringListener() {
+    @Override
+    public void onSpringUpdate(Spring spring) {
+      float value = (float) spring.getCurrentValue();
+      if (true) lawg.d("OpenSpring value: " + value);
+      float screenWidth = Etils.getScreenWidth(mContext);
+      float finalRotation = -45f;
+      mNewEventInput.setVisibility(View.VISIBLE);
+      mNewEventInput.requestFocus();
+      mNewEventInput.setTranslationX(-screenWidth * (1 - value));
+      mNewEventInput.setAlpha(value);
+      mAddNewEventDot.setRotation(finalRotation * (value));
+    }
+  };
+
+  private SimpleSpringListener mNewEventDotCloseSpringListener = new SimpleSpringListener() {
+    @Override
+    public void onSpringUpdate(Spring spring) {
+      float value = (float) spring.getCurrentValue();
+      if (true) lawg.d("CloseSpring value: " + value);
+      float screenWidth = Etils.getScreenWidth(mContext);
+      float finalRotation = -45f;
+      mNewEventInput.setTranslationX(-screenWidth * (value));
+      mNewEventInput.setAlpha(1 - value);
+      mAddNewEventDot.setRotation(finalRotation * (1 - value));
+    }
+
+    @Override
+    public void onSpringAtRest(Spring spring) {
+      super.onSpringAtRest(spring);
+      mNewEventInput.setVisibility(View.GONE);
+      mNewEventInput.clearFocus();
+    }
+  };
+
+  boolean isOpen = false;
+  private void animateNewEventSection() {
+    float screenWidth = Etils.getScreenWidth(mContext);
+//    boolean isOpening = !isNewEventSectionOpen(); // it's opening if the section isn't open yet - hence the negation
+    isOpen = !isOpen;
+    boolean isOpening = isOpen;
+    lawg.d(" isOpening: " + isOpening);
+    if (isOpening) {
+      mNewEventInput.setTranslationX(-screenWidth);
+      mNewEventInput.setAlpha(0);
+      Etils.showKeyboard(mContext);
+      mNewEventCloseSpring.setCurrentValue(0);
+      mNewEventOpenSpring.setEndValue(1);
+    } else {
+      mNewEventInput.setTranslationX(0);
+      mNewEventInput.setAlpha(1);
+      Etils.hideKeyboard(mContext, mNewEventInput);
+      mNewEventOpenSpring.setCurrentValue(0);
+      mNewEventCloseSpring.setEndValue(1);
+    }
+  }
+
+  private boolean isNewEventSectionOpen() {
+    return (mNewEventInput.getAlpha() == 1);
+  }
+
   private View.OnClickListener mAddNewEventDotClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      final float screenWidth = Etils.getScreenWidth(mContext);
-      final float finalRotation = -45f;
-
-      isOpening = !isOpening;
-      Spring spring = mSpringSystem.createSpring();
-      spring.setSpringConfig(new SpringConfig(180, 8));
-
-      spring.addListener(new SimpleSpringListener() {
-        @Override
-        public void onSpringUpdate(Spring spring) {
-          float value = (float) spring.getCurrentValue();
-          lawg.d(" value: " + value);
-          if (isOpening) {
-            mNewEventInput.requestFocus();
-            mNewEventInput.setTranslationX(-screenWidth * (1 - value));
-            mNewEventInput.setAlpha(value);
-            mAddNewEventDot.setRotation(finalRotation * (value));
-          } else {
-            mNewEventInput.setTranslationX(-screenWidth * (value));
-            mNewEventInput.setAlpha(1 - value);
-            mAddNewEventDot.setRotation(finalRotation * (1 - value));
-          }
-
-          // TODO: WHILE ONSPRINGUPDATE() IS GOING ON, DISABLE TAPPING ON THE PLUS BUTTON AGAIN - RESULTS IN BAD STATE CHANGE
-          if (value == 1.0f) {
-            if (isOpening) {              // noop
-            } else {
-              mNewEventInput.setVisibility(View.GONE);
-              mNewEventInput.clearFocus();
-            }
-             // flip value after the animation for opening has completed
-          }
-
-        }
-      });
-
-      if (isOpening) {
-        mNewEventInput.setTranslationX(-screenWidth);
-        mNewEventInput.setAlpha(0);
-        mNewEventInput.setVisibility(View.VISIBLE);
-        Etils.showKeyboard(mContext);
-      } else {
-        mNewEventInput.setTranslationX(0);
-        mNewEventInput.setAlpha(1);
-        Etils.hideKeyboard(mContext, mNewEventInput);
-        spring.setSpringConfig(new SpringConfig(180, 4));
-      }
-      spring.setEndValue(1);
+      animateNewEventSection();
     }
   };
 
@@ -184,8 +199,7 @@ public class DotsPageFragment extends Fragment {
       newEvent.setTitle(mNewEventInput.getText().toString());
       newEvent.setColor(mNewEventInput.getCurrentTextColor());
       mNewEventInput.setText("");
-
-      initEvents();
+      initEvents(); // refresh the events view - todo: turns out I should probably just use a RecyclerView
     }
   };
 
@@ -200,8 +214,8 @@ public class DotsPageFragment extends Fragment {
         TextView eventDuration = ButterKnife.findById(lastEventView, R.id.event_duration);
         String durationString = Utils.getDurationString(lastItemIndex, mEvents);
         eventDuration.setText(durationString);
-        mHandler.postDelayed(mUpdateDurationRunnable, 1000);
       }
+      mHandler.postDelayed(mUpdateDurationRunnable, 1000);
     }
   };
 
@@ -224,7 +238,18 @@ public class DotsPageFragment extends Fragment {
   private View.OnTouchListener mRootTouchListener = new View.OnTouchListener() {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-      float y = event.getRawY();
+      // If the touch event got here, that means the new event section touchlistener didn't return true, which in turn means the new event section wasn't tapped
+      /*
+      if (isNewEventSectionOpen()) {
+        lawg.e("dismissing for being tapped outside the add section area");
+        animateNewEventSection(); // dismiss the add new section
+      }
+      */
+
+      float x = event.getX();
+      float y = event.getY();
+      lawg.d("Root View" + " x: " + x + " y: " + y);
+
       float startY = -1, currentY = -1;
       switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
@@ -241,6 +266,16 @@ public class DotsPageFragment extends Fragment {
     }
   };
 
+  private View.OnTouchListener mNewEventSectionOnTouchListener = new View.OnTouchListener() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+      float x = event.getX();
+      float y = event.getY();
+      lawg.d("Add Section" + " x: " + x + " y: " + y);
+      return true; // don't let the touchevent get passed to the rootview
+    }
+  };
+
   private void setListeners() {
 
     mAddNewEventDot.setOnClickListener(mAddNewEventDotClickListener);
@@ -249,6 +284,7 @@ public class DotsPageFragment extends Fragment {
     // keyboard detection trick - http://stackoverflow.com/a/4737265/4326052
     mRootView.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
     mRootView.setOnTouchListener(mRootTouchListener);
+    mNewEventSection.setOnTouchListener(mNewEventSectionOnTouchListener);
 
   }
 
@@ -257,7 +293,18 @@ public class DotsPageFragment extends Fragment {
     mLayoutInflater = LayoutInflater.from(mContext);
     mHandler = new Handler(Looper.getMainLooper());
     mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+
+    // Facebook Rebound Animations
     mSpringSystem = SpringSystem.create();
+
+    mNewEventOpenSpring = mSpringSystem.createSpring();
+    mNewEventOpenSpring.setSpringConfig(new SpringConfig(180, 8));
+    mNewEventOpenSpring.addListener(mNewEventDotOpenSpringListener);
+
+    mNewEventCloseSpring = mSpringSystem.createSpring();
+    // I want the close animation to be much longer, hence I'm decreasing the friction so it bounces around more
+    mNewEventCloseSpring.setSpringConfig(new SpringConfig(180, 4));
+    mNewEventCloseSpring.addListener(mNewEventDotCloseSpringListener);
 
     mDay = getDay();
     if (mDay == null) {
