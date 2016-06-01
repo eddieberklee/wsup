@@ -65,12 +65,12 @@
             android:id="@+id/event_duration"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="6dp"
             android:layout_centerVertical="true"
             android:textSize="10sp"
             android:textColor="@color/white"
             android:lineSpacingMultiplier="0.8"
-            tools:text="1hr\n12min\n6s"/>
+            tools:text="1hr\n  12min\n    6s"/>
         <View
             android:id="@+id/event_vertical_line_bottom"
             android:layout_width="2dp"
