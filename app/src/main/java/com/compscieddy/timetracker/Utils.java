@@ -9,6 +9,8 @@ import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.models.Event;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by elee on 5/2/16.
@@ -58,8 +60,13 @@ public class Utils {
   }
 
   public static boolean containsAtLeastOne(String src, String[] strings) {
+    src = src.toLowerCase();
     for (String s : strings) {
-      if (src.toLowerCase().contains(s)) return true;
+      Pattern p = Pattern.compile(".*[^a-z]" + s + "[^a-z].*");
+      Matcher m = p.matcher(src);
+      if (m.matches()) {
+        return true;
+      }
     }
     return false;
   }
