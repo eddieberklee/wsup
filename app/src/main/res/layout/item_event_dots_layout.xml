@@ -17,7 +17,7 @@
         android:layout_marginLeft="@dimen/left_gutter_width"
         android:background="@drawable/white_dot_layered"
         android:padding="7dp"
-        app:customColor="@color/greyscale_2"/>
+        app:customColor="@color/greyscale_8"/>
 
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_time"
