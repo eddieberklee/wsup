@@ -16,12 +16,6 @@
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.compscieddy.timetracker" />
 
-        <activity android:name=".RevampedBlockActivity">
-        </activity>
-
-        <activity android:name=".BlocksActivity">
-        </activity>
-
         <activity android:name=".DotsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

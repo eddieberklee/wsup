@@ -20,11 +20,6 @@ public class DotsActivity extends AppCompatActivity {
   @Bind(R.id.page_indicator) PageIndicator mPageIndicator;
   @Bind(R.id.dots_pages_viewpager) ViewPager mViewPager;
 
-  private int[] layouts = new int[] {
-    R.layout.item_event_revamped_block_layout,
-    R.layout.item_event_layout_time_left
-  };
-
   int[] colors = new int[] {
       R.color.flatui_red_1,
       R.color.flatui_red_2,
