@@ -85,7 +85,8 @@ public class Utils {
       seconds = 0;
     }
 
-    if (isMostRecentItem) {
+    if (isMostRecentItem || builder.length() == 0) {
+      // Seconds shouldn't be shown if the event is not the most recent item - unless it's less than 1 minute long
       builder.append(String.valueOf(seconds % 60));
       builder.append("s");
     }
