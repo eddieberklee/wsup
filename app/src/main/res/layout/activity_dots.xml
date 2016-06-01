@@ -35,15 +35,14 @@
             android:layout_height="match_parent"
             android:background="@drawable/top_bar_gradient"/>
         <LinearLayout
-            android:id="@+id/top_bar"
+            android:id="@+id/top_bar_page_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="4dp"
             android:orientation="horizontal">
-            <Space
-                android:layout_width="@dimen/page_title_gap"
-                android:layout_height="match_parent"/>
+            <!-- The only children views in here must be the page titles because of the way
+                 the page titles are increased in size when scrolling. DotsActivity's mPageIndicator's OnPageChangeListener -->
             <com.compscieddy.timetracker.ui.ForadayTextView
                 android:layout_width="@dimen/page_title_width"
                 android:layout_height="wrap_content"

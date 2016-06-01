@@ -3,8 +3,11 @@ package com.compscieddy.timetracker;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Etils;
 import com.compscieddy.eddie_utils.Lawg;
@@ -19,6 +22,7 @@ public class DotsActivity extends AppCompatActivity {
 
   @Bind(R.id.page_indicator) PageIndicator mPageIndicator;
   @Bind(R.id.dots_pages_viewpager) ViewPager mViewPager;
+  @Bind(R.id.top_bar_page_titles) ViewGroup mTopBarPageTitles;
 
   int[] colors = new int[] {
       R.color.flatui_red_1,
@@ -48,6 +52,27 @@ public class DotsActivity extends AppCompatActivity {
     DotsPagerAdapter pagerAdapter = new DotsPagerAdapter(getSupportFragmentManager(), numDays);
     mViewPager.setAdapter(pagerAdapter);
     mPageIndicator.setViewPager(mViewPager);
+    mPageIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+      final float normalTextSize = getResources().getDimensionPixelSize(R.dimen.normal_page_title_text_size);
+      final float selectedTextSize = getResources().getDimensionPixelSize(R.dimen.selected_page_title_text_size);
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+      @Override
+      public void onPageSelected(int position) {
+        for (int i = 0; i < mTopBarPageTitles.getChildCount(); i++) {
+          View child = mTopBarPageTitles.getChildAt(i);
+          if (!(child instanceof TextView)) { continue; }
+          TextView title = (TextView) mTopBarPageTitles.getChildAt(i);
+          if (i == position) {
+            title.setTextSize(TypedValue.COMPLEX_UNIT_PX, selectedTextSize);
+          } else {
+            title.setTextSize(TypedValue.COMPLEX_UNIT_PX, normalTextSize);
+          }
+        }
+      }
+      @Override
+      public void onPageScrollStateChanged(int state) {}
+    });
     mViewPager.post(new Runnable() {
       @Override
       public void run() {

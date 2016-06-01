@@ -127,7 +127,7 @@ public class DotsPageFragment extends Fragment {
     @Override
     public void onSpringUpdate(Spring spring) {
       float value = (float) spring.getCurrentValue();
-      if (true) lawg.d("OpenSpring value: " + value);
+      if (false) lawg.d("OpenSpring value: " + value);
       float screenWidth = Etils.getScreenWidth(mContext);
       float finalRotation = -45f;
       mNewEventInput.setVisibility(View.VISIBLE);
@@ -142,7 +142,7 @@ public class DotsPageFragment extends Fragment {
     @Override
     public void onSpringUpdate(Spring spring) {
       float value = (float) spring.getCurrentValue();
-      if (true) lawg.d("CloseSpring value: " + value);
+      if (false) lawg.d("CloseSpring value: " + value);
       float screenWidth = Etils.getScreenWidth(mContext);
       float finalRotation = -45f;
       mNewEventInput.setTranslationX(-screenWidth * (value));
@@ -439,7 +439,7 @@ public class DotsPageFragment extends Fragment {
       date.setTime(previousTimeMillis);
       calendar.setTime(date);
 
-      lawg.e("!!!!!!!!!" + " dateTimeMillis: " + dateTimeMillis + " previousTimeMillis: " + previousTimeMillis);
+      if (false) lawg.e("dateTimeMillis: " + dateTimeMillis + " previousTimeMillis: " + previousTimeMillis);
     }
 
     int year = calendar.get(Calendar.YEAR);
@@ -458,7 +458,7 @@ public class DotsPageFragment extends Fragment {
       day = days.get(0);
     }
 
-    lawg.e("???????????????????????? " + " days.size(): " + days.size() + " dayOfYear: " + dayOfYear + " year: " + year + " day: " + day);
+    if (false) lawg.e("days.size(): " + days.size() + " dayOfYear: " + dayOfYear + " year: " + year + " day: " + day);
     return day;
   }
 
