@@ -81,6 +81,15 @@ public class AI {
     } else if (Utils.containsAtLeastOne(title, new String[] {
         "love", "favorite", "best"})) {
       iconId = R.drawable.ic_favorite_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "bought", "buy", "money", "pay"})) {
+      iconId = R.drawable.ic_attach_money_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "home", "house", "rent"})) {
+      iconId = R.drawable.ic_home_white_48dp;
+    } else if (Utils.containsAtLeastOne(title, new String[] {
+        "pizza"})) {
+      iconId = R.drawable.ic_local_pizza_white_48dp;
     }
     return iconId;
   }
