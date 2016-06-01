@@ -74,11 +74,17 @@ public class Utils {
     if (hours >= 1) {
       builder.append(String.valueOf((int) hours));
       builder.append("hr\n");
+      builder.append(" ");
+      builder.append(" ");
     }
 
     if (minutes >= 1) {
       builder.append(String.valueOf(Math.round(minutes) % 60));
       builder.append("m\n");
+      builder.append(" ");
+      builder.append(" ");
+      builder.append(" ");
+      builder.append(" ");
     }
 
     if (seconds <= 0) {

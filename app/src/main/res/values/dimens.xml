@@ -28,7 +28,7 @@
 
     <dimen name="dot_halo_padding">4dp</dimen>
     
-    <dimen name="left_gutter_width">8dp</dimen>
+    <dimen name="left_gutter_width">12dp</dimen>
     <dimen name="dot_to_title_width">10dp</dimen>
     <dimen name="time_margin_top">2dp</dimen>
     <dimen name="time_margin_top_negative">-10dp</dimen>

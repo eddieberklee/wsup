@@ -46,7 +46,7 @@ public class DotsPageFragment extends Fragment {
   @Bind(R.id.root_view) View mRootView;
   @Bind(R.id.new_event_input) ForadayEditText mNewEventInput;
   @Bind(R.id.new_event_dot) View mAddNewEventDot;
-  @Bind(R.id.new_event_create_button) View mNewEventCreateButton;
+  @Bind(R.id.new_event_save_button) View mNewEventSaveButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.new_event_section) ViewGroup mNewEventSection;
@@ -116,9 +116,9 @@ public class DotsPageFragment extends Fragment {
     @Override
     public void afterTextChanged(Editable s) {
       if (s.length() == 0) {
-        mNewEventCreateButton.setVisibility(View.INVISIBLE);
+        mNewEventSaveButton.setVisibility(View.INVISIBLE);
       } else {
-        mNewEventCreateButton.setVisibility(View.VISIBLE);
+        mNewEventSaveButton.setVisibility(View.VISIBLE);
       }
     }
   };
@@ -280,7 +280,7 @@ public class DotsPageFragment extends Fragment {
 
     mAddNewEventDot.setOnClickListener(mAddNewEventDotClickListener);
     mNewEventInput.addTextChangedListener(mEventInputTextWatcher);
-    mNewEventCreateButton.setOnClickListener(mCreateButtonOnClickListener);
+    mNewEventSaveButton.setOnClickListener(mCreateButtonOnClickListener);
     // keyboard detection trick - http://stackoverflow.com/a/4737265/4326052
     mRootView.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
     mRootView.setOnTouchListener(mRootTouchListener);

@@ -6,7 +6,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:background="@color/greyscale_10">
+              tools:background="@color/greyscale_10"
+              android:clipChildren="false">
 
     <com.compscieddy.timetracker.ui.LockableScrollView
         android:id="@+id/events_scroll_view"
@@ -36,7 +37,7 @@
         android:layout_marginRight="@dimen/new_event_section_margin_bottom"
         android:layout_marginLeft="@dimen/left_gutter_width"
         android:clipChildren="false"
-        android:clipToPadding="true">
+        android:clipToPadding="false">
         <!-- The alpha being 0 here is actually important cause alpha is how I keep track of
             whether this edit text is open or not -->
         <com.compscieddy.timetracker.ui.ForadayEditText
@@ -60,18 +61,19 @@
             android:shadowRadius="1"/>
         <com.compscieddy.timetracker.ui.ColorImageView
             android:id="@+id/new_event_dot"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_add_white_48dp"
             android:background="@drawable/white_dot_layered"
             android:padding="4dp"
+            android:layout_marginLeft="-4dp"
             app:customColor="@color/black_transp_60"/>
         <ImageView
-            android:id="@+id/new_event_create_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:id="@+id/new_event_save_button"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_arrow_upward_white_48dp"
