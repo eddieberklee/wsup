@@ -212,7 +212,7 @@ public class DotsPageFragment extends Fragment {
       if (lastItemIndex >= 0) {
         ViewGroup lastEventView = (ViewGroup) mEventsContainer.getChildAt(lastItemIndex);
         TextView eventDuration = ButterKnife.findById(lastEventView, R.id.event_duration);
-        String durationString = Utils.getDurationString(lastItemIndex, mEvents);
+        String durationString = Utils.getDurationString(lastItemIndex, mEvents, true);
         eventDuration.setText(durationString);
       }
       mHandler.postDelayed(mUpdateDurationRunnable, 1000);
@@ -366,7 +366,7 @@ public class DotsPageFragment extends Fragment {
       titleView.setText(event.getTitle());
       timeView.setText(event.getTimeText());
       timeAmPmView.setText(event.getTimeAmPmText());
-      durationView.setText(Utils.getDurationString(i, mEvents));
+      durationView.setText(Utils.getDurationString(i, mEvents, i == mEvents.size() - 1)); // todo: it's not just most recent event - it also has to be the current day
 
       /* Shadows
       int darkerColor = Etils.getIntermediateColor(color, getResources().getColor(R.color.black), 0.1f);

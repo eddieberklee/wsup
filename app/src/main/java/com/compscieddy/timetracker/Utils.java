@@ -64,7 +64,7 @@ public class Utils {
     return false;
   }
 
-  public static String getFormattedDuration(long duration) {
+  public static String getFormattedDuration(long duration, boolean isMostRecentItem) {
     long seconds = duration / (long) 1000;
     long minutes = seconds / (long) 60;
     long hours = minutes / (long) 60;
@@ -85,13 +85,15 @@ public class Utils {
       seconds = 0;
     }
 
-    builder.append(String.valueOf(seconds % 60));
-    builder.append("s");
+    if (isMostRecentItem) {
+      builder.append(String.valueOf(seconds % 60));
+      builder.append("s");
+    }
 
-    return builder.toString();
+    return (builder.toString()).trim();
   }
 
-  public static String getDurationString(int i, List<Event> events) {
+  public static String getDurationString(int i, List<Event> events, boolean isMostRecentItem) {
     long endTime;
     if (i == events.size() - 1) {
       endTime = System.currentTimeMillis();
@@ -100,8 +102,8 @@ public class Utils {
       endTime = event.getTimeMillis();
     }
     long timeDuration = endTime - events.get(i).getTimeMillis();
-    if (false) lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration));
-    return Utils.getFormattedDuration(timeDuration);
+    if (false) lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration, isMostRecentItem));
+    return Utils.getFormattedDuration(timeDuration, isMostRecentItem);
   }
 
 }

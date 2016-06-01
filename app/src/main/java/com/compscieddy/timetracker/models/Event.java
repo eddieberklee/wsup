@@ -1,12 +1,10 @@
 package com.compscieddy.timetracker.models;
 
 import com.compscieddy.eddie_utils.Lawg;
-import com.compscieddy.timetracker.Utils;
 import com.orm.SugarRecord;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by elee on 4/28/16.
@@ -90,20 +88,5 @@ public class Event extends SugarRecord {
     String amPmString = (amPm == 0) ? "am" : "pm";
     return amPmString;
   }
-
-  // todo: inefficient - should probably not have this method
-  public String getDuration() {
-    // Find the next event by looking for an event belonging to the same day but has a larger timeMillis
-    List<Event> events = Event.find(Event.class, "day = ? & date_millis > ?", this.day.getId().toString(), String.valueOf(this.timeMillis));
-    String durationString = "";
-    if (events.size() > 0) {
-      Event nextEvent = events.get(0);
-      long nextEventMillis = nextEvent.getTimeMillis();
-      long duration = nextEventMillis - getTimeMillis();
-      durationString = Utils.getFormattedDuration(duration);
-    }
-    return durationString;
-  }
-
 
 }
