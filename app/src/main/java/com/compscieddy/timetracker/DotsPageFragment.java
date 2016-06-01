@@ -334,8 +334,8 @@ public class DotsPageFragment extends Fragment {
       }
       minutesDifference = Math.abs(minutesDifference);
 
-      int minHeight = Etils.dpToPx(60);
-      int maxHeight = Etils.dpToPx(150);
+      int minHeight = getResources().getDimensionPixelSize(R.dimen.event_min_height);
+      int maxHeight = getResources().getDimensionPixelSize(R.dimen.event_max_height);
       lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
         height = minHeight;

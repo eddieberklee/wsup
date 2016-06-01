@@ -93,7 +93,7 @@
     <color name="wsup_pink">#40CA279B</color>
     <color name="wsup_top_bar_puke">#EEAF6F</color>
 
-    <color name="colorPrimary">@color/wsup_green</color>
+    <color name="colorPrimary">@color/wsup_top_bar_puke</color>
     <color name="colorPrimaryDark">@color/wsup_top_bar_puke</color>
     <color name="colorAccent">@color/black_transp_60</color>
     <!--<color name="colorAccent">#FF4081</color>-->

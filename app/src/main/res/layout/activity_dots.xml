@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/top_bar_container"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -39,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:paddingBottom="4dp"
             android:orientation="horizontal">
             <!-- The only children views in here must be the page titles because of the way
                  the page titles are increased in size when scrolling. DotsActivity's mPageIndicator's OnPageChangeListener -->
@@ -48,17 +47,11 @@
                 android:layout_height="wrap_content"
                 android:text="May 23"
                 style="@style/ViewPagerTitleTheme"/>
-            <Space
-                android:layout_width="@dimen/page_title_gap"
-                android:layout_height="match_parent"/>
             <com.compscieddy.timetracker.ui.ForadayTextView
                 android:layout_width="@dimen/page_title_width"
                 android:layout_height="wrap_content"
                 android:text="May 24"
                 style="@style/ViewPagerTitleTheme"/>
-            <Space
-                android:layout_width="@dimen/page_title_gap"
-                android:layout_height="match_parent"/>
             <com.compscieddy.timetracker.ui.ForadayTextView
                 android:layout_width="@dimen/page_title_width"
                 android:layout_height="wrap_content"
@@ -66,20 +59,22 @@
                 style="@style/ViewPagerTitleTheme"/>
         </LinearLayout>
 
+        <!-- The marginLeft is a quick hack way to line up the titles with the line page indicator -->
         <com.viewpagerindicator.LinePageIndicator
             android:id="@+id/page_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/top_bar_container"
-            android:layout_marginTop="26dp"
+            android:layout_below="@id/top_bar_page_titles"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
             android:paddingLeft="10dp"
             app:centered="false"
-            app:strokeWidth="3dp"
+            app:strokeWidth="2dp"
             app:lineWidth="@dimen/page_title_width"
             app:gapWidth="@dimen/page_title_gap"
             app:selectedColor="@color/white"
             app:unselectedColor="@color/transparent"
             tools:background="@color/black"/>
-    </FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
