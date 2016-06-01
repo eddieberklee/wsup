@@ -6,7 +6,7 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RevampedBlockActivity"
+    tools:context=".DotsActivity"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:focusable="true"
@@ -33,12 +33,13 @@
             android:id="@+id/top_bar_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/top_bar_gradient"/>
         <LinearLayout
             android:id="@+id/top_bar_page_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
+            android:paddingTop="13dp"
             android:orientation="horizontal">
             <!-- The only children views in here must be the page titles because of the way
                  the page titles are increased in size when scrolling. DotsActivity's mPageIndicator's OnPageChangeListener -->
@@ -55,7 +56,7 @@
             <com.compscieddy.timetracker.ui.ForadayTextView
                 android:layout_width="@dimen/page_title_width"
                 android:layout_height="wrap_content"
-                android:text="TODAY"
+                android:text="Today"
                 style="@style/ViewPagerTitleTheme"/>
         </LinearLayout>
 
@@ -65,8 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/top_bar_page_titles"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="6dp"
             android:paddingLeft="10dp"
             app:centered="false"
             app:strokeWidth="2dp"
@@ -74,7 +75,7 @@
             app:gapWidth="@dimen/page_title_gap"
             app:selectedColor="@color/white"
             app:unselectedColor="@color/transparent"
-            tools:background="@color/black"/>
+            tools:background="@color/white"/>
     </RelativeLayout>
 
 </RelativeLayout>

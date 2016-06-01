@@ -34,10 +34,10 @@
     <dimen name="time_margin_top_negative">-10dp</dimen>
 
     <dimen name="page_title_width">60dp</dimen>
-    <dimen name="page_title_gap">20dp</dimen>
+    <dimen name="page_title_gap">16dp</dimen>
 
-    <dimen name="normal_page_title_text_size">12sp</dimen>
-    <dimen name="selected_page_title_text_size">14sp</dimen>
+    <dimen name="normal_page_title_text_size">13sp</dimen>
+    <dimen name="selected_page_title_text_size">16sp</dimen>
 
     <dimen name="event_min_height">70dp</dimen>
     <dimen name="event_max_height">150dp</dimen>
