@@ -7,10 +7,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Etils;
 import com.compscieddy.eddie_utils.Lawg;
+import com.compscieddy.timetracker.ui.ForadayTextView;
 import com.viewpagerindicator.PageIndicator;
 
 import butterknife.Bind;
@@ -61,12 +61,14 @@ public class DotsActivity extends AppCompatActivity {
       public void onPageSelected(int position) {
         for (int i = 0; i < mTopBarPageTitles.getChildCount(); i++) {
           View child = mTopBarPageTitles.getChildAt(i);
-          if (!(child instanceof TextView)) { continue; }
-          TextView title = (TextView) mTopBarPageTitles.getChildAt(i);
+          if (!(child instanceof ForadayTextView)) { continue; }
+          ForadayTextView title = (ForadayTextView) mTopBarPageTitles.getChildAt(i);
           if (i == position) {
             title.setTextSize(TypedValue.COMPLEX_UNIT_PX, selectedTextSize);
+            title.setCustomTypeFace(FontCache.MONTSERRAT_REGULAR);
           } else {
             title.setTextSize(TypedValue.COMPLEX_UNIT_PX, normalTextSize);
+            title.setCustomTypeFace(FontCache.MONTSERRAT_LIGHT);
           }
         }
       }

@@ -13,19 +13,26 @@ import com.compscieddy.timetracker.R;
  */
 public class ForadayTextView extends TextView {
 
+  private final Context mContext;
+
   public ForadayTextView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    init(context, attrs);
+    mContext = context;
+    init(attrs);
   }
 
-  private void init(Context context, AttributeSet attrs) {
+  private void init(AttributeSet attrs) {
     if (isInEditMode()) return;
 
-    TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ForadayTextView);
+    TypedArray ta = mContext.obtainStyledAttributes(attrs, R.styleable.ForadayTextView);
     int typefaceId = ta.getInt(R.styleable.ForadayTextView_fontface, FontCache.MONTSERRAT_REGULAR);
-    setTypeface(FontCache.get(context, typefaceId));
+    setCustomTypeFace(typefaceId);
     ta.recycle();
 
+  }
+
+  public void setCustomTypeFace(int typeFaceId) {
+    setTypeface(FontCache.get(mContext, typeFaceId));
   }
 
 

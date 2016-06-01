@@ -34,7 +34,9 @@
     <dimen name="time_margin_top_negative">-10dp</dimen>
 
     <dimen name="page_title_width">60dp</dimen>
+    <dimen name="page_indicator_width">40dp</dimen><!-- looks visually better when the line is shorter than page_title_width -->
     <dimen name="page_title_gap">16dp</dimen>
+    <dimen name="page_indicator_gap">36dp</dimen><!-- no logic, just hack for compensating for the different widths for the title and indicator -->
 
     <dimen name="normal_page_title_text_size">13sp</dimen>
     <dimen name="selected_page_title_text_size">16sp</dimen>
