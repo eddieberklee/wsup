@@ -70,21 +70,24 @@ public class Utils {
     long hours = minutes / (long) 60;
     if (false) lawg.e(" seconds: " + seconds + " minutes: " + minutes + " hours: " + hours);
     StringBuilder builder = new StringBuilder();
+
     if (hours >= 1) {
       builder.append(String.valueOf((int) hours));
       builder.append("hr\n");
     }
+
     if (minutes >= 1) {
       builder.append(String.valueOf(Math.round(minutes) % 60));
       builder.append("m\n");
     }
-    if (seconds >= 1) {
-      builder.append(String.valueOf(seconds % 60));
-      builder.append("s");
-    } else {
-      lawg.e("[Warning] Time duration is less than 1 second.");
-      return "";
+
+    if (seconds <= 0) {
+      seconds = 0;
     }
+
+    builder.append(String.valueOf(seconds % 60));
+    builder.append("s");
+
     return builder.toString();
   }
 

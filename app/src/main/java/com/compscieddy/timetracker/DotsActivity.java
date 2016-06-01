@@ -49,21 +49,22 @@ public class DotsActivity extends AppCompatActivity {
     setContentView(rootView);
     ButterKnife.bind(this);
 
-    int numDays = 3;
+    final int numDays = 3;
     DotsPagerAdapter pagerAdapter = new DotsPagerAdapter(getSupportFragmentManager(), numDays);
     mViewPager.setAdapter(pagerAdapter);
     mPageIndicator.setViewPager(mViewPager);
+    mViewPager.post(new Runnable() {
+      @Override
+      public void run() {
+        if (false) lawg.e(" mViewPager.getChildCount(): " + mViewPager.getChildCount()); // this actually gets the wrong number of children womp :(
+        mViewPager.setCurrentItem(numDays, true);
+      }
+    });
 
     setNewEventRandomColor();
 
 //    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
 //    mEventsScrollView.setBackgroundColor(getResources().getColor(R.color.white_transp_20));
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    mViewPager.setCurrentItem(mViewPager.getChildCount() - 1, true);
   }
 
   public void setNewEventRandomColor() {
