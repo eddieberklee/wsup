@@ -22,9 +22,12 @@
     <dimen name="new_event_section_height">50dp</dimen>
     <dimen name="event_time_width">40dp</dimen><!-- left gutter space width, essentially -->
 
-    <integer name="time_shadow_dx">2</integer>
-    <integer name="time_shadow_dy">3</integer>
+    <integer name="time_shadow_dx">0</integer>
+    <integer name="time_shadow_dy">4</integer>
     <integer name="time_shadow_radius">1</integer>
+    <integer name="event_shadow_dx">0</integer>
+    <integer name="event_shadow_dy">5</integer>
+    <integer name="event_shadow_radius">1</integer>
 
     <dimen name="dot_halo_padding">4dp</dimen>
     
