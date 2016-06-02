@@ -239,7 +239,10 @@ public class DotsPageFragment extends Fragment {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
       // If the touch event got here, that means the new event section touchlistener didn't return true, which in turn means the new event section wasn't tapped
-      /*
+      /* TODO: This doesn't work - the touchlistener isn't even getting called, probably cause the scrollview and whatnot are
+          consuming the touch events. Which would mean I need a transparent top layer to consume touch events to handle this smart dismissing
+          but then I can't rely on my consumation trick, instead I'd have to detect whento dismiss by comparing view coordinates
+          with the tap coordinate
       if (isNewEventSectionOpen()) {
         lawg.e("dismissing for being tapped outside the add section area");
         animateNewEventSection(); // dismiss the add new section
