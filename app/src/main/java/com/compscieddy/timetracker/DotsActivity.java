@@ -7,11 +7,15 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Etils;
 import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.ui.ForadayTextView;
 import com.viewpagerindicator.PageIndicator;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -84,6 +88,17 @@ public class DotsActivity extends AppCompatActivity {
     });
 
     setNewEventRandomColor();
+
+    for (int daysBeforeToday = 1; daysBeforeToday < pagerAdapter.getCount(); daysBeforeToday++) {
+      Date previousDate = Utils.getPreviousDate(daysBeforeToday);
+      SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
+      String previousDateString = dateFormat.format(previousDate);
+
+      int todayIndex = pagerAdapter.getCount() - 1;
+      TextView pageTitleTextView = (TextView) mTopBarPageTitles.getChildAt(todayIndex - daysBeforeToday);
+      pageTitleTextView.setText(previousDateString);
+    }
+
 
 //    mActivityBackground.setColorFilter(getResources().getColor(R.color.white_transp_20), PorterDuff.Mode.OVERLAY);
 //    mEventsScrollView.setBackgroundColor(getResources().getColor(R.color.white_transp_20));

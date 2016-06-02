@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.models.Event;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -118,6 +119,15 @@ public class Utils {
     long timeDuration = endTime - events.get(i).getTimeMillis();
     if (false) lawg.e("eventTIME: " + events.get(i).getTimeMillis() + " i: " + i + " timeDuration: " + timeDuration + " final: " + Utils.getFormattedDuration(timeDuration, isMostRecentItem));
     return Utils.getFormattedDuration(timeDuration, isMostRecentItem);
+  }
+
+  public static Date getPreviousDate(int numDaysPrevious) {
+    Date date = new Date();
+    long dayMillis = 1 * 1000 * 60 * 60 * 24;
+    long dateTimeMillis = date.getTime();
+    long previousTimeMillis = dateTimeMillis - dayMillis * numDaysPrevious;
+    date.setTime(previousTimeMillis);
+    return date;
   }
 
 }

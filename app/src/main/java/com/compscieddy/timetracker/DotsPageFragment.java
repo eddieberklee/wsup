@@ -426,6 +426,7 @@ public class DotsPageFragment extends Fragment {
     return day;
   }
 
+  /** This method also inits day information such as the correct day title to put for the page indicator titles */
   @Nullable
   public Day getDay() {
     Calendar calendar = Calendar.getInstance();
@@ -435,14 +436,8 @@ public class DotsPageFragment extends Fragment {
       // no-op: no need to set a date, Calendar will use current time by default
     } else {
       int numDaysPrevious = todayIndex - pagerIndex;
-      Date date = new Date();
-      long dayMillis = 1 * 1000 * 60 * 60 * 24;
-      long dateTimeMillis = date.getTime();
-      long previousTimeMillis = dateTimeMillis - dayMillis * numDaysPrevious;
-      date.setTime(previousTimeMillis);
-      calendar.setTime(date);
-
-      if (false) lawg.e("getday dateTimeMillis: " + dateTimeMillis + " previousTimeMillis: " + previousTimeMillis + " dayOfYear: " + calendar.get(Calendar.DAY_OF_YEAR));
+      Date previousDate = Utils.getPreviousDate(numDaysPrevious);
+      calendar.setTime(previousDate);
     }
 
     mDebugDayOfYear.setText(String.valueOf(calendar.get(Calendar.DAY_OF_YEAR)));
