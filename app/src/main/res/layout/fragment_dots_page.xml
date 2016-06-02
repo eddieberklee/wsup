@@ -9,6 +9,15 @@
               tools:background="@color/greyscale_10"
               android:clipChildren="false">
 
+    <TextView
+        android:id="@+id/debug_day_of_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:textColor="@color/wsup_yellow"/>
+
     <com.compscieddy.timetracker.ui.LockableScrollView
         android:id="@+id/events_scroll_view"
         android:layout_width="match_parent"

@@ -50,6 +50,7 @@ public class DotsPageFragment extends Fragment {
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.new_event_section) ViewGroup mNewEventSection;
+  @Bind(R.id.debug_day_of_year) TextView mDebugDayOfYear;
 
   private int pagerIndex;
   private int pagerCount;
@@ -274,7 +275,6 @@ public class DotsPageFragment extends Fragment {
     public boolean onTouch(View v, MotionEvent event) {
       float x = event.getX();
       float y = event.getY();
-      lawg.d("Add Section" + " x: " + x + " y: " + y);
       return true; // don't let the touchevent get passed to the rootview
     }
   };
@@ -442,8 +442,10 @@ public class DotsPageFragment extends Fragment {
       date.setTime(previousTimeMillis);
       calendar.setTime(date);
 
-      if (false) lawg.e("dateTimeMillis: " + dateTimeMillis + " previousTimeMillis: " + previousTimeMillis);
+      if (false) lawg.e("getday dateTimeMillis: " + dateTimeMillis + " previousTimeMillis: " + previousTimeMillis + " dayOfYear: " + calendar.get(Calendar.DAY_OF_YEAR));
     }
+
+    mDebugDayOfYear.setText(String.valueOf(calendar.get(Calendar.DAY_OF_YEAR)));
 
     int year = calendar.get(Calendar.YEAR);
     int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);

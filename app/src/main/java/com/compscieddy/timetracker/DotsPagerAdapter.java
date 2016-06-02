@@ -22,7 +22,7 @@ public class DotsPagerAdapter extends FragmentStatePagerAdapter {
 
   @Override
   public Fragment getItem(int position) {
-    lawg.e(" position: " + position);
+    if (false) lawg.e("getday position: " + position);
     return DotsPageFragment.newInstance(position, NUM_PAGES);
   }
 

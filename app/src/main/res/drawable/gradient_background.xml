@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient android:angle="270"
-              android:startColor="@color/wsup_start_grad"
-              android:endColor="@color/wsup_end_grad"/>
+              android:startColor="@color/wsup_start_gradient"
+              android:endColor="@color/wsup_end_gradient"/>
 </shape>

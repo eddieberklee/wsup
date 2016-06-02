@@ -94,12 +94,13 @@
     <color name="wsup_green_1">#D4D265</color>
     <color name="wsup_green_2">#65C170</color>
 
-    <color name="wsup_start_grad">@color/wsup_green_1</color>
-    <color name="wsup_end_grad">@color/wsup_green_2</color>
+    <color name="wsup_start_gradient">@color/wsup_green_1</color>
+    <color name="wsup_end_gradient">@color/wsup_green_2</color>
 
     <color name="wsup_top_bar_puke">@color/wsup_yellow</color>
+    <color name="wsup_recent_apps_bar_color">#C0C85B</color>
 
-    <color name="colorPrimary">@color/wsup_top_bar_puke</color>
+    <color name="colorPrimary">@color/wsup_end_gradient</color>
     <color name="colorPrimaryDark">@color/wsup_top_bar_puke</color>
     <color name="colorAccent">@color/black_transp_60</color>
     <!--<color name="colorAccent">#FF4081</color>-->
