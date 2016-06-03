@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +50,8 @@ public class DotsPageFragment extends Fragment {
   @Bind(R.id.new_event_dot) View mAddNewEventDot;
   @Bind(R.id.new_event_save_button) View mNewEventSaveButton;
   @Bind(R.id.events_container) LinearLayout mEventsContainer;
+  @Bind(R.id.scroll_view_container)
+  FrameLayout mScrollViewContainer;
   @Bind(R.id.events_scroll_view) LockableScrollView mEventsScrollView;
   @Bind(R.id.new_event_section) ViewGroup mNewEventSection;
   @Bind(R.id.debug_day_of_year) TextView mDebugDayOfYear;
@@ -324,6 +328,9 @@ public class DotsPageFragment extends Fragment {
     mEvents = Event.find(Event.class, "day = ?", mDay.getId().toString());
     lawg.d("initEvents() " + mEvents.size() + " events found");
     mEventsContainer.removeAllViews();
+
+    initDayDot();
+
     for (int i = 0; i < mEvents.size(); i++) {
       Event event = mEvents.get(i);
 
@@ -416,6 +423,38 @@ public class DotsPageFragment extends Fragment {
       Etils.applyColorFilter(lineViewBottom.getBackground(), color);
 
     }
+  }
+
+  private void initDayDot() {
+    // First view in mEventsContainer is the day item circle
+    View dayLayout = mLayoutInflater.inflate(R.layout.item_event_dots_layout, null);
+    TextView dateStringView = ButterKnife.findById(dayLayout, R.id.date_string_view);
+    ButterKnife.findById(dayLayout, R.id.event_duration).setVisibility(View.GONE);
+    View dotView = ButterKnife.findById(dayLayout, R.id.event_dot);
+    View dateView = ButterKnife.findById(dayLayout, R.id.date_string_view);
+
+    ViewGroup.MarginLayoutParams dotParams = (ViewGroup.MarginLayoutParams) dotView.getLayoutParams();
+    int largerDotSize = getResources().getDimensionPixelSize(R.dimen.larger_dot_size);
+    dotParams.width = largerDotSize;
+    dotParams.height = largerDotSize;
+    dotParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.larger_dot_size_margin_left); // to line up the subway track with the now larger dot size
+
+    ViewGroup.LayoutParams dayStringParams = dateView.getLayoutParams();
+    dayStringParams.width = largerDotSize;
+    dayStringParams.height = largerDotSize;
+
+    int todayIndex = pagerCount - 1; // Today is the last title in the pager indicator titles container
+    int daysBeforeToday = todayIndex - pagerIndex;
+    Date previousDate = Utils.getPreviousDate(daysBeforeToday);
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MMM\nd");
+    String previousDateString = dateFormat.format(previousDate);
+    dateStringView.setText(previousDateString);
+
+    int dayLayoutHeight = Etils.dpToPx(60);
+    ViewGroup.LayoutParams dayLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dayLayoutHeight);
+    ((ViewGroup.MarginLayoutParams) mEventsContainer.getLayoutParams()).topMargin = dayLayoutHeight;
+    mScrollViewContainer.addView(dayLayout, dayLayoutParams);
   }
 
   public Day createCurrentDay() {

@@ -27,14 +27,21 @@
         android:layout_marginBottom="-10dp"
         android:fillViewport="true"
         android:clipChildren="false">
-        <LinearLayout
-            android:id="@+id/events_container"
+        <!-- This container has to be used because the program logic actually depends on the number of
+             children in @id/events_container -->
+        <FrameLayout
+            android:id="@+id/scroll_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:orientation="vertical"
-            android:clipChildren="false"
-            android:clipToPadding="false"/>
+            android:paddingTop="30dp"> <!-- So there's some extra space at the top and the content doesn't just become flush with the top -->
+            <LinearLayout
+                android:id="@+id/events_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:clipChildren="false"
+                android:clipToPadding="false"/>
+        </FrameLayout>
     </com.compscieddy.timetracker.ui.LockableScrollView>
 
     <RelativeLayout
@@ -70,14 +77,14 @@
             android:shadowRadius="1"/>
         <com.compscieddy.timetracker.ui.ColorImageView
             android:id="@+id/new_event_dot"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/larger_dot_size"
+            android:layout_height="@dimen/larger_dot_size"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_add_white_48dp"
             android:background="@drawable/white_dot_layered"
             android:padding="4dp"
-            android:layout_marginLeft="-4dp"
+            android:layout_marginLeft="@dimen/add_dot_margin_left_negative"
             app:customColor="@color/black_transp_60"/>
         <ImageView
             android:id="@+id/new_event_save_button"

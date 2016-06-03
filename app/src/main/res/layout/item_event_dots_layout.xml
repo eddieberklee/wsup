@@ -19,6 +19,21 @@
         android:padding="7dp"
         app:customColor="@color/greyscale_8"/>
 
+    <!-- "centering" isn't perfect, we need the month a little more centered than the day number -->
+    <com.compscieddy.timetracker.ui.ForadayTextView
+        android:id="@+id/date_string_view"
+        android:layout_width="@dimen/dot_size"
+        android:layout_height="@dimen/dot_size"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_alignTop="@+id/event_dot"
+        android:layout_alignLeft="@+id/event_dot"
+        android:layout_marginTop="2dp"
+        android:textSize="13sp"
+        android:textColor="@color/black_transp_30"
+        android:lineSpacingMultiplier="0.8"
+        app:fontface="montserrat_semibold"/>
+
     <com.compscieddy.timetracker.ui.ForadayTextView
         android:id="@+id/event_time"
         android:layout_width="@dimen/event_time_width"
@@ -52,6 +67,7 @@
         android:layout_width="@dimen/dot_size"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/left_gutter_width"
+        android:layout_below="@+id/event_dot"
         android:orientation="vertical">
         <View
             android:id="@+id/event_vertical_line_top"
@@ -59,7 +75,6 @@
             android:background="@color/white_transp_30"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="@dimen/dot_size"
             android:layout_gravity="center_horizontal"/>
         <com.compscieddy.timetracker.ui.ForadayTextView
             android:id="@+id/event_duration"
