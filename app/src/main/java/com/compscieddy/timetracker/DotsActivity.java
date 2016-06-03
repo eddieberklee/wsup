@@ -42,6 +42,7 @@ public class DotsActivity extends AppCompatActivity {
       R.color.flatui_purple_1,
       R.color.flatui_purple_2,
   };
+  private DotsPagerAdapter mPagerAdapter;
 
 
   @Override
@@ -53,8 +54,8 @@ public class DotsActivity extends AppCompatActivity {
     ButterKnife.bind(this);
 
     final int numDays = 3;
-    DotsPagerAdapter pagerAdapter = new DotsPagerAdapter(getSupportFragmentManager(), numDays);
-    mViewPager.setAdapter(pagerAdapter);
+    mPagerAdapter = new DotsPagerAdapter(getSupportFragmentManager(), numDays);
+    mViewPager.setAdapter(mPagerAdapter);
     mPageIndicator.setViewPager(mViewPager);
     mPageIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       final float normalTextSize = getResources().getDimensionPixelSize(R.dimen.normal_page_title_text_size);
@@ -63,6 +64,8 @@ public class DotsActivity extends AppCompatActivity {
       public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
       @Override
       public void onPageSelected(int position) {
+
+        // Highlight with enlarged text style for current selected page
         for (int i = 0; i < mTopBarPageTitles.getChildCount(); i++) {
           View child = mTopBarPageTitles.getChildAt(i);
           if (!(child instanceof ForadayTextView)) { continue; }
@@ -75,6 +78,10 @@ public class DotsActivity extends AppCompatActivity {
             title.setCustomTypeFace(FontCache.MONTSERRAT_LIGHT);
           }
         }
+
+        DotsPageFragment currentFragment = (DotsPageFragment) mPagerAdapter.instantiateItem(mViewPager, position);
+        currentFragment.scrollToBottomOfTimeline();
+
       }
       @Override
       public void onPageScrollStateChanged(int state) {}
@@ -89,12 +96,12 @@ public class DotsActivity extends AppCompatActivity {
 
     setNewEventRandomColor();
 
-    for (int daysBeforeToday = 1; daysBeforeToday < pagerAdapter.getCount(); daysBeforeToday++) {
+    for (int daysBeforeToday = 1; daysBeforeToday < mPagerAdapter.getCount(); daysBeforeToday++) {
       Date previousDate = Utils.getPreviousDate(daysBeforeToday);
       SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
       String previousDateString = dateFormat.format(previousDate);
 
-      int todayIndex = pagerAdapter.getCount() - 1;
+      int todayIndex = mPagerAdapter.getCount() - 1;
       TextView pageTitleTextView = (TextView) mTopBarPageTitles.getChildAt(todayIndex - daysBeforeToday);
       pageTitleTextView.setText(previousDateString);
     }

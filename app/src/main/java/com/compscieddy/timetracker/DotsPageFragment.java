@@ -488,7 +488,7 @@ public class DotsPageFragment extends Fragment {
     List<Day> days = Day.find(Day.class, "year = ? and day_of_year = ?", String.valueOf(year), String.valueOf(dayOfYear));
 
     if (days.size() > 1) { // sanity check
-      String message = "DAFUQ more than 1 Day found...";
+      String message = "DotsPageFragment:getDay() [warning] more than 1 day object found.. #programmerfail";
       lawg.e(message);
       Etils.showToast(mContext, message);
       day = days.get(0);
@@ -499,6 +499,19 @@ public class DotsPageFragment extends Fragment {
 
     if (false) lawg.e("days.size(): " + days.size() + " dayOfYear: " + dayOfYear + " year: " + year + " day: " + day);
     return day;
+  }
+
+  public void scrollToBottomOfTimeline() {
+    // http://stackoverflow.com/questions/6438061/can-i-scroll-a-scrollview-programmatically-in-android#comment23586264_6438240
+    if (mEventsScrollView == null) {
+      lawg.e("You're calling scrollToBottomOfTimeline() all wrong bro...");
+    }
+    mEventsScrollView.post(new Runnable() {
+      @Override
+      public void run() {
+        mEventsScrollView.fullScroll(View.FOCUS_DOWN);
+      }
+    });
   }
 
 }
