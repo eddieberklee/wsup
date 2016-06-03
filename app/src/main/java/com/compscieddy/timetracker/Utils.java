@@ -61,6 +61,7 @@ public class Utils {
   }
 
   public static boolean containsAtLeastOne(String src, String[] strings) {
+    // TODO: regex isn't good enough - doesn't work with the start or end of line
     src = src.toLowerCase();
     for (String s : strings) {
       Pattern p = Pattern.compile(".*[^a-z]" + s + "[^a-z].*");

@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/event_dot"
         android:layout_toRightOf="@+id/event_dot"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginLeft="@dimen/dot_to_title_width"
         android:shadowColor="@color/white_transp_20"
         android:shadowDx="@integer/event_shadow_dx"
