@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.compscieddy.eddie_utils.Etils;
 import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.models.Day;
+import com.compscieddy.timetracker.models.DayStruct;
 import com.compscieddy.timetracker.models.Event;
 import com.compscieddy.timetracker.ui.ForadayEditText;
 import com.compscieddy.timetracker.ui.LockableScrollView;
@@ -104,7 +105,7 @@ public class DotsPageFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+    mHandler.postDelayed(mUpdateDurationRunnable, UPDATE_DURATION_DELAY);
   }
 
   Day mDay;
@@ -154,7 +155,6 @@ public class DotsPageFragment extends Fragment {
       mNewEventInput.setAlpha(1 - value);
       mAddNewEventDot.setRotation(finalRotation * (1 - value));
     }
-
     @Override
     public void onSpringAtRest(Spring spring) {
       super.onSpringAtRest(spring);
@@ -220,9 +220,10 @@ public class DotsPageFragment extends Fragment {
         String durationString = Utils.getDurationString(lastItemIndex, mEvents, true);
         eventDuration.setText(durationString);
       }
-      mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+      mHandler.postDelayed(mUpdateDurationRunnable, UPDATE_DURATION_DELAY);
     }
   };
+  private final int UPDATE_DURATION_DELAY = 1000;
 
   private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
     @Override
@@ -299,7 +300,7 @@ public class DotsPageFragment extends Fragment {
 
     mLayoutInflater = LayoutInflater.from(mContext);
     mHandler = new Handler(Looper.getMainLooper());
-    mHandler.postDelayed(mUpdateDurationRunnable, 1000);
+    mHandler.postDelayed(mUpdateDurationRunnable, UPDATE_DURATION_DELAY);
 
     // Facebook Rebound Animations
     mSpringSystem = SpringSystem.create();
@@ -313,10 +314,12 @@ public class DotsPageFragment extends Fragment {
     mNewEventCloseSpring.setSpringConfig(new SpringConfig(180, 4));
     mNewEventCloseSpring.addListener(mNewEventDotCloseSpringListener);
 
-    mDay = getDay();
+    DayStruct dayStruct = getDayStruct();
+
+    mDay = getDay(dayStruct);
     if (mDay == null) {
       lawg.d("Current Day not found, creating a new one");
-      mDay = createCurrentDay();
+      mDay = createDay(dayStruct);
     }
 
   }
@@ -346,7 +349,6 @@ public class DotsPageFragment extends Fragment {
 
       int minHeight = getResources().getDimensionPixelSize(R.dimen.event_min_height);
       int maxHeight = getResources().getDimensionPixelSize(R.dimen.event_max_height);
-      lawg.d(" minutesDifference: " + minutesDifference);
       if (minutesDifference <= 30) { // 30 minutes
         height = minHeight;
       } else if (minutesDifference <= 60 * 4) { // 4 hours
@@ -457,19 +459,8 @@ public class DotsPageFragment extends Fragment {
     mScrollViewContainer.addView(dayLayout, dayLayoutParams);
   }
 
-  public Day createCurrentDay() {
+  public DayStruct getDayStruct() {
     Calendar calendar = Calendar.getInstance();
-    int year = calendar.get(Calendar.YEAR);
-    int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
-    Day day = new Day(year, dayOfYear);
-    return day;
-  }
-
-  /** This method also inits day information such as the correct day title to put for the page indicator titles */
-  @Nullable
-  public Day getDay() {
-    Calendar calendar = Calendar.getInstance();
-
     int todayIndex = pagerCount - 1; // last item is "today" page
     if (pagerIndex == todayIndex) {
       // no-op: no need to set a date, Calendar will use current time by default
@@ -483,6 +474,22 @@ public class DotsPageFragment extends Fragment {
 
     int year = calendar.get(Calendar.YEAR);
     int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+    return new DayStruct(dayOfYear, year);
+  }
+
+  public Day createDay(DayStruct dayStruct) {
+    int dayOfYear = dayStruct.dayOfYear;
+    int year = dayStruct.year;
+    Day day = new Day(year, dayOfYear);
+    return day;
+  }
+
+  /** This method also inits day information such as the correct day title to put for the page indicator titles */
+  @Nullable
+  public Day getDay(DayStruct dayStruct) {
+
+    int dayOfYear = dayStruct.dayOfYear;
+    int year = dayStruct.year;
 
     Day day = null;
     List<Day> days = Day.find(Day.class, "year = ? and day_of_year = ?", String.valueOf(year), String.valueOf(dayOfYear));
@@ -497,7 +504,7 @@ public class DotsPageFragment extends Fragment {
       day = days.get(0);
     }
 
-    if (false) lawg.e("days.size(): " + days.size() + " dayOfYear: " + dayOfYear + " year: " + year + " day: " + day);
+    if (true) lawg.e("days.size(): " + days.size() + " dayOfYear: " + dayOfYear + " year: " + year + " day: " + day);
     return day;
   }
 

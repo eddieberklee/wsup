@@ -7,7 +7,7 @@
     <dimen name="dot_size">30dp</dimen>
     <dimen name="larger_dot_size">46dp</dimen>
     <dimen name="larger_dot_size_margin_left">5dp</dimen>
-    <dimen name="add_dot_margin_left_negative">-7dp</dimen>
+    <dimen name="add_dot_margin_left_negative">-8dp</dimen>
 
     <dimen name="new_event_edit_stroke_width">1dp</dimen>
     <dimen name="new_event_section_margin_bottom">3dp</dimen>
