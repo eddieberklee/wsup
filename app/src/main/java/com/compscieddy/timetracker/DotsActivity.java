@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.compscieddy.eddie_utils.Etils;
 import com.compscieddy.timetracker.ui.ForadayTextView;
 import com.viewpagerindicator.PageIndicator;
 

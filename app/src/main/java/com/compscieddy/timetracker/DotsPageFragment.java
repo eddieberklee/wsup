@@ -351,7 +351,7 @@ public class DotsPageFragment extends Fragment {
       if (minutesDifference <= 30) { // 30 minutes
         height = minHeight;
       } else if (minutesDifference <= 60 * 4) { // 4 hours
-        height = (int) Utils.mapValue(minutesDifference, 30, 60*4, minHeight, maxHeight);
+        height = (int) Etils.mapValue(minutesDifference, 30, 60*4, minHeight, maxHeight);
       } else {
         height = maxHeight;
       }
