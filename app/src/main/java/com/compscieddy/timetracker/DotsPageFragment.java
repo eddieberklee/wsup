@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.compscieddy.eddie_utils.Etils;
-import com.compscieddy.eddie_utils.Lawg;
 import com.compscieddy.timetracker.models.Day;
 import com.compscieddy.timetracker.models.DayStruct;
 import com.compscieddy.timetracker.models.Event;

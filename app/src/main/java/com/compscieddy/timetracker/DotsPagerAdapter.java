@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.compscieddy.eddie_utils.Lawg;
-
 /**
  * Created by elee on 5/25/16.
  */

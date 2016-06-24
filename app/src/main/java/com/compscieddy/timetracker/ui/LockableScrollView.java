@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-import com.compscieddy.eddie_utils.Lawg;
+import com.compscieddy.timetracker.Lawg;
 
 /**
  * Created by elee on 5/3/16.

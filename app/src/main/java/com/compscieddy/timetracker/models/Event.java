@@ -1,6 +1,6 @@
 package com.compscieddy.timetracker.models;
 
-import com.compscieddy.eddie_utils.Lawg;
+import com.compscieddy.timetracker.Lawg;
 import com.orm.SugarRecord;
 
 import java.util.Calendar;
